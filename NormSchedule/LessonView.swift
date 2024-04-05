@@ -26,7 +26,7 @@ struct LessonView: View {
             ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
                 VStack {
                     HStack (alignment: .center) {
-                        //Text(lesson.subgroup)
+                        Text(lesson.subgroup)
                         Spacer()
                         Text("\(lesson.timeStart) - \(lesson.timeEnd)")
                         Spacer()
@@ -58,7 +58,7 @@ struct LessonView: View {
                 .tag(index)
                 .onTapGesture(count: 2) { pinned = active }
             }
-        }.onChange(of: pinned) {_ in active = pinned }
+        }.onChange(of: pinned) { active = pinned }
         //.onChange(of: pinned) { active = pinned }
         .tabViewStyle(.page(indexDisplayMode: .automatic))
         

@@ -101,21 +101,7 @@ struct ContentView: View {
                     }
                 }.padding(.top, 20)
                 Spacer()
-                if (!Sched.items.isEmpty) {
-                    TabView(selection: $selected) {
-                        ForEach(Sched.items[Sched.currItem].schedule.indices, id: \.self) { day in
-                            DayView(daySched: Sched.items[Sched.currItem].schedule[day], pinSched: $Sched.items[Sched.currItem].pinSchedule[day])
-                                .environmentObject(settingsManager)
-                                .tag(days[day])
-                            
-                        }
-                    }
-                    .onChange(of: Sched.currDay) { _ in
-                        selected = Sched.currDay
-                    }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
-                }
-                else {
+                if (Sched.items.isEmpty || Sched.items[Sched.currItem].schedule.isEmpty) {
                     VStack {
                         Text("Похоже у вас пока нет расписания")
                             .font(.headline)
@@ -124,6 +110,20 @@ struct ContentView: View {
                         Text("Перейдите в настройки чтобы получить его")
                     }
                     Spacer()
+                }
+                else {
+                    TabView(selection: $selected) {
+                        ForEach(Sched.items[Sched.currItem].schedule.indices, id: \.self) { day in
+                            DayView(daySched: Sched.items[Sched.currItem].schedule[day], pinSched: $Sched.items[Sched.currItem].pinSchedule[day])
+                                .environmentObject(settingsManager)
+                                .tag(days[day])
+                            
+                        }
+                    }
+                    .onChange(of: Sched.currDay) {
+                        selected = Sched.currDay
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
                 }
             }.tabItem { Image(systemName: "book.pages.fill").imageScale(.large) }
                 NavigationStack {
@@ -134,7 +134,7 @@ struct ContentView: View {
                             .foregroundStyle(.gray)
                             .frame(width: 190)
                     })
-                    .onChange(of: settingsManager.isEvenWeek) {_ in
+                    .onChange(of: settingsManager.isEvenWeek) {
                         Sched.pinnedReform()
                     }
                     
@@ -145,7 +145,7 @@ struct ContentView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     
-                    NavigationLink(destination: SchedPickerView(Sched: Sched), label: {Text("Настройка расписания")})
+                    NavigationLink(destination: SchedPickerView(Sched: Sched), label: {Text("Настройка расписания").padding().background(.lines).foregroundStyle(.white)})
                 }.tabItem { Image(systemName: "gear") }
         }
         .onAppear {
