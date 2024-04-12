@@ -190,11 +190,14 @@ func parseDocument(doc: Document) -> GroupSched {
                     var simLessons : [Lesson] = [] //структура в которую будем грузить эти пары
                     for lesson in lessons { //для каждого такого массива пар преобразуем пару в структурированную
                         //и записываем ее в структуру "пары в одно время"
+                        let parityText = try lesson.getElementsByClass("l-pr-r").text()
+                        let parity = parityText.isEmpty ? nil : ( parityText == "чис." ? true : false)
+                        
                         simLessons.append(Lesson(timeStart: String(times[0]),
                                                  timeEnd: String(times[1]),
                                                  type: try lesson.getElementsByClass("l-pr-t").text(),
                                                  subgroup: try lesson.getElementsByClass("l-pr-g").text(),
-                                                 parity: try lesson.getElementsByClass("l-pr-r").text(),
+                                                 parity: parity,
                                                  name: try lesson.getElementsByClass("l-dn").text(),
                                                  teacher: try lesson.getElementsByClass("l-tn").text(),
                                                  place: try lesson.getElementsByClass("l-p").text()))
@@ -206,7 +209,7 @@ func parseDocument(doc: Document) -> GroupSched {
                                                                      timeEnd: String(times[1]),
                                                                      type: "",
                                                                      subgroup: "",
-                                                                     parity: "",
+                                                                     parity: nil,
                                                                      name: "Пары нет",
                                                                      teacher: "",
                                                                      place: "")])
@@ -218,7 +221,7 @@ func parseDocument(doc: Document) -> GroupSched {
             }
         }
         scheduleOfGroup.pinSchedule[6].append(0)
-        scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: "Целый день", timeEnd: "Целую ночь", type: "", subgroup: "", parity: "", name: "Биг Чиллинг!", teacher: "", place: "")]])
+        scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: "Целый день", timeEnd: "Целую ночь", type: "", subgroup: "", parity: nil, name: "Биг Чиллинг!", teacher: "", place: "")]])
     }
     catch {
         print("ERR")

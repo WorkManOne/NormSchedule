@@ -43,8 +43,13 @@ struct LessonView: View {
                     HStack (alignment: .center) {
                         Text(lesson.teacher)
                         Spacer()
-                        Text(lesson.parity)
-                            .foregroundStyle(.red)
+//                        if let parity = lesson.parity {
+//                            Text(parity[true].isEmpty ? parity[true] : parity[false])
+//                                .foregroundStyle(.red)
+//                        } else {
+//                            Text("")
+//                                .foregroundStyle(.red)
+//                        }
                         Spacer()
                         Text(lesson.place)
                     }
@@ -54,7 +59,7 @@ struct LessonView: View {
                 .padding()
                 .overlay(Rectangle().frame(height: 1).foregroundColor(.lines), alignment: .top)
                 .overlay(Rectangle().frame(height: 1).foregroundColor(.lines), alignment: .bottom)
-                .opacity((lesson.parity == "чис." && settingsManager.isEvenWeek || lesson.parity == "знам." && !settingsManager.isEvenWeek || lesson.parity == "") ? 1 : 0.4)
+                //.opacity((lesson.parity == true && settingsManager.isEvenWeek || lesson.parity == false && !settingsManager.isEvenWeek || !lesson.parity) ? 1 : 0.4)
                 .tag(index)
                 .onTapGesture(count: 2) { pinned = active }
             }
@@ -63,23 +68,9 @@ struct LessonView: View {
         .tabViewStyle(.page(indexDisplayMode: .automatic))
         
     }
-    
-//    func updatePinned() {
-//            pinnedActive = pinned
-//        }
-//        
-//        // Вызывается, когда представление появляется на экране
-//    func onAppear() {
-//        updatePinned()
-//    }
 }
 
-//func pinUpLesson() {
-    //var Sched = SchedModel()
-    //Sched.items[0].schedule[]
-//}
-
 #Preview {
-    LessonView(lessons: [Lesson(timeStart: "08:20", timeEnd: "09:50", type: "пр.", subgroup: "Цифровая кафедра", parity: "чис.", name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424"), Lesson(timeStart: "08:20", timeEnd: "09:50", type: "пр.", subgroup: "АУЕ урок", parity: "", name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424"), Lesson(timeStart: "08:20", timeEnd: "09:50", type: "пр.", subgroup: "АУЕ урок", parity: "знам.", name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424")], pinned: .constant(1))
+    LessonView(lessons: [Lesson(timeStart: "08:20", timeEnd: "09:50", type: "пр.", subgroup: "Цифровая кафедра", parity: true, name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424"), Lesson(timeStart: "08:20", timeEnd: "09:50", type: "пр.", subgroup: "АУЕ урок", parity: nil, name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424"), Lesson(timeStart: "08:20", timeEnd: "09:50", type: "пр.", subgroup: "АУЕ урок", parity: false, name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424")], pinned: .constant(1))
         .environmentObject(SettingsManager())
 }

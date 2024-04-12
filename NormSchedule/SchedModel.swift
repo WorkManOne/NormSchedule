@@ -18,7 +18,7 @@ struct Lesson : Identifiable, Codable, Hashable {
     var timeEnd : String
     var type : String
     var subgroup : String
-    var parity : String
+    var parity : Bool?
     var name : String
     var teacher : String
     var place : String
@@ -84,16 +84,18 @@ class SettingsManager: Decodable, Encodable, ObservableObject {
 
 class SchedModel : ObservableObject, Encodable, Decodable {
     private enum CodingKeys: String, CodingKey {
-            case items
+            case items, currDay, currItem
     }
     
     required init(from decoder:Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         items = try values.decode([GroupSched].self, forKey: .items)
+        currItem = try values.decode(Int.self, forKey: .currItem)
     }
     public func encode(to encoder: Encoder) throws {
-            var values = encoder.container(keyedBy: CodingKeys.self)
-            try values.encode(items, forKey: .items)
+        var values = encoder.container(keyedBy: CodingKeys.self)
+        try values.encode(items, forKey: .items)
+        try values.encode(currItem, forKey: .currItem)
     }
     
     //let days = ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"]
@@ -104,6 +106,7 @@ class SchedModel : ObservableObject, Encodable, Decodable {
     @Published var currDay = "Пн"
     @Published var currItem = 0 {
         didSet {
+            print("changed shed, \(currItem)")
             let defaults = UserDefaults.standard
             let encoder = JSONEncoder()
             if let Sched = try? encoder.encode(self) {
@@ -127,6 +130,8 @@ class SchedModel : ObservableObject, Encodable, Decodable {
         if let data = defaults.object(forKey: "Sched") as? Data,
            let Sched = try? JSONDecoder().decode(SchedModel.self, from: data) {
             self.items = Sched.items
+            //self.currDay = Sched.currDay
+            self.currItem = Sched.currItem //Двойная инициализация вызывается из-за двух методов инициализации
             pinnedReform()
         }
         else {
@@ -154,7 +159,7 @@ class SchedModel : ObservableObject, Encodable, Decodable {
         }
         
     }
-    
+    /*
     func getDataDeprecated() {
         do {
             let path = Bundle.main.url(forResource: "sched", withExtension: "json")!
@@ -220,31 +225,25 @@ class SchedModel : ObservableObject, Encodable, Decodable {
             print("Bad file")
         }
     }
-    
+    */
     func pinnedReform() {
         if items.isEmpty { return }
         let settingsManager = SettingsManager()
-        for day in 0..<items[0].schedule.count {
+        //Добавить реформ всех расписаний?? Или сделать так чтобы они реформились когда их загружаешь
+        for day in 0..<items[0].schedule.count { //А если дня не будет?
             for lessons in 0..<items[0].schedule[day].count {
-//                var foundDefault = false
-                for lesson in 0..<items[0].schedule[day][lessons].count {
-                    if (items[0].schedule[day][lessons][lesson].parity == "чис." && settingsManager.isEvenWeek || items[0].schedule[day][lessons][lesson].parity == "знам." && !settingsManager.isEvenWeek) {
-                        items[0].pinSchedule[day][lessons] = lesson
-                        break
-                    }
-//                    else if (items[0].schedule[day][lessons][lesson].parity == "") {
-//                        if (!foundDefault) {
-//                            items[0].pinSchedule[day][lessons] = lesson
-//                            foundDefault = true
-//                        }
-//                    }
-//                    else {
-//                        items[0].pinSchedule[day][lessons] = 0
-//                    }
-                    
+                let pinned = items[0].pinSchedule[day][lessons]
+                if (items[0].schedule[day][lessons][pinned].parity == true && settingsManager.isEvenWeek || items[0].schedule[day][lessons][pinned].parity == false && !settingsManager.isEvenWeek) {
+                    continue
                 }
-                
-                
+                else {
+                    for lesson in 0..<items[0].schedule[day][lessons].count {
+                        if (items[0].schedule[day][lessons][lesson].parity == true && settingsManager.isEvenWeek || items[0].schedule[day][lessons][lesson].parity == false && !settingsManager.isEvenWeek) {
+                            items[0].pinSchedule[day][lessons] = lesson
+                            break
+                        }
+                    }
+                }
             }
         }
         //objectWillChange.send()
