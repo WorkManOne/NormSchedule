@@ -191,7 +191,7 @@ func parseDocument(doc: Document) -> GroupSched {
                     for lesson in lessons { //для каждого такого массива пар преобразуем пару в структурированную
                         //и записываем ее в структуру "пары в одно время"
                         let parityText = try lesson.getElementsByClass("l-pr-r").text()
-                        let parity = parityText.isEmpty ? nil : ( parityText == "чис." ? true : false)
+                        let parity = parityText.isEmpty ? [:] : ( parityText == "чис." ? [true : "чис."] : [false : "знам."])
                         
                         simLessons.append(Lesson(timeStart: String(times[0]),
                                                  timeEnd: String(times[1]),
@@ -209,7 +209,7 @@ func parseDocument(doc: Document) -> GroupSched {
                                                                      timeEnd: String(times[1]),
                                                                      type: "",
                                                                      subgroup: "",
-                                                                     parity: nil,
+                                                                     parity: [:],
                                                                      name: "Пары нет",
                                                                      teacher: "",
                                                                      place: "")])
@@ -221,7 +221,7 @@ func parseDocument(doc: Document) -> GroupSched {
             }
         }
         scheduleOfGroup.pinSchedule[6].append(0)
-        scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: "Целый день", timeEnd: "Целую ночь", type: "", subgroup: "", parity: nil, name: "Биг Чиллинг!", teacher: "", place: "")]])
+        scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: "Целый день", timeEnd: "Целую ночь", type: "", subgroup: "", parity: [:], name: "Биг Чиллинг!", teacher: "", place: "")]])
     }
     catch {
         print("ERR")

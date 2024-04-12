@@ -117,7 +117,6 @@ struct ContentView: View {
                             DayView(daySched: Sched.items[Sched.currItem].schedule[day], pinSched: $Sched.items[Sched.currItem].pinSchedule[day])
                                 .environmentObject(settingsManager)
                                 .tag(days[day])
-                            
                         }
                     }
                     .onChange(of: Sched.currDay) {

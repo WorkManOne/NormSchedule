@@ -18,7 +18,7 @@ struct Lesson : Identifiable, Codable, Hashable {
     var timeEnd : String
     var type : String
     var subgroup : String
-    var parity : Bool?
+    var parity : [Bool:String]
     var name : String
     var teacher : String
     var place : String
@@ -233,12 +233,12 @@ class SchedModel : ObservableObject, Encodable, Decodable {
         for day in 0..<items[0].schedule.count { //А если дня не будет?
             for lessons in 0..<items[0].schedule[day].count {
                 let pinned = items[0].pinSchedule[day][lessons]
-                if (items[0].schedule[day][lessons][pinned].parity == true && settingsManager.isEvenWeek || items[0].schedule[day][lessons][pinned].parity == false && !settingsManager.isEvenWeek) {
+                if (items[0].schedule[day][lessons][pinned].parity.keys.contains(true) && settingsManager.isEvenWeek || items[0].schedule[day][lessons][pinned].parity.keys.contains(false) && !settingsManager.isEvenWeek) {
                     continue
                 }
                 else {
                     for lesson in 0..<items[0].schedule[day][lessons].count {
-                        if (items[0].schedule[day][lessons][lesson].parity == true && settingsManager.isEvenWeek || items[0].schedule[day][lessons][lesson].parity == false && !settingsManager.isEvenWeek) {
+                        if (items[0].schedule[day][lessons][lesson].parity.keys.contains(true) && settingsManager.isEvenWeek || items[0].schedule[day][lessons][lesson].parity.keys.contains(false) && !settingsManager.isEvenWeek) {
                             items[0].pinSchedule[day][lessons] = lesson
                             break
                         }
