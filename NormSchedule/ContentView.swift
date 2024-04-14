@@ -67,9 +67,7 @@ import SwiftUI
 
 struct ContentView: View {
     let days = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
-    let parityNames = ["Чет", "Нечет", "Нет"]
-    @State private var parity = "Нет"
-    
+   
     @State private var selected = "Пн"
     
     @ObservedObject var settingsManager = SettingsManager()
@@ -81,8 +79,6 @@ struct ContentView: View {
         UIPageControl.appearance().tintColor = .lines
         self._selected = State(wrappedValue: Sched.currDay)
     }
-    
-    
     
     var body: some View {
         
@@ -119,32 +115,14 @@ struct ContentView: View {
                                 .tag(days[day])
                         }
                     }
-                    .onChange(of: Sched.currDay) {
-                        selected = Sched.currDay
-                    }
+//                    .onChange(of: Sched.currDay) {
+//                        selected = Sched.currDay
+//                    }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                 }
             }.tabItem { Image(systemName: "book.pages.fill").imageScale(.large) }
                 NavigationStack {
-                    Toggle(isOn: $settingsManager.isEvenWeek, label: {
-                        Text("Четная неделя")
-                            .frame(alignment: .center)
-                        Text("Оставьте выключенным, если у вас такого нет")
-                            .foregroundStyle(.gray)
-                            .frame(width: 190)
-                    })
-                    .onChange(of: settingsManager.isEvenWeek) {
-                        Sched.pinnedReform()
-                    }
-                    
-                    Picker(selection: $parity, label: Text("Четность недели")) {
-                        ForEach(parityNames, id: \.self) { name in
-                            Text(name).tag(name)
-                        }
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    
-                    NavigationLink(destination: SchedPickerView(Sched: Sched), label: {Text("Настройка расписания").padding().background(.lines).foregroundStyle(.white)})
+                    SettingsView(Sched: Sched, isEvenWeek: $settingsManager.isEvenWeek)
                 }.tabItem { Image(systemName: "gear") }
         }
         .onAppear {

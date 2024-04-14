@@ -126,7 +126,7 @@ func getGroup(urlString: String, completion: @escaping (GroupSched) -> Void) {
         
         do {
             let doc: Document = try SwiftSoup.parse(String(decoding: data, as: UTF8.self))
-            let groupSched = parseDocument(doc: doc)
+            let groupSched = parseSSU(doc: doc)
             completion(groupSched)
         }
         catch {
@@ -137,7 +137,7 @@ func getGroup(urlString: String, completion: @escaping (GroupSched) -> Void) {
     task.resume()
 }
 
-func parseDocument(doc: Document) -> GroupSched {
+func parseSSU(doc: Document) -> GroupSched {
     var scheduleOfGroup = GroupSched(university: "",
                                      faculty: "",
                                      group: "",

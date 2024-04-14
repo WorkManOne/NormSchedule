@@ -44,7 +44,7 @@ struct GroupSched : Codable {
     var id : UUID
 }
 class SettingsManager: Decodable, Encodable, ObservableObject {
-    @Published var isEvenWeek: Bool {
+    @Published var isEvenWeek: Int {
         didSet {
             let defaults = UserDefaults.standard
             let encoder = JSONEncoder()
@@ -63,7 +63,7 @@ class SettingsManager: Decodable, Encodable, ObservableObject {
                 return
             }
         }
-        self.isEvenWeek = true
+        self.isEvenWeek = 0
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -72,7 +72,7 @@ class SettingsManager: Decodable, Encodable, ObservableObject {
     
     required init(from decoder:Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
-            isEvenWeek = try values.decode(Bool.self, forKey: .isEvenWeek)
+            isEvenWeek = try values.decode(Int.self, forKey: .isEvenWeek)
     }
     public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: CodingKeys.self)
@@ -157,7 +157,6 @@ class SchedModel : ObservableObject, Encodable, Decodable {
                 self.currItem = self.items.count - 1
             }
         }
-        
     }
     /*
     func getDataDeprecated() {
@@ -233,12 +232,12 @@ class SchedModel : ObservableObject, Encodable, Decodable {
         for day in 0..<items[0].schedule.count { //А если дня не будет?
             for lessons in 0..<items[0].schedule[day].count {
                 let pinned = items[0].pinSchedule[day][lessons]
-                if (items[0].schedule[day][lessons][pinned].parity.keys.contains(true) && settingsManager.isEvenWeek || items[0].schedule[day][lessons][pinned].parity.keys.contains(false) && !settingsManager.isEvenWeek) {
+                if (items[0].schedule[day][lessons][pinned].parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || items[0].schedule[day][lessons][pinned].parity.keys.contains(false) && settingsManager.isEvenWeek == 2) {
                     continue
                 }
                 else {
                     for lesson in 0..<items[0].schedule[day][lessons].count {
-                        if (items[0].schedule[day][lessons][lesson].parity.keys.contains(true) && settingsManager.isEvenWeek || items[0].schedule[day][lessons][lesson].parity.keys.contains(false) && !settingsManager.isEvenWeek) {
+                        if (items[0].schedule[day][lessons][lesson].parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || items[0].schedule[day][lessons][lesson].parity.keys.contains(false) && settingsManager.isEvenWeek == 2) {
                             items[0].pinSchedule[day][lessons] = lesson
                             break
                         }

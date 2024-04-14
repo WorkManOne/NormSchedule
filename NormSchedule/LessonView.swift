@@ -60,12 +60,11 @@ struct LessonView: View {
                 .padding()
                 .overlay(Rectangle().frame(height: 1).foregroundColor(.lines), alignment: .top)
                 .overlay(Rectangle().frame(height: 1).foregroundColor(.lines), alignment: .bottom)
-                .opacity((lesson.parity.keys.contains(true) && settingsManager.isEvenWeek || lesson.parity.keys.contains(false) && !settingsManager.isEvenWeek || lesson.parity.isEmpty) ? 1 : 0.4)
+                .opacity((lesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || lesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 || lesson.parity.isEmpty || settingsManager.isEvenWeek == 0) ? 1 : 0.4)
                 .tag(index)
                 .onTapGesture(count: 2) { pinned = active }
             }
         }.onChange(of: pinned) { active = pinned }
-        //.onChange(of: pinned) { active = pinned }
         .tabViewStyle(.page(indexDisplayMode: .automatic))
         
     }

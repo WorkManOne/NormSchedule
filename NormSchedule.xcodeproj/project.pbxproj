@@ -18,9 +18,10 @@
 		7A7B39032BA25D97006B2BB6 /* sched.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B39022BA25D97006B2BB6 /* sched.json */; };
 		7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39042BA42955006B2BB6 /* DayView.swift */; };
 		7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39062BA52F3E006B2BB6 /* LessonView.swift */; };
+		7A9D90982BC9CC28006E31D3 /* PrototypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D90972BC9CC28006E31D3 /* PrototypesView.swift */; };
 		7AC31A512BB979D30099DB76 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A502BB979D30099DB76 /* Parser.swift */; };
 		7AC31A552BB97A830099DB76 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 7AC31A542BB97A830099DB76 /* SwiftSoup */; };
-		7AC31A572BB9A22D0099DB76 /* SchedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A562BB9A22D0099DB76 /* SchedPickerView.swift */; };
+		7AC31A572BB9A22D0099DB76 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A562BB9A22D0099DB76 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +56,9 @@
 		7A7B39022BA25D97006B2BB6 /* sched.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sched.json; sourceTree = "<group>"; };
 		7A7B39042BA42955006B2BB6 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		7A7B39062BA52F3E006B2BB6 /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
+		7A9D90972BC9CC28006E31D3 /* PrototypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototypesView.swift; sourceTree = "<group>"; };
 		7AC31A502BB979D30099DB76 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		7AC31A562BB9A22D0099DB76 /* SchedPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedPickerView.swift; sourceTree = "<group>"; };
+		7AC31A562BB9A22D0099DB76 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,13 +113,14 @@
 				7A7B39022BA25D97006B2BB6 /* sched.json */,
 				7A7B38D62BA25C2C006B2BB6 /* NormScheduleApp.swift */,
 				7A7B38D82BA25C2C006B2BB6 /* ContentView.swift */,
-				7AC31A562BB9A22D0099DB76 /* SchedPickerView.swift */,
+				7AC31A562BB9A22D0099DB76 /* SettingsView.swift */,
 				7A7B39042BA42955006B2BB6 /* DayView.swift */,
 				7A7B39062BA52F3E006B2BB6 /* LessonView.swift */,
 				7AC31A502BB979D30099DB76 /* Parser.swift */,
 				7A7B39002BA25C78006B2BB6 /* SchedModel.swift */,
 				7A7B38DA2BA25C2D006B2BB6 /* Assets.xcassets */,
 				7A7B38DC2BA25C2D006B2BB6 /* Preview Content */,
+				7A9D90972BC9CC28006E31D3 /* PrototypesView.swift */,
 			);
 			path = NormSchedule;
 			sourceTree = "<group>";
@@ -286,9 +289,10 @@
 			files = (
 				7A7B39012BA25C78006B2BB6 /* SchedModel.swift in Sources */,
 				7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */,
+				7A9D90982BC9CC28006E31D3 /* PrototypesView.swift in Sources */,
 				7AC31A512BB979D30099DB76 /* Parser.swift in Sources */,
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
-				7AC31A572BB9A22D0099DB76 /* SchedPickerView.swift in Sources */,
+				7AC31A572BB9A22D0099DB76 /* SettingsView.swift in Sources */,
 				7A7B38D92BA25C2C006B2BB6 /* ContentView.swift in Sources */,
 				7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */,
 			);
