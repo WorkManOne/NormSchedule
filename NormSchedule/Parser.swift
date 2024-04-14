@@ -8,11 +8,14 @@
 import Foundation
 import SwiftSoup
 
+struct Faculty {
+    var name : String
+    var uri : String
+}
 
 struct Group {
-    var number : String
+    var name : String
     var uri : String
-    var facultyName : String
 }
 
 struct Teacher: Codable {
@@ -42,7 +45,7 @@ struct Teacher: Codable {
 }
 
 
-func getFacultGroups(completion: @escaping ([Group]) -> Void) {
+func getFacultiesUri(completion: @escaping ([Faculty]) -> Void) {
     guard let url = URL(string: "https://www.sgu.ru/schedule") else {
         completion([])
         return
@@ -61,15 +64,15 @@ func getFacultGroups(completion: @escaping ([Group]) -> Void) {
             completion(faculties)
         }
         catch {
-            print("Error parsing HTML: \(error)")
+            print("Error parsing facultiesUri: \(error)")
             completion([])
         }
     }
     task.resume()
 }
 
-func parseFaculties(doc : Document) -> [Group] {
-    var groups : [Group] = []
+func parseFaculties(doc : Document) -> [Faculty] {
+    var faculties : [Faculty] = []
     
     do {
         guard let body = doc.body() else {
@@ -81,28 +84,52 @@ func parseFaculties(doc : Document) -> [Group] {
         for fac in facs {
             let nameFac = try fac.text()
             let uriFac = try fac.child(0).attr("href")
-            guard let url = URL(string: "https://www.sgu.ru/\(uriFac)") else {
-                return []
-            }
-            let facPage: Document = try SwiftSoup.parse(String(contentsOf: url))
-            guard let bodyFac = facPage.body() else {
-                return []
-            }
-            let dirtGroups = try bodyFac.select(".course.form-wrapper > .fieldset-wrapper > a")
-            for grp in dirtGroups {
-                groups.append(Group(number: try grp.text(), uri: try grp.attr("href"), facultyName: nameFac))
-            }
+            faculties.append(Faculty(name: nameFac, uri: uriFac))
         }
         
         
     }
     catch {
-        print("ERR")
+        print("error parsing faculties")
         return []
     }
-    return groups
+    return faculties
 }
 
+func getGroupsUri(uri : String, completion: @escaping ([Group]) -> Void) {
+    var groups : [Group] = []
+    guard let url = URL(string: "https://www.sgu.ru/\(uri)") else {
+        completion([])
+        return
+    }
+    print("https://www.sgu.ru/\(uri)")
+    let task = URLSession.shared.dataTask(with: url) { data, _, error in
+        guard let _ = data else {
+            print("No data received")
+            completion([])
+            return
+        }
+        
+        do {
+            let facPage: Document = try SwiftSoup.parse(String(contentsOf: url))
+            guard let bodyFac = facPage.body() else {
+                completion([])
+                return
+            }
+            let dirtGroups = try bodyFac.select(".course.form-wrapper > .fieldset-wrapper > a")
+            for grp in dirtGroups {
+                groups.append(Group(name: try grp.text(), uri: try grp.attr("href")))
+            }
+            
+            completion(groups)
+        }
+        catch {
+            print("Error parsing GroupsUri: \(error)")
+            completion([])
+        }
+    }
+    task.resume()
+}
 
 func getGroup(urlString: String, completion: @escaping (GroupSched) -> Void) {
     let scheduleOfGroup = GroupSched(university: "",

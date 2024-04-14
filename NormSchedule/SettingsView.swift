@@ -25,34 +25,41 @@ struct FindView <T>: View {
 struct SettingsView: View {
     
     //@Binding var Sched : SchedModel
-    //@ObservedObject var Sched = SchedModel() //TODO: СОЗДАЕТ БАГИ С ПОСТОЯННОЙ РЕФОРМАЦИЕЙ ПИНОВ!
-    //@State var isEvenWeek = 0
+//    @ObservedObject var Sched = SchedModel() //TODO: СОЗДАЕТ БАГИ С ПОСТОЯННОЙ РЕФОРМАЦИЕЙ ПИНОВ!
+//    @State var isEvenWeek = 0
     
     @ObservedObject var Sched : SchedModel //TODO: СОЗДАЕТ БАГИ С ПОСТОЯННОЙ РЕФОРМАЦИЕЙ ПИНОВ!
     @Binding var isEvenWeek : Int
     
     let parityNames = ["Нет", "Чет", "Нечет"]
     @State private var parity = "Нет"
+    
+    @State private var isLoadingFaculties = false
     @State private var isLoadingGroups = false
     @State private var isLoadingTeachers = false
+    
+    @State private var Faculties : [Faculty] = []
     @State private var Groups : [Group] = []
     @State private var Teachers : [Teacher] = []
-    @State private var selectedGroup : Group = Group(number: "", uri: "", facultyName: "")
-    @State private var selectedTeacher : Teacher = Teacher(name: "", uri: "")
-    @State private var searchTextGroups = ""
-    private var filteredGroups : [Group] {
-        guard !searchTextGroups.isEmpty else { return Groups }
-        return Groups.filter { group in
-            let search = searchTextGroups.lowercased()
-            return group.facultyName.lowercased().contains(search) || group.number.lowercased().contains(search) }
-    }
-    @State private var searchTextTeacher = ""
-    private var filteredTeachers : [Teacher] {
-        guard !searchTextTeacher.isEmpty else { return Teachers }
-        return Teachers.filter { teacher in
-            let search = searchTextTeacher.lowercased()
-            return teacher.name.lowercased().contains(search) }
-    }
+    
+    @State private var selectedFaculty : Faculty = Faculty(name: "undefined", uri: "undefined")
+    @State private var selectedGroup : Group = Group(name: "undefined", uri: "undefined")
+    @State private var selectedTeacher : Teacher = Teacher(name: "undefined", uri: "undefined")
+    
+//    @State private var searchTextGroups = ""
+//    private var filteredGroups : [Group] {
+//        guard !searchTextGroups.isEmpty else { return Groups }
+//        return Groups.filter { group in
+//            let search = searchTextGroups.lowercased()
+//            return group.name.lowercased().contains(search) }
+//    }
+//    @State private var searchTextTeacher = ""
+//    private var filteredTeachers : [Teacher] {
+//        guard !searchTextTeacher.isEmpty else { return Teachers }
+//        return Teachers.filter { teacher in
+//            let search = searchTextTeacher.lowercased()
+//            return teacher.name.lowercased().contains(search) }
+//    }
 
     var body: some View {
         NavigationStack {
@@ -76,7 +83,6 @@ struct SettingsView: View {
                         ForEach(Sched.items.indices, id: \.self) { index in
                             HStack {
                                 Text("\(Sched.items[index].faculty) \(Sched.items[index].group)")
-                                
                             }
                         }
                     }
@@ -90,19 +96,55 @@ struct SettingsView: View {
                 
                 Section ("Группы") {
                     Button(action: {
-                        isLoadingGroups = true
-                        getFacultGroups { groups in
+                        isLoadingFaculties = true
+                        getFacultiesUri { facs in
                             DispatchQueue.main.async {
-                                self.Groups = groups
-                                isLoadingGroups = false
+                                self.Faculties = facs
+                                isLoadingFaculties = false
                             }
                         }
                     }) {
                         Text("Обновить факультеты")
-                        //.foregroundStyle(.white)
-                    }//.padding().background(.gray)
-                    
-                    
+                    }
+                    if isLoadingFaculties {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .scaledToFill()
+                            Spacer()
+                        }
+                    }
+                    else if !Faculties.isEmpty {
+                        Picker(selection: $selectedFaculty.uri, label: Text("Выберите факультет")) {
+                            Text("Не выбрано").tag("undefined")
+                            ForEach(Faculties, id: \.uri) { faculty in
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("\(faculty.name)")
+                                        Text("\(faculty.uri)")
+                                            .foregroundStyle(.gray)
+                                            .font(.footnote)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .tag(faculty.uri)
+                                }
+                            }
+                        }
+                        .pickerStyle(.navigationLink)
+                        .onChange(of: selectedFaculty.uri) {
+                            isLoadingGroups = true
+                            getGroupsUri (uri: selectedFaculty.uri) { groups in
+                                DispatchQueue.main.async {
+                                    self.Groups = groups
+                                    isLoadingGroups = false
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        Text("Нет доступных факультетов")
+                    }
                     if isLoadingGroups {
                         HStack {
                             Spacer()
@@ -113,17 +155,24 @@ struct SettingsView: View {
                         }
                     }
                     else if !Groups.isEmpty {
-                        Picker(selection: $selectedGroup.uri, label: Text("Выберите группу")) {
-                            ForEach(filteredGroups, id: \.uri) { group in
-                                Text("\(group.number) \(group.facultyName)").tag(group.uri)
-                                    .searchable(text: $searchTextGroups, placement: .sidebar, prompt: Text("Поиск группы") )
-                                //.foregroundStyle(.white)
+                            Picker(selection: $selectedGroup.uri, label: Text("Выберите группу")) {
+                                Text("Не выбрано").tag("undefined")
+                                ForEach(Groups, id: \.uri) { group in
+                                    HStack {
+                                        VStack(alignment: .leading) {
+                                            Text("\(group.name)")
+                                            Text("\(group.uri)")
+                                                .foregroundStyle(.gray)
+                                                .font(.footnote)
+                                        }
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .tag(group.uri)
+                                    }
+                                }
                             }
-                        }
-                        .pickerStyle(.navigationLink)
-                    }
-                    else {
-                        Text("Нет доступных факультетов")
+                            .pickerStyle(.navigationLink)
+                        
+                        
                     }
                     
                     Button(action: {
@@ -161,9 +210,10 @@ struct SettingsView: View {
                     }
                     else if !Teachers.isEmpty {
                         Picker(selection: $selectedTeacher.uri, label: Text("Выберите преподавателя")) {
-                            ForEach(filteredTeachers, id: \.uri) { teacher in
+                            Text("Не выбрано").tag("undefined")
+                            ForEach(/*filtered*/Teachers, id: \.uri) { teacher in
                                 Text("\(teacher.name)").tag(teacher.uri)
-                                    .searchable(text: $searchTextTeacher, placement: .sidebar, prompt: Text("Поиск группы") )
+                                    //.searchable(text: $searchTextTeacher, placement: .sidebar, prompt: Text("Поиск группы") )
                                 //.foregroundStyle(.white)
                             }
                         }
