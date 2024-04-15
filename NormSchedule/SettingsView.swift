@@ -75,7 +75,6 @@ struct SettingsView: View {
                         isEvenWeek = parityNames.firstIndex(of: parity) ?? 0
                         Sched.pinnedReform()
                     }
-                    
                 }
                 
                 Section ("Отображаемое расписание") {
@@ -84,6 +83,9 @@ struct SettingsView: View {
                             HStack {
                                 Text("\(Sched.items[index].faculty) \(Sched.items[index].group)")
                             }
+                        }
+                        .onChange(of: Sched.currItem) {
+                            Sched.pinnedReform()
                         }
                     }
                     .pickerStyle(.navigationLink)
@@ -234,6 +236,8 @@ struct SettingsView: View {
                 
                 
             }
+        }.onAppear {
+            parity = parityNames[isEvenWeek]
         }
     }
 }

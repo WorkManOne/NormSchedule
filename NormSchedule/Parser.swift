@@ -230,7 +230,7 @@ func parseSSU(doc: Document) -> GroupSched {
                                                  place: try lesson.getElementsByClass("l-p").text()))
                         
                     }
-                    scheduleOfGroup.pinSchedule[day].append(0)
+                    scheduleOfGroup.pinSchedule[day].append([true:0, false:0])
                     if (lessons.isEmpty()) {
                         scheduleOfGroup.schedule[day].append([Lesson(timeStart: String(times[0]),
                                                                      timeEnd: String(times[1]),
@@ -247,7 +247,7 @@ func parseSSU(doc: Document) -> GroupSched {
                 }
             }
         }
-        scheduleOfGroup.pinSchedule[6].append(0)
+        scheduleOfGroup.pinSchedule[6].append([true:0, false:0])
         scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: "Целый день", timeEnd: "Целую ночь", type: "", subgroup: "", parity: [:], name: "Биг Чиллинг!", teacher: "", place: "")]])
     }
     catch {

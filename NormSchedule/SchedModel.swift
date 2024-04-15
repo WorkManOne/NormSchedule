@@ -25,7 +25,7 @@ struct Lesson : Identifiable, Codable, Hashable {
 }
 
 struct GroupSched : Codable {
-    init(university: String, faculty: String, group: String, date_read: String, schedule: [[[Lesson]]], pinSchedule: [[Int]], id: UUID? = nil) {
+    init(university: String, faculty: String, group: String, date_read: String, schedule: [[[Lesson]]], pinSchedule: [[[Bool:Int]]], id: UUID? = nil) {
         self.university = university
         self.faculty = faculty
         self.group = group
@@ -39,8 +39,8 @@ struct GroupSched : Codable {
     var group : String
     var date_read : String
     var schedule : [[[Lesson]]]
-    //    var pinSchedule : [[Int]] =   [ [0,0,0,2,0,0,0,0,0], [1,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0] ]
-    var pinSchedule : [[Int]]
+    //    var pinSchedule : [[Int]] =   [ [[true:0, false:0],[true:0, false:0],[true:0, false:0],[true:2, false:0],[true:0, false:0],[true:0, false:0],[true:0, false:0],[true:0, false:0],[true:0, false:0]], [1,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0] ]
+    var pinSchedule : [[[Bool:Int]]]
     var id : UUID
 }
 class SettingsManager: Decodable, Encodable, ObservableObject {
@@ -62,8 +62,14 @@ class SettingsManager: Decodable, Encodable, ObservableObject {
                 self.isEvenWeek = settings.isEvenWeek
                 return
             }
+            else {
+                self.isEvenWeek = 0
+            }
         }
-        self.isEvenWeek = 0
+        else {
+            self.isEvenWeek = 0
+        }
+        
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -229,16 +235,19 @@ class SchedModel : ObservableObject, Encodable, Decodable {
         if items.isEmpty { return }
         let settingsManager = SettingsManager()
         //Добавить реформ всех расписаний?? Или сделать так чтобы они реформились когда их загружаешь
-        for day in 0..<items[0].schedule.count { //А если дня не будет?
-            for lessons in 0..<items[0].schedule[day].count {
-                let pinned = items[0].pinSchedule[day][lessons]
-                if (items[0].schedule[day][lessons][pinned].parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || items[0].schedule[day][lessons][pinned].parity.keys.contains(false) && settingsManager.isEvenWeek == 2) {
+        for day in 0..<items[currItem].schedule.count { //А если дня не будет?
+            for lessons in 0..<items[currItem].schedule[day].count {
+                let pinned = items[currItem].pinSchedule[day][lessons]
+                if (items[currItem].schedule[day][lessons][pinned[true] ?? 0].parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || items[currItem].schedule[day][lessons][pinned[true] ?? 0].parity.keys.contains(false) && settingsManager.isEvenWeek == 2) {
                     continue
                 }
                 else {
-                    for lesson in 0..<items[0].schedule[day][lessons].count {
-                        if (items[0].schedule[day][lessons][lesson].parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || items[0].schedule[day][lessons][lesson].parity.keys.contains(false) && settingsManager.isEvenWeek == 2) {
-                            items[0].pinSchedule[day][lessons] = lesson
+                    for lesson in 0..<items[currItem].schedule[day][lessons].count {
+                        if (items[currItem].schedule[day][lessons][lesson].parity.keys.contains(true) && settingsManager.isEvenWeek == 1) {
+                            items[currItem].pinSchedule[day][lessons][true] = lesson
+                        }
+                        else if (items[currItem].schedule[day][lessons][lesson].parity.keys.contains(false) && settingsManager.isEvenWeek == 2) {
+                            items[currItem].pinSchedule[day][lessons][false] = lesson
                             break
                         }
                     }
