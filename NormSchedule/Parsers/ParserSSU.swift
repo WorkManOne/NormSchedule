@@ -8,44 +8,7 @@
 import Foundation
 import SwiftSoup
 
-struct Faculty {
-    var name : String
-    var uri : String
-}
-
-struct Group {
-    var name : String
-    var uri : String
-}
-
-struct Teacher: Codable {
-    var name: String
-    var uri: String
-    
-    enum CodingKeys: String, CodingKey {
-        case name = "fio"
-        case uri = "id"
-    }
-    
-    init(name: String, uri: String) {
-        self.name = name
-        self.uri = uri
-    }
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.decode(String.self, forKey: .name)
-        
-        let rawURI = try container.decode(String.self, forKey: .uri)
-        if let leftDrop = rawURI.range(of: "id") {
-            uri = "/schedule/teacher/\(rawURI[leftDrop.upperBound...])"
-        } else {
-            uri = rawURI
-        }
-    }
-}
-
-
-func getFacultiesUri(completion: @escaping ([Faculty]) -> Void) {
+func SSU_getFacultiesUri(completion: @escaping ([Faculty]) -> Void) {
     guard let url = URL(string: "https://www.sgu.ru/schedule") else {
         completion([])
         return
@@ -60,7 +23,20 @@ func getFacultiesUri(completion: @escaping ([Faculty]) -> Void) {
         
         do {
             let facsPage: Document = try SwiftSoup.parse(String(contentsOf: url))
-            let faculties = parseFaculties(doc: facsPage)
+            var faculties : [Faculty] = []
+            
+            guard let body = facsPage.body() else {
+                completion([])
+                return
+            }
+            
+            let dirtyFacs = try body.getElementsByClass("panes_item panes_item__type_group").first()!
+            let facs = try dirtyFacs.getElementsByTag("li")
+            for fac in facs {
+                let nameFac = try fac.text()
+                let uriFac = try fac.child(0).attr("href")
+                faculties.append(Faculty(name: nameFac, uri: uriFac))
+            }
             completion(faculties)
         }
         catch {
@@ -71,38 +47,13 @@ func getFacultiesUri(completion: @escaping ([Faculty]) -> Void) {
     task.resume()
 }
 
-func parseFaculties(doc : Document) -> [Faculty] {
-    var faculties : [Faculty] = []
-    
-    do {
-        guard let body = doc.body() else {
-            return []
-        }
-        
-        let dirtyFacs = try body.getElementsByClass("panes_item panes_item__type_group").first()!
-        let facs = try dirtyFacs.getElementsByTag("li")
-        for fac in facs {
-            let nameFac = try fac.text()
-            let uriFac = try fac.child(0).attr("href")
-            faculties.append(Faculty(name: nameFac, uri: uriFac))
-        }
-        
-        
-    }
-    catch {
-        print("error parsing faculties")
-        return []
-    }
-    return faculties
-}
-
-func getGroupsUri(uri : String, completion: @escaping ([Group]) -> Void) {
+func SSU_getGroupsUri(uri : String, completion: @escaping ([Group]) -> Void) {
     var groups : [Group] = []
-    guard let url = URL(string: "https://www.sgu.ru/\(uri)") else {
+    guard let url = URL(string: "https://www.sgu.ru\(uri)") else {
         completion([])
         return
     }
-    print("https://www.sgu.ru/\(uri)")
+    print("https://www.sgu.ru\(uri)")
     let task = URLSession.shared.dataTask(with: url) { data, _, error in
         guard let _ = data else {
             print("No data received")
@@ -131,15 +82,15 @@ func getGroupsUri(uri : String, completion: @escaping ([Group]) -> Void) {
     task.resume()
 }
 
-func getGroup(urlString: String, completion: @escaping (GroupSched) -> Void) {
+func SSU_getSchedule(uri: String, completion: @escaping (GroupSched) -> Void) {
     let scheduleOfGroup = GroupSched(university: "",
                                      faculty: "",
                                      group: "",
                                      date_read: "",
                                      schedule: [],
                                      pinSchedule: [])
-    
-    guard let url = URL(string: urlString) else {
+
+    guard let url = URL(string: "https://www.sgu.ru/\(uri)") else {
         completion(scheduleOfGroup)
         return
     }
@@ -153,7 +104,7 @@ func getGroup(urlString: String, completion: @escaping (GroupSched) -> Void) {
         
         do {
             let doc: Document = try SwiftSoup.parse(String(decoding: data, as: UTF8.self))
-            let groupSched = parseSSU(doc: doc)
+            let groupSched = SSU_parseSched(doc: doc)
             completion(groupSched)
         }
         catch {
@@ -164,7 +115,7 @@ func getGroup(urlString: String, completion: @escaping (GroupSched) -> Void) {
     task.resume()
 }
 
-func parseSSU(doc: Document) -> GroupSched {
+func SSU_parseSched(doc: Document) -> GroupSched {
     var scheduleOfGroup = GroupSched(university: "",
                                      faculty: "",
                                      group: "",
@@ -219,6 +170,15 @@ func parseSSU(doc: Document) -> GroupSched {
                         //и записываем ее в структуру "пары в одно время"
                         let parityText = try lesson.getElementsByClass("l-pr-r").text()
                         let parity = parityText.isEmpty ? [:] : ( parityText == "чис." ? [true : "чис."] : [false : "знам."])
+                        var teacherOrGroup = ""
+                        if (try lesson.getElementsByClass("l-tn").text() != "") {
+                            //Необходимо для учеников ставить учителя
+                            teacherOrGroup = try lesson.getElementsByClass("l-tn").text()
+                        }
+                        else {
+                            //А для учителей ставить группы в поле "учитель"
+                            teacherOrGroup = try lesson.getElementsByClass("l-g").text()
+                        }
                         
                         simLessons.append(Lesson(timeStart: String(times[0]),
                                                  timeEnd: String(times[1]),
@@ -226,7 +186,7 @@ func parseSSU(doc: Document) -> GroupSched {
                                                  subgroup: try lesson.getElementsByClass("l-pr-g").text(),
                                                  parity: parity,
                                                  name: try lesson.getElementsByClass("l-dn").text(),
-                                                 teacher: try lesson.getElementsByClass("l-tn").text(),
+                                                 teacher: teacherOrGroup,
                                                  place: try lesson.getElementsByClass("l-p").text()))
                         
                     }
@@ -274,7 +234,7 @@ func parseSSU(doc: Document) -> GroupSched {
 }
 
 
-func getTeachers(completion: @escaping ([Teacher]) -> Void) {
+func SSU_getTeachersUri(completion: @escaping ([Teacher]) -> Void) {
     guard let url = URL(string: "https://www.sgu.ru/schedule/teacher/search") else {
         completion([])
         return

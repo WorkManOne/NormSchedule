@@ -19,9 +19,12 @@
 		7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39042BA42955006B2BB6 /* DayView.swift */; };
 		7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39062BA52F3E006B2BB6 /* LessonView.swift */; };
 		7A9D90982BC9CC28006E31D3 /* PrototypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D90972BC9CC28006E31D3 /* PrototypesView.swift */; };
-		7AC31A512BB979D30099DB76 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A502BB979D30099DB76 /* Parser.swift */; };
+		7AC31A512BB979D30099DB76 /* ParserSSU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A502BB979D30099DB76 /* ParserSSU.swift */; };
 		7AC31A552BB97A830099DB76 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 7AC31A542BB97A830099DB76 /* SwiftSoup */; };
 		7AC31A572BB9A22D0099DB76 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A562BB9A22D0099DB76 /* SettingsView.swift */; };
+		7AD383E82BCD636900384D1C /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E72BCD636900384D1C /* Structs.swift */; };
+		7AD383EA2BCD63D100384D1C /* ParserSSTU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E92BCD63D100384D1C /* ParserSSTU.swift */; };
+		7AD383EE2BCD64B300384D1C /* ParserMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383ED2BCD64B300384D1C /* ParserMain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,8 +60,11 @@
 		7A7B39042BA42955006B2BB6 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		7A7B39062BA52F3E006B2BB6 /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
 		7A9D90972BC9CC28006E31D3 /* PrototypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototypesView.swift; sourceTree = "<group>"; };
-		7AC31A502BB979D30099DB76 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		7AC31A502BB979D30099DB76 /* ParserSSU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserSSU.swift; sourceTree = "<group>"; };
 		7AC31A562BB9A22D0099DB76 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7AD383E72BCD636900384D1C /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Structs.swift; path = NormSchedule/Structs.swift; sourceTree = SOURCE_ROOT; };
+		7AD383E92BCD63D100384D1C /* ParserSSTU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserSSTU.swift; sourceTree = "<group>"; };
+		7AD383ED2BCD64B300384D1C /* ParserMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserMain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +122,8 @@
 				7AC31A562BB9A22D0099DB76 /* SettingsView.swift */,
 				7A7B39042BA42955006B2BB6 /* DayView.swift */,
 				7A7B39062BA52F3E006B2BB6 /* LessonView.swift */,
-				7AC31A502BB979D30099DB76 /* Parser.swift */,
 				7A7B39002BA25C78006B2BB6 /* SchedModel.swift */,
+				7AD383E62BCD62BB00384D1C /* Parsers */,
 				7A7B38DA2BA25C2D006B2BB6 /* Assets.xcassets */,
 				7A7B38DC2BA25C2D006B2BB6 /* Preview Content */,
 				7A9D90972BC9CC28006E31D3 /* PrototypesView.swift */,
@@ -148,6 +154,17 @@
 				7A7B38F32BA25C2D006B2BB6 /* NormScheduleUITestsLaunchTests.swift */,
 			);
 			path = NormScheduleUITests;
+			sourceTree = "<group>";
+		};
+		7AD383E62BCD62BB00384D1C /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				7AD383ED2BCD64B300384D1C /* ParserMain.swift */,
+				7AC31A502BB979D30099DB76 /* ParserSSU.swift */,
+				7AD383E92BCD63D100384D1C /* ParserSSTU.swift */,
+				7AD383E72BCD636900384D1C /* Structs.swift */,
+			);
+			path = Parsers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,11 +304,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AD383EA2BCD63D100384D1C /* ParserSSTU.swift in Sources */,
+				7AD383E82BCD636900384D1C /* Structs.swift in Sources */,
 				7A7B39012BA25C78006B2BB6 /* SchedModel.swift in Sources */,
 				7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */,
 				7A9D90982BC9CC28006E31D3 /* PrototypesView.swift in Sources */,
-				7AC31A512BB979D30099DB76 /* Parser.swift in Sources */,
+				7AC31A512BB979D30099DB76 /* ParserSSU.swift in Sources */,
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
+				7AD383EE2BCD64B300384D1C /* ParserMain.swift in Sources */,
 				7AC31A572BB9A22D0099DB76 /* SettingsView.swift in Sources */,
 				7A7B38D92BA25C2C006B2BB6 /* ContentView.swift in Sources */,
 				7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */,

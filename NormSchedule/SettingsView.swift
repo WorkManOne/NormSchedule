@@ -23,25 +23,27 @@ struct FindView <T>: View {
 }
 
 struct SettingsView: View {
-    
+    let universities = [("Не выбрано", 0), ("СГУ", 1), ("СГТУ", 2)]
     //@Binding var Sched : SchedModel
 //    @ObservedObject var Sched = SchedModel() //TODO: СОЗДАЕТ БАГИ С ПОСТОЯННОЙ РЕФОРМАЦИЕЙ ПИНОВ!
 //    @State var isEvenWeek = 0
     
     @ObservedObject var Sched : SchedModel //TODO: СОЗДАЕТ БАГИ С ПОСТОЯННОЙ РЕФОРМАЦИЕЙ ПИНОВ!
-    @Binding var isEvenWeek : Int
     
-    let parityNames = ["Нет", "Чет", "Нечет"]
+    @Binding var isEvenWeek : Int
     @State private var parity = "Нет"
+    let parityNames = ["Нет", "Чет", "Нечет"]
     
     @State private var isLoadingFaculties = false
     @State private var isLoadingGroups = false
+    @State private var isLoadingSchedule = false
     @State private var isLoadingTeachers = false
     
     @State private var Faculties : [Faculty] = []
     @State private var Groups : [Group] = []
     @State private var Teachers : [Teacher] = []
     
+    @State private var selectedUniversity : (String, Int) = ("Не выбрано", 0)
     @State private var selectedFaculty : Faculty = Faculty(name: "undefined", uri: "undefined")
     @State private var selectedGroup : Group = Group(name: "undefined", uri: "undefined")
     @State private var selectedTeacher : Teacher = Teacher(name: "undefined", uri: "undefined")
@@ -73,7 +75,7 @@ struct SettingsView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .onChange(of: parity) {
                         isEvenWeek = parityNames.firstIndex(of: parity) ?? 0
-                        Sched.pinnedReform()
+                        //Sched.pinnedReform()
                     }
                 }
                 
@@ -84,9 +86,6 @@ struct SettingsView: View {
                                 Text("\(Sched.items[index].faculty) \(Sched.items[index].group)")
                             }
                         }
-                        .onChange(of: Sched.currItem) {
-                            Sched.pinnedReform()
-                        }
                     }
                     .pickerStyle(.navigationLink)
                     Button(action: {
@@ -96,18 +95,40 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section ("Группы") {
+                Section ("Загрузить расписание") {
                     Button(action: {
                         isLoadingFaculties = true
-                        getFacultiesUri { facs in
+                        getFacultiesUri (id: selectedUniversity.1) { facs in
                             DispatchQueue.main.async {
                                 self.Faculties = facs
                                 isLoadingFaculties = false
                             }
                         }
                     }) {
-                        Text("Обновить факультеты")
+                        Text("Обновить списки")
                     }
+                    Picker(selection: $selectedUniversity.1, label: Text("Университет")) {
+                        ForEach(universities, id: \.1) { uni in
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("\(uni.0)")
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .tag(uni.1)
+                            }
+                        }
+                    }
+                    .pickerStyle(.navigationLink)
+                    .onChange(of: selectedUniversity.1) {
+                        isLoadingFaculties = true
+                        getFacultiesUri (id: selectedUniversity.1) { facs in
+                            DispatchQueue.main.async {
+                                self.Faculties = facs
+                                isLoadingFaculties = false
+                            }
+                        }
+                    }
+                    
                     if isLoadingFaculties {
                         HStack {
                             Spacer()
@@ -118,7 +139,7 @@ struct SettingsView: View {
                         }
                     }
                     else if !Faculties.isEmpty {
-                        Picker(selection: $selectedFaculty.uri, label: Text("Выберите факультет")) {
+                        Picker(selection: $selectedFaculty.uri, label: Text("Факультет")) {
                             Text("Не выбрано").tag("undefined")
                             ForEach(Faculties, id: \.uri) { faculty in
                                 HStack {
@@ -136,16 +157,13 @@ struct SettingsView: View {
                         .pickerStyle(.navigationLink)
                         .onChange(of: selectedFaculty.uri) {
                             isLoadingGroups = true
-                            getGroupsUri (uri: selectedFaculty.uri) { groups in
+                            getGroupsUri (id: selectedUniversity.1, uri: selectedFaculty.uri) { groups in
                                 DispatchQueue.main.async {
                                     self.Groups = groups
                                     isLoadingGroups = false
                                 }
                             }
                         }
-                    }
-                    else {
-                        Text("Нет доступных факультетов")
                     }
                     if isLoadingGroups {
                         HStack {
@@ -157,7 +175,7 @@ struct SettingsView: View {
                         }
                     }
                     else if !Groups.isEmpty {
-                            Picker(selection: $selectedGroup.uri, label: Text("Выберите группу")) {
+                            Picker(selection: $selectedGroup.uri, label: Text("Группа")) {
                                 Text("Не выбрано").tag("undefined")
                                 ForEach(Groups, id: \.uri) { group in
                                     HStack {
@@ -180,17 +198,27 @@ struct SettingsView: View {
                     Button(action: {
                         if (!Groups.isEmpty) {
                             print(selectedGroup.uri)
-                            Sched.getData(uri: selectedGroup.uri)
+                            Sched.getData(id: selectedUniversity.1, uri: selectedGroup.uri)
+                            isLoadingSchedule = true
                         }
                     }) {
-                        Text("Загрузить выбранное расписание")
+                        if isLoadingSchedule {
+                            HStack {
+                                Spacer()
+                                ProgressView()
+                                    .progressViewStyle(.circular)
+                                    .scaledToFill()
+                                Spacer()
+                            }
+                        }
+                        else {
+                            Text("Загрузить выбранное расписание")
+                        }
                     }
-                }
-                
-                Section ("Преподаватели") {
+                    
                     Button(action: {
                         isLoadingTeachers = true
-                        getTeachers { teachers in
+                        getTeachersUri (id: selectedUniversity.1) { teachers in
                             DispatchQueue.main.async {
                                 self.Teachers = teachers
                                 isLoadingTeachers = false
@@ -211,7 +239,7 @@ struct SettingsView: View {
                         
                     }
                     else if !Teachers.isEmpty {
-                        Picker(selection: $selectedTeacher.uri, label: Text("Выберите преподавателя")) {
+                        Picker(selection: $selectedTeacher.uri, label: Text("Преподаватель")) {
                             Text("Не выбрано").tag("undefined")
                             ForEach(/*filtered*/Teachers, id: \.uri) { teacher in
                                 Text("\(teacher.name)").tag(teacher.uri)
@@ -227,17 +255,33 @@ struct SettingsView: View {
                     Button(action: {
                         if (!Teachers.isEmpty) {
                             print(selectedTeacher.uri)
-                            Sched.getData(uri: selectedTeacher.uri)
+                            Sched.getData(id: selectedUniversity.1, uri: selectedTeacher.uri)
+                            isLoadingSchedule = true
                         }
                     }) {
-                        Text("Загрузить выбранное расписание преподавателя")
+                        if isLoadingSchedule {
+                            HStack {
+                                Spacer()
+                                ProgressView()
+                                    .progressViewStyle(.circular)
+                                    .scaledToFill()
+                                Spacer()
+                            }
+                        }
+                        else {
+                            Text("Загрузить выбранное расписание преподавателя")
+                        }
                     }
+                    
                 }
-                
-                
             }
-        }.onAppear {
+        }
+        .onAppear {
             parity = parityNames[isEvenWeek]
+        }
+        .onChange(of: Sched.currItem) { //TODO: плохо потому что если не поменяется курсор но расписание будет только одно, то реформа не произойдет, также зависнет загрузка
+            Sched.pinnedReform()
+            isLoadingSchedule = false
         }
     }
 }
