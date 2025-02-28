@@ -13,9 +13,6 @@
 		7A7B38D92BA25C2C006B2BB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38D82BA25C2C006B2BB6 /* ContentView.swift */; };
 		7A7B38DB2BA25C2D006B2BB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B38DA2BA25C2D006B2BB6 /* Assets.xcassets */; };
 		7A7B38DE2BA25C2D006B2BB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B38DD2BA25C2D006B2BB6 /* Preview Assets.xcassets */; };
-		7A7B38E82BA25C2D006B2BB6 /* NormScheduleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38E72BA25C2D006B2BB6 /* NormScheduleTests.swift */; };
-		7A7B38F22BA25C2D006B2BB6 /* NormScheduleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38F12BA25C2D006B2BB6 /* NormScheduleUITests.swift */; };
-		7A7B38F42BA25C2D006B2BB6 /* NormScheduleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38F32BA25C2D006B2BB6 /* NormScheduleUITestsLaunchTests.swift */; };
 		7A7B39012BA25C78006B2BB6 /* GroupSchedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39002BA25C78006B2BB6 /* GroupSchedModel.swift */; };
 		7A7B39032BA25D97006B2BB6 /* sched.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B39022BA25D97006B2BB6 /* sched.json */; };
 		7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39042BA42955006B2BB6 /* DayView.swift */; };
@@ -56,10 +53,7 @@
 		7A7B38DA2BA25C2D006B2BB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A7B38DD2BA25C2D006B2BB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7A7B38E32BA25C2D006B2BB6 /* NormScheduleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NormScheduleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A7B38E72BA25C2D006B2BB6 /* NormScheduleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormScheduleTests.swift; sourceTree = "<group>"; };
 		7A7B38ED2BA25C2D006B2BB6 /* NormScheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NormScheduleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A7B38F12BA25C2D006B2BB6 /* NormScheduleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormScheduleUITests.swift; sourceTree = "<group>"; };
-		7A7B38F32BA25C2D006B2BB6 /* NormScheduleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormScheduleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7A7B39002BA25C78006B2BB6 /* GroupSchedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSchedModel.swift; sourceTree = "<group>"; };
 		7A7B39022BA25D97006B2BB6 /* sched.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sched.json; sourceTree = "<group>"; };
 		7A7B39042BA42955006B2BB6 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
@@ -113,8 +107,6 @@
 			isa = PBXGroup;
 			children = (
 				7A7B38D52BA25C2C006B2BB6 /* NormSchedule */,
-				7A7B38E62BA25C2D006B2BB6 /* NormScheduleTests */,
-				7A7B38F02BA25C2D006B2BB6 /* NormScheduleUITests */,
 				7A7B38D42BA25C2C006B2BB6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -153,23 +145,6 @@
 				7A7B38DD2BA25C2D006B2BB6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		7A7B38E62BA25C2D006B2BB6 /* NormScheduleTests */ = {
-			isa = PBXGroup;
-			children = (
-				7A7B38E72BA25C2D006B2BB6 /* NormScheduleTests.swift */,
-			);
-			path = NormScheduleTests;
-			sourceTree = "<group>";
-		};
-		7A7B38F02BA25C2D006B2BB6 /* NormScheduleUITests */ = {
-			isa = PBXGroup;
-			children = (
-				7A7B38F12BA25C2D006B2BB6 /* NormScheduleUITests.swift */,
-				7A7B38F32BA25C2D006B2BB6 /* NormScheduleUITestsLaunchTests.swift */,
-			);
-			path = NormScheduleUITests;
 			sourceTree = "<group>";
 		};
 		7ACD45542D5D501700F6B3BB /* Custom */ = {
@@ -350,7 +325,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A7B38E82BA25C2D006B2BB6 /* NormScheduleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,8 +332,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A7B38F22BA25C2D006B2BB6 /* NormScheduleUITests.swift in Sources */,
-				7A7B38F42BA25C2D006B2BB6 /* NormScheduleUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,7 +541,6 @@
 		7A7B38FB2BA25C2D006B2BB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -588,7 +559,6 @@
 		7A7B38FC2BA25C2D006B2BB6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -607,7 +577,6 @@
 		7A7B38FE2BA25C2D006B2BB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -624,7 +593,6 @@
 		7A7B38FF2BA25C2D006B2BB6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
