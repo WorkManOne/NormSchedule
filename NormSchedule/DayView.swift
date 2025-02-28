@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DayView: View {
     var daySched : [[Lesson]]
+    @EnvironmentObject var settingsManager: SettingsManager
     @Binding var pinSched : [[Bool:Int]]
 
     var body: some View {
@@ -19,6 +20,7 @@ struct DayView: View {
                         .frame(height: 200)
                 }
             }
+            .padding(settingsManager.dayTabBarPosition ? .top : .bottom, 80)
         }
     }
 }

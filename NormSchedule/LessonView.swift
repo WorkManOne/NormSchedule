@@ -25,7 +25,7 @@ struct LessonView: View {
     var body: some View {
         TabView (selection: $active) {
             ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
-                VStack {
+                VStack (alignment: .center) {
                     //Text("\(active) \(pinned[true]!) \(pinned[false]!)")
                     HStack (alignment: .center) {
                         Text(lesson.subgroup)
@@ -42,13 +42,15 @@ struct LessonView: View {
                                 .foregroundStyle(.red)
                                 .opacity(index == pinned[false] ? 0.75 : 0)
                         }
-                    }//.padding(.top, 5)
+                    }
+                    Spacer()
                     HStack (alignment: .center) {
                         Text(lesson.name)
                             .fontWeight(.bold)
-                            .padding()
+                            .padding(5)
                             .multilineTextAlignment(.center)
                     }
+                    Spacer()
                     HStack (alignment: .center) {
                         Text(lesson.teacher)
                         Spacer()
@@ -67,9 +69,15 @@ struct LessonView: View {
                 .frame(maxWidth: .infinity, maxHeight: 140)
                 .padding(.bottom)
                 .padding()
-                .overlay(Rectangle().frame(height: 1).foregroundColor(.lines), alignment: .top)
-                .overlay(Rectangle().frame(height: 1).foregroundColor(.lines), alignment: .bottom)
+                .background {
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(Color("frameColor"))
+                        .shadow(color: .gray.opacity(0.5), radius: 2)
+                }
+                //.overlay(Rectangle().frame(height: 1).foregroundColor(.lines), alignment: .top)
+                //.overlay(Rectangle().frame(height: 1).foregroundColor(.lines), alignment: .bottom)
                 .opacity((lesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || lesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 || lesson.parity.isEmpty || settingsManager.isEvenWeek == 0) ? 1 : 0.4)
+                .padding(.horizontal, 10)
                 .tag(index)
             }
             .onAppear {

@@ -127,7 +127,7 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
         }
         
         let title = try doc.getElementsByTag("title").text().split(separator: " ") //Распарсили заголовок
-        print(title)
+        //print(title)
         scheduleOfGroup.group = String(title[2]) //на группу
         scheduleOfGroup.university = String(title[3]) //и название университета
         
@@ -173,13 +173,17 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
                     var teachers = [String]()
                     var rooms = [String]()
                     var subGroups = [String]()
-                    if lessonRooms.count <= 2 {
-                        teachers.append(try lessonTeacher.text())
-                        subGroups.append("")
-                        rooms.append(try lessonRooms.text())
-                    }
-                    else {
-                        for i in stride(from: 0, to: lessonRooms.count, by: 2) {
+
+                    if lessonTeacher.count == 0 {
+                        for i in stride(from: 1, to: lessonRooms.count, by: 1) { //TODO: ОШИБКА с range когда парсится расписание учителя
+                            let subGroupDetails = try lessonRooms[i].text().split(separator: ": ")
+                            print(subGroupDetails)
+                            subGroups.append(subGroupDetails.count > 0 ? String(subGroupDetails[0]) : "")
+                            teachers.append(subGroupDetails.count > 1 ? String(subGroupDetails[1]) : "")
+                            rooms.append(try lessonRooms.first()?.text() ?? "")
+                        }
+                    } else {
+                        for i in stride(from: 0, to: lessonRooms.count, by: 2) { //TODO: ОШИБКА с range когда парсится расписание учителя
                             teachers.append(try lessonTeacher[i/2].text())
                             subGroups.append(try lessonRooms[i].text())
                             rooms.append(try lessonRooms[i+1].text())
@@ -197,7 +201,7 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
                                                  timeEnd: times[lessonIndex][1],
                                                  type: lessonType,
                                                  subgroup: subGroup,
-                                                 parity: weekNum == 1 ? [true : "0"] : [false : "1"],
+                                                 parity: weekNum == 1 ? [true : "Нед. 1"] : [false : "Нед. 2"],
                                                  name: lessonName,
                                                  teacher: teachers[index],
                                                  place: rooms[index]))
@@ -207,7 +211,7 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
                                                  timeEnd: times[lessonIndex][1],
                                                  type: "",
                                                  subgroup: "",
-                                                 parity: weekNum == 1 ? [true : "0"] : [false : "1"],
+                                                 parity: weekNum == 1 ? [true : "Нед. 1"] : [false : "Нед. 2"],
                                                  name: "Пары нет",
                                                  teacher: "",
                                                  place: ""))
@@ -258,26 +262,29 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
     return scheduleOfGroup
 }
 
-
-
 func SSTU_getTeachersUri(completion: @escaping ([Teacher]) -> Void) {
-    guard let url = URL(string: "https://www.sgu.ru/schedule/teacher/search") else {
+    
+    guard let url = URL(string: "https://rasp.sstu.ru/rasp/teachers") else {
         completion([])
         return
     }
-    
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.httpBody = "js=1&".data(using: .utf8)
-    
-    let task = URLSession.shared.dataTask(with: request) { data, _, error in
+    let task = URLSession.shared.dataTask(with: url) { data, _, error in
         guard let data = data else {
             print("No data received")
             completion([])
             return
         }
         do {
-            let teachers = try JSONDecoder().decode([Teacher].self, from: data)
+            let doc = try SwiftSoup.parse(String(decoding: data, as: UTF8.self))
+            guard let body = doc.body() else {
+                completion([])
+                return
+            }
+            var teachers = [Teacher]()
+            let dirtyTeachers = try body.select(".list-teacher > .row a")
+            for teacher in dirtyTeachers {
+                teachers.append(Teacher(name: try teacher.text(), uri: try teacher.attr("href")))
+            }
             completion(teachers)
         }
         catch {
@@ -287,4 +294,3 @@ func SSTU_getTeachersUri(completion: @escaping ([Teacher]) -> Void) {
     }
     task.resume()
 }
-

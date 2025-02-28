@@ -9,7 +9,7 @@ import Foundation
 import SwiftSoup
 
 func SSU_getFacultiesUri(completion: @escaping ([Faculty]) -> Void) {
-    guard let url = URL(string: "https://www.sgu.ru/schedule") else {
+    guard let url = URL(string: "https://www.old.sgu.ru/schedule") else {
         completion([])
         return
     }
@@ -49,11 +49,11 @@ func SSU_getFacultiesUri(completion: @escaping ([Faculty]) -> Void) {
 
 func SSU_getGroupsUri(uri : String, completion: @escaping ([Group]) -> Void) {
     var groups : [Group] = []
-    guard let url = URL(string: "https://www.sgu.ru\(uri)") else {
+    guard let url = URL(string: "https://www.old.sgu.ru\(uri)") else {
         completion([])
         return
     }
-    print("https://www.sgu.ru\(uri)")
+    print("https://www.old.sgu.ru\(uri)")
     let task = URLSession.shared.dataTask(with: url) { data, _, error in
         guard let _ = data else {
             print("No data received")
@@ -90,10 +90,12 @@ func SSU_getSchedule(uri: String, completion: @escaping (GroupSched) -> Void) {
                                      schedule: [],
                                      pinSchedule: [])
 
-    guard let url = URL(string: "https://www.sgu.ru/\(uri)") else {
+    guard let url = URL(string: "https://www.old.sgu.ru/\(uri)") else {
         completion(scheduleOfGroup)
         return
     }
+    
+    print("https://www.old.sgu.ru/\(uri)")
     
     let task = URLSession.shared.dataTask(with: url) { data, _, error in
         guard let data = data else {
@@ -116,7 +118,7 @@ func SSU_getSchedule(uri: String, completion: @escaping (GroupSched) -> Void) {
 }
 
 func SSU_parseSched(doc: Document) -> GroupSched {
-    var scheduleOfGroup = GroupSched(university: "",
+    let scheduleOfGroup = GroupSched(university: "",
                                      faculty: "",
                                      group: "",
                                      date_read: "",
@@ -169,7 +171,7 @@ func SSU_parseSched(doc: Document) -> GroupSched {
                     for lesson in lessons { //для каждого такого массива пар преобразуем пару в структурированную
                         //и записываем ее в структуру "пары в одно время"
                         let parityText = try lesson.getElementsByClass("l-pr-r").text()
-                        let parity = parityText.isEmpty ? [:] : ( parityText == "чис." ? [true : "чис."] : [false : "знам."])
+                        let parity = parityText.isEmpty ? [:] : ( parityText == "чис." ? [true : "чис."] : [false : "знам."]) 
                         var teacherOrGroup = ""
                         if (try lesson.getElementsByClass("l-tn").text() != "") {
                             //Необходимо для учеников ставить учителя
@@ -190,7 +192,7 @@ func SSU_parseSched(doc: Document) -> GroupSched {
                                                  place: try lesson.getElementsByClass("l-p").text()))
                         
                     }
-                    scheduleOfGroup.pinSchedule[day].append([true:0, false:0])
+                    scheduleOfGroup.pinSchedule[day].append([true:0, false:0]) //Ставится индекс пары, которая в текущую неделю закреплена
                     if (lessons.isEmpty()) {
                         scheduleOfGroup.schedule[day].append([Lesson(timeStart: String(times[0]),
                                                                      timeEnd: String(times[1]),
@@ -235,7 +237,7 @@ func SSU_parseSched(doc: Document) -> GroupSched {
 
 
 func SSU_getTeachersUri(completion: @escaping ([Teacher]) -> Void) {
-    guard let url = URL(string: "https://www.sgu.ru/schedule/teacher/search") else {
+    guard let url = URL(string: "https://old.sgu.ru/schedule/teacher/search") else {
         completion([])
         return
     }

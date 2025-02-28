@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A6495B42D402581006F167D /* LessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B32D402581006F167D /* LessonModel.swift */; };
+		7A6495B82D4028F9006F167D /* SettingsManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B72D4028F9006F167D /* SettingsManagerModel.swift */; };
 		7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38D62BA25C2C006B2BB6 /* NormScheduleApp.swift */; };
 		7A7B38D92BA25C2C006B2BB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38D82BA25C2C006B2BB6 /* ContentView.swift */; };
 		7A7B38DB2BA25C2D006B2BB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B38DA2BA25C2D006B2BB6 /* Assets.xcassets */; };
@@ -14,14 +16,15 @@
 		7A7B38E82BA25C2D006B2BB6 /* NormScheduleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38E72BA25C2D006B2BB6 /* NormScheduleTests.swift */; };
 		7A7B38F22BA25C2D006B2BB6 /* NormScheduleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38F12BA25C2D006B2BB6 /* NormScheduleUITests.swift */; };
 		7A7B38F42BA25C2D006B2BB6 /* NormScheduleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38F32BA25C2D006B2BB6 /* NormScheduleUITestsLaunchTests.swift */; };
-		7A7B39012BA25C78006B2BB6 /* SchedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39002BA25C78006B2BB6 /* SchedModel.swift */; };
+		7A7B39012BA25C78006B2BB6 /* GroupSchedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39002BA25C78006B2BB6 /* GroupSchedModel.swift */; };
 		7A7B39032BA25D97006B2BB6 /* sched.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B39022BA25D97006B2BB6 /* sched.json */; };
 		7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39042BA42955006B2BB6 /* DayView.swift */; };
 		7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39062BA52F3E006B2BB6 /* LessonView.swift */; };
-		7A9D90982BC9CC28006E31D3 /* PrototypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9D90972BC9CC28006E31D3 /* PrototypesView.swift */; };
+		7AC123CC2C1E236A001FD32A /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC123CB2C1E236A001FD32A /* ScheduleView.swift */; };
 		7AC31A512BB979D30099DB76 /* ParserSSU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A502BB979D30099DB76 /* ParserSSU.swift */; };
 		7AC31A552BB97A830099DB76 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 7AC31A542BB97A830099DB76 /* SwiftSoup */; };
-		7AC31A572BB9A22D0099DB76 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A562BB9A22D0099DB76 /* SettingsView.swift */; };
+		7ACD45512D5D28EB00F6B3BB /* TabBarShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD45502D5D28EB00F6B3BB /* TabBarShape.swift */; };
+		7ACD45532D5D4BE100F6B3BB /* InfinitePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */; };
 		7AD383E82BCD636900384D1C /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E72BCD636900384D1C /* Structs.swift */; };
 		7AD383EA2BCD63D100384D1C /* ParserSSTU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E92BCD63D100384D1C /* ParserSSTU.swift */; };
 		7AD383EE2BCD64B300384D1C /* ParserMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383ED2BCD64B300384D1C /* ParserMain.swift */; };
@@ -45,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A6495B32D402581006F167D /* LessonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonModel.swift; sourceTree = "<group>"; };
+		7A6495B72D4028F9006F167D /* SettingsManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManagerModel.swift; sourceTree = "<group>"; };
 		7A7B38D32BA25C2C006B2BB6 /* NormSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NormSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A7B38D62BA25C2C006B2BB6 /* NormScheduleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormScheduleApp.swift; sourceTree = "<group>"; };
 		7A7B38D82BA25C2C006B2BB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,13 +60,14 @@
 		7A7B38ED2BA25C2D006B2BB6 /* NormScheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NormScheduleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A7B38F12BA25C2D006B2BB6 /* NormScheduleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormScheduleUITests.swift; sourceTree = "<group>"; };
 		7A7B38F32BA25C2D006B2BB6 /* NormScheduleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormScheduleUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		7A7B39002BA25C78006B2BB6 /* SchedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedModel.swift; sourceTree = "<group>"; };
+		7A7B39002BA25C78006B2BB6 /* GroupSchedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSchedModel.swift; sourceTree = "<group>"; };
 		7A7B39022BA25D97006B2BB6 /* sched.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sched.json; sourceTree = "<group>"; };
 		7A7B39042BA42955006B2BB6 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		7A7B39062BA52F3E006B2BB6 /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
-		7A9D90972BC9CC28006E31D3 /* PrototypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototypesView.swift; sourceTree = "<group>"; };
+		7AC123CB2C1E236A001FD32A /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		7AC31A502BB979D30099DB76 /* ParserSSU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserSSU.swift; sourceTree = "<group>"; };
-		7AC31A562BB9A22D0099DB76 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7ACD45502D5D28EB00F6B3BB /* TabBarShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarShape.swift; sourceTree = "<group>"; };
+		7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinitePageView.swift; sourceTree = "<group>"; };
 		7AD383E72BCD636900384D1C /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Structs.swift; path = NormSchedule/Structs.swift; sourceTree = SOURCE_ROOT; };
 		7AD383E92BCD63D100384D1C /* ParserSSTU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserSSTU.swift; sourceTree = "<group>"; };
 		7AD383ED2BCD64B300384D1C /* ParserMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserMain.swift; sourceTree = "<group>"; };
@@ -93,6 +99,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A6495B62D4025FE006F167D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7A7B39002BA25C78006B2BB6 /* GroupSchedModel.swift */,
+				7A6495B32D402581006F167D /* LessonModel.swift */,
+				7A6495B72D4028F9006F167D /* SettingsManagerModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		7A7B38CA2BA25C2C006B2BB6 = {
 			isa = PBXGroup;
 			children = (
@@ -119,14 +135,14 @@
 				7A7B39022BA25D97006B2BB6 /* sched.json */,
 				7A7B38D62BA25C2C006B2BB6 /* NormScheduleApp.swift */,
 				7A7B38D82BA25C2C006B2BB6 /* ContentView.swift */,
-				7AC31A562BB9A22D0099DB76 /* SettingsView.swift */,
+				7AC123CB2C1E236A001FD32A /* ScheduleView.swift */,
 				7A7B39042BA42955006B2BB6 /* DayView.swift */,
 				7A7B39062BA52F3E006B2BB6 /* LessonView.swift */,
-				7A7B39002BA25C78006B2BB6 /* SchedModel.swift */,
+				7ACD45542D5D501700F6B3BB /* Custom */,
+				7A6495B62D4025FE006F167D /* Models */,
 				7AD383E62BCD62BB00384D1C /* Parsers */,
 				7A7B38DA2BA25C2D006B2BB6 /* Assets.xcassets */,
 				7A7B38DC2BA25C2D006B2BB6 /* Preview Content */,
-				7A9D90972BC9CC28006E31D3 /* PrototypesView.swift */,
 			);
 			path = NormSchedule;
 			sourceTree = "<group>";
@@ -154,6 +170,15 @@
 				7A7B38F32BA25C2D006B2BB6 /* NormScheduleUITestsLaunchTests.swift */,
 			);
 			path = NormScheduleUITests;
+			sourceTree = "<group>";
+		};
+		7ACD45542D5D501700F6B3BB /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				7ACD45502D5D28EB00F6B3BB /* TabBarShape.swift */,
+				7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		7AD383E62BCD62BB00384D1C /* Parsers */ = {
@@ -306,15 +331,18 @@
 			files = (
 				7AD383EA2BCD63D100384D1C /* ParserSSTU.swift in Sources */,
 				7AD383E82BCD636900384D1C /* Structs.swift in Sources */,
-				7A7B39012BA25C78006B2BB6 /* SchedModel.swift in Sources */,
+				7A7B39012BA25C78006B2BB6 /* GroupSchedModel.swift in Sources */,
 				7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */,
-				7A9D90982BC9CC28006E31D3 /* PrototypesView.swift in Sources */,
 				7AC31A512BB979D30099DB76 /* ParserSSU.swift in Sources */,
+				7A6495B42D402581006F167D /* LessonModel.swift in Sources */,
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
 				7AD383EE2BCD64B300384D1C /* ParserMain.swift in Sources */,
-				7AC31A572BB9A22D0099DB76 /* SettingsView.swift in Sources */,
 				7A7B38D92BA25C2C006B2BB6 /* ContentView.swift in Sources */,
+				7ACD45512D5D28EB00F6B3BB /* TabBarShape.swift in Sources */,
+				7AC123CC2C1E236A001FD32A /* ScheduleView.swift in Sources */,
+				7A6495B82D4028F9006F167D /* SettingsManagerModel.swift in Sources */,
 				7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */,
+				7ACD45532D5D4BE100F6B3BB /* InfinitePageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,7 +431,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -460,7 +488,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -481,12 +509,13 @@
 				DEVELOPMENT_TEAM = GC734AS7G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -494,6 +523,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = keril.NormSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -511,12 +543,13 @@
 				DEVELOPMENT_TEAM = GC734AS7G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -524,6 +557,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = keril.NormSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
