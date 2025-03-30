@@ -7,19 +7,31 @@
 
 import Foundation
 import SwiftData
-
+#if os(iOS)
 @Model
+#endif
 class GroupSched : ObservableObject {
     init(university: String, faculty: String, group: String, date_read: String, schedule: [[[Lesson]]], pinSchedule: [[[Bool:Int]]], id: UUID? = nil) {
         self.university = university
         self.faculty = faculty
         self.group = group
-        self.id = UUID(uuidString: "\(university)\(faculty)\(group)") ?? UUID()
+        self.id = id ?? UUID()
         self.schedule = schedule
         self.pinSchedule = pinSchedule
         self.date_read = date_read
     }
-    
+
+    required init(from decoder:Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        university = try values.decode(String.self, forKey: .university)
+        faculty = try values.decode(String.self, forKey: .faculty)
+        group = try values.decode(String.self, forKey: .group)
+        id = try values.decode(UUID.self, forKey: .id)
+        schedule = try values.decode([[[Lesson]]].self, forKey: .schedule)
+        pinSchedule = try values.decode([[[Bool:Int]]].self, forKey: .pinSchedule)
+        date_read = try values.decode(String.self, forKey: .date_read)
+    }
+
     var university : String
     var faculty : String
     var group : String
@@ -113,30 +125,22 @@ class GroupSched : ObservableObject {
 }
 
 
+extension GroupSched: Codable {
+    private enum CodingKeys: String, CodingKey {
+        case university, faculty, group, date_read, schedule, pinSchedule, id
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: CodingKeys.self)
+        try values.encode(university, forKey: .university)
+        try values.encode(faculty, forKey: .faculty)
+        try values.encode(group, forKey: .group)
+        try values.encode(id, forKey: .id)
+        try values.encode(schedule, forKey: .schedule)
+        try values.encode(pinSchedule, forKey: .pinSchedule)
+        try values.encode(date_read, forKey: .date_read)
+    }
+}
 
 
-//    private enum CodingKeys: String, CodingKey {
-//            case university, faculty, group, date_read, schedule, pinSchedule, id
-//    }
-    
-//    required init(from decoder:Decoder) throws {
-//        let values = try decoder.container(keyedBy: CodingKeys.self)
-//        university = try values.decode(String.self, forKey: .university)
-//        try values.decode(String.self, forKey: .faculty)
-//        try values.decode(String.self, forKey: .group)
-//        try values.decode(UUID.self, forKey: .id)
-//        try values.decode([[[Lesson]]].self, forKey: .schedule)
-//        try values.decode([[[Bool:Int]]].self, forKey: .pinSchedule)
-//        try values.decode(String.self, forKey: .date_read)
-//    }
-//    public func encode(to encoder: Encoder) throws {
-//            var values = encoder.container(keyedBy: CodingKeys.self)
-//            try values.encode(university, forKey: .university)
-//            try values.encode(faculty, forKey: .faculty)
-//            try values.encode(group, forKey: .group)
-//            try values.encode(id, forKey: .id)
-//            try values.encode(schedule, forKey: .schedule)
-//            try values.encode(pinSchedule, forKey: .pinSchedule)
-//            try values.encode(date_read, forKey: .date_read)
-//    }
 //    var pinSchedule : [[Int]] =   [ [[true:0, false:0],[true:0, false:0],[true:0, false:0],[true:2, false:0],[true:0, false:0],[true:0, false:0],[true:0, false:0],[true:0, false:0],[true:0, false:0]], [1,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0] ]

@@ -52,10 +52,12 @@ func getGroup(id: Int, uri: String, completion: @escaping (GroupSched) -> Void) 
     switch id {
     case 1:
         SSU_getSchedule (uri: uri) { s in
+            s.pinnedReform() //TODO: FiX logic
             completion(s)
         }
     case 2:
         SSTU_getSchedule (uri: uri) { s in
+            s.pinnedReform()
             completion(s)
         }
     default:

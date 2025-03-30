@@ -74,12 +74,14 @@ struct LessonView: View {
                         .fill(Color("frameColor"))
                         .shadow(color: .gray.opacity(0.5), radius: 2)
                 }
+                
                 //.overlay(Rectangle().frame(height: 1).foregroundColor(.lines), alignment: .top)
                 //.overlay(Rectangle().frame(height: 1).foregroundColor(.lines), alignment: .bottom)
                 .opacity((lesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || lesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 || lesson.parity.isEmpty || settingsManager.isEvenWeek == 0) ? 1 : 0.4)
                 .padding(.horizontal, 10)
                 .tag(index)
             }
+
             .onAppear {
                 //print("appeared")
                 if (settingsManager.isEvenWeek == 2) {
@@ -90,23 +92,6 @@ struct LessonView: View {
                 }
             }
         }
-        
-        .onTapGesture(count: 2) {
-            //print("tapped \(active)")
-            if (lessons[active].parity.keys.contains(false)
-                && !lessons.allSatisfy { l in l.parity.keys.contains(false) }) {
-                pinned[false] = active
-            }
-            else if (lessons[active].parity.keys.contains(true)
-                     && !lessons.allSatisfy { l in l.parity.keys.contains(true) }) {
-                pinned[true] = active
-            }
-            else {
-                pinned[true] = active
-                pinned[false] = active
-            }
-                                        
-        }
 //        .onChange(of: pinned) {
 //            if (settingsManager.isEvenWeek == 2) {
 //                active = pinned[false] ?? 0
@@ -115,8 +100,32 @@ struct LessonView: View {
 //                active = pinned[true] ?? 0
 //            }
 //        }
+        .contextMenu {
+            Button(action: {
+                if (lessons[active].parity.keys.contains(false)
+                    && !lessons.allSatisfy { l in l.parity.keys.contains(false) }) {
+                    pinned[false] = active
+                }
+                else if (lessons[active].parity.keys.contains(true)
+                         && !lessons.allSatisfy { l in l.parity.keys.contains(true) }) {
+                    pinned[true] = active
+                }
+                else {
+                    pinned[true] = active
+                    pinned[false] = active
+                }
+            }) {
+                Text("Закрепить")
+                Image(systemName: "pin.fill")
+            }
+            Button(action: {
+                print("пара скрыта")
+            }) {
+                Text("Скрыть пары") //TODO: Показать пары/Скрыть пары должна делать маленькие типа по высоте фреймы
+                //Image(systemName: "pin.fill") //TODO: Поставить глазик
+            }
+        }
         .tabViewStyle(.page(indexDisplayMode: .automatic))
-        
     }
 }
 

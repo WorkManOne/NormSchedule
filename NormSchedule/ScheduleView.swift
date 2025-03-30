@@ -16,6 +16,7 @@ struct ScheduleView: View {
 
     @Bindable var groupSchedule : GroupSched
     @EnvironmentObject var settingsManager: SettingsManager
+    @ObservedObject var provider = WCProvider.shared
 
     init(initialDay: String = "Пн", groupSchedule: GroupSched) {
         UIPageControl.appearance().currentPageIndicatorTintColor = .blue
@@ -49,7 +50,7 @@ struct ScheduleView: View {
     }
     var dayTabBarView: some View {
         ZStack (alignment: settingsManager.dayTabBarPosition ? .top : .bottom) {
-            TabBarShape(isTop: settingsManager.dayTabBarPosition)
+            TabBarShape(isTop: settingsManager.dayTabBarPosition, isCurveStyle: settingsManager.dayTabBarStyle)
                 .fill(Color("appearanceColor"))
                 .shadow(color: .black.opacity(0.1), radius: 5)
                 .ignoresSafeArea()

@@ -8,6 +8,11 @@
 import Foundation
 import SwiftSoup
 
+@MainActor
+class UniversityParser {
+    static let shared = UniversityParser()
+}
+
 func SSTU_getFacultiesUri(completion: @escaping ([Faculty]) -> Void) {
     guard let url = URL(string: "https://rasp.sstu.ru/") else {
         completion([])
@@ -115,7 +120,7 @@ func SSTU_getSchedule(uri: String, completion: @escaping (GroupSched) -> Void) {
 }
 
 func SSTU_parseSched(doc: Document) -> GroupSched {
-    var scheduleOfGroup = GroupSched(university: "",
+    let scheduleOfGroup = GroupSched(university: "",
                                      faculty: "",
                                      group: "",
                                      date_read: "",
@@ -183,10 +188,17 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
                             rooms.append(try lessonRooms.first()?.text() ?? "")
                         }
                     } else {
-                        for i in stride(from: 0, to: lessonRooms.count, by: 2) { //TODO: ОШИБКА с range когда парсится расписание учителя
-                            teachers.append(try lessonTeacher[i/2].text())
-                            subGroups.append(try lessonRooms[i].text())
-                            rooms.append(try lessonRooms[i+1].text())
+                        if lessonRooms.count == 2 {
+                            teachers.append(try lessonTeacher[0].text())
+                            subGroups.append(try lessonRooms[1].text())
+                            rooms.append(try lessonRooms[0].text())
+                        }
+                        else {
+                            for i in stride(from: 0, to: lessonRooms.count, by: 2) { //TODO: ОШИБКА с range когда парсится расписание учителя
+                                teachers.append(try lessonTeacher[i/2].text())
+                                subGroups.append(try lessonRooms[i].text())
+                                rooms.append(try lessonRooms[i+1].text())
+                            }
                         }
                     }
                     // Извлечение названия урока

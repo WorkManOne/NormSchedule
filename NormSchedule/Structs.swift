@@ -7,19 +7,26 @@
 
 import Foundation
 
-struct Faculty {
+struct University: Identifiable, Equatable {
+    var id : Int
+    var name : String
+}
+
+struct Faculty: Identifiable, Equatable {
+    var id : String { uri }
     var name : String
     var uri : String
 }
 
-struct Group {
+struct Group: Identifiable, Equatable {
+    var id : String { uri }
     var name : String
     var uri : String
 }
 
 struct Teacher: Codable {
-    var name: String
-    var uri: String
+    var name : String
+    var uri : String
     
     enum CodingKeys: String, CodingKey {
         case name = "fio"

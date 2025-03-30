@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */; };
 		7A6495B42D402581006F167D /* LessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B32D402581006F167D /* LessonModel.swift */; };
 		7A6495B82D4028F9006F167D /* SettingsManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B72D4028F9006F167D /* SettingsManagerModel.swift */; };
 		7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38D62BA25C2C006B2BB6 /* NormScheduleApp.swift */; };
@@ -17,9 +18,14 @@
 		7A7B39032BA25D97006B2BB6 /* sched.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B39022BA25D97006B2BB6 /* sched.json */; };
 		7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39042BA42955006B2BB6 /* DayView.swift */; };
 		7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39062BA52F3E006B2BB6 /* LessonView.swift */; };
+		7ABAE7332D7761080076B06C /* LessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B32D402581006F167D /* LessonModel.swift */; };
+		7ABAE7342D7761200076B06C /* GroupSchedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39002BA25C78006B2BB6 /* GroupSchedModel.swift */; };
 		7AC123CC2C1E236A001FD32A /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC123CB2C1E236A001FD32A /* ScheduleView.swift */; };
 		7AC31A512BB979D30099DB76 /* ParserSSU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A502BB979D30099DB76 /* ParserSSU.swift */; };
 		7AC31A552BB97A830099DB76 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 7AC31A542BB97A830099DB76 /* SwiftSoup */; };
+		7AC602202D75BC4B00154A18 /* NormScheduleCompanion Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 7AC602132D75BC4900154A18 /* NormScheduleCompanion Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7AC602262D75BCC000154A18 /* WCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC602252D75BCC000154A18 /* WCProvider.swift */; };
+		7AC6022B2D75C3C400154A18 /* SettingsManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B72D4028F9006F167D /* SettingsManagerModel.swift */; };
 		7ACD45512D5D28EB00F6B3BB /* TabBarShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD45502D5D28EB00F6B3BB /* TabBarShape.swift */; };
 		7ACD45532D5D4BE100F6B3BB /* InfinitePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */; };
 		7AD383E82BCD636900384D1C /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E72BCD636900384D1C /* Structs.swift */; };
@@ -42,9 +48,31 @@
 			remoteGlobalIDString = 7A7B38D22BA25C2C006B2BB6;
 			remoteInfo = NormSchedule;
 		};
+		7AC6021E2D75BC4B00154A18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A7B38CB2BA25C2C006B2BB6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AC602122D75BC4900154A18;
+			remoteInfo = "NormScheduleCompanion Watch App";
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7AC602212D75BC4B00154A18 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				7AC602202D75BC4B00154A18 /* NormScheduleCompanion Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchablePickerView.swift; sourceTree = "<group>"; };
 		7A6495B32D402581006F167D /* LessonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonModel.swift; sourceTree = "<group>"; };
 		7A6495B72D4028F9006F167D /* SettingsManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManagerModel.swift; sourceTree = "<group>"; };
 		7A7B38D32BA25C2C006B2BB6 /* NormSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NormSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,12 +88,18 @@
 		7A7B39062BA52F3E006B2BB6 /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
 		7AC123CB2C1E236A001FD32A /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		7AC31A502BB979D30099DB76 /* ParserSSU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserSSU.swift; sourceTree = "<group>"; };
+		7AC602132D75BC4900154A18 /* NormScheduleCompanion Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NormScheduleCompanion Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AC602252D75BCC000154A18 /* WCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCProvider.swift; sourceTree = "<group>"; };
 		7ACD45502D5D28EB00F6B3BB /* TabBarShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarShape.swift; sourceTree = "<group>"; };
 		7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinitePageView.swift; sourceTree = "<group>"; };
 		7AD383E72BCD636900384D1C /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Structs.swift; path = NormSchedule/Structs.swift; sourceTree = SOURCE_ROOT; };
 		7AD383E92BCD63D100384D1C /* ParserSSTU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserSSTU.swift; sourceTree = "<group>"; };
 		7AD383ED2BCD64B300384D1C /* ParserMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserMain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		7AC602142D75BC4900154A18 /* NormScheduleCompanion Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "NormScheduleCompanion Watch App"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		7A7B38D02BA25C2C006B2BB6 /* Frameworks */ = {
@@ -90,6 +124,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AC602102D75BC4900154A18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -106,7 +147,9 @@
 		7A7B38CA2BA25C2C006B2BB6 = {
 			isa = PBXGroup;
 			children = (
+				7A6495B62D4025FE006F167D /* Models */,
 				7A7B38D52BA25C2C006B2BB6 /* NormSchedule */,
+				7AC602142D75BC4900154A18 /* NormScheduleCompanion Watch App */,
 				7A7B38D42BA25C2C006B2BB6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -117,6 +160,7 @@
 				7A7B38D32BA25C2C006B2BB6 /* NormSchedule.app */,
 				7A7B38E32BA25C2D006B2BB6 /* NormScheduleTests.xctest */,
 				7A7B38ED2BA25C2D006B2BB6 /* NormScheduleUITests.xctest */,
+				7AC602132D75BC4900154A18 /* NormScheduleCompanion Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,10 +175,11 @@
 				7A7B39042BA42955006B2BB6 /* DayView.swift */,
 				7A7B39062BA52F3E006B2BB6 /* LessonView.swift */,
 				7ACD45542D5D501700F6B3BB /* Custom */,
-				7A6495B62D4025FE006F167D /* Models */,
 				7AD383E62BCD62BB00384D1C /* Parsers */,
 				7A7B38DA2BA25C2D006B2BB6 /* Assets.xcassets */,
 				7A7B38DC2BA25C2D006B2BB6 /* Preview Content */,
+				7AC602252D75BCC000154A18 /* WCProvider.swift */,
+				7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */,
 			);
 			path = NormSchedule;
 			sourceTree = "<group>";
@@ -177,10 +222,12 @@
 				7A7B38CF2BA25C2C006B2BB6 /* Sources */,
 				7A7B38D02BA25C2C006B2BB6 /* Frameworks */,
 				7A7B38D12BA25C2C006B2BB6 /* Resources */,
+				7AC602212D75BC4B00154A18 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7AC6021F2D75BC4B00154A18 /* PBXTargetDependency */,
 			);
 			name = NormSchedule;
 			packageProductDependencies = (
@@ -226,6 +273,28 @@
 			productReference = 7A7B38ED2BA25C2D006B2BB6 /* NormScheduleUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		7AC602122D75BC4900154A18 /* NormScheduleCompanion Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7AC602242D75BC4B00154A18 /* Build configuration list for PBXNativeTarget "NormScheduleCompanion Watch App" */;
+			buildPhases = (
+				7AC6020F2D75BC4900154A18 /* Sources */,
+				7AC602102D75BC4900154A18 /* Frameworks */,
+				7AC602112D75BC4900154A18 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7AC602142D75BC4900154A18 /* NormScheduleCompanion Watch App */,
+			);
+			name = "NormScheduleCompanion Watch App";
+			packageProductDependencies = (
+			);
+			productName = "NormScheduleCompanion Watch App";
+			productReference = 7AC602132D75BC4900154A18 /* NormScheduleCompanion Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -233,7 +302,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					7A7B38D22BA25C2C006B2BB6 = {
@@ -246,6 +315,9 @@
 					7A7B38EC2BA25C2D006B2BB6 = {
 						CreatedOnToolsVersion = 15.3;
 						TestTargetID = 7A7B38D22BA25C2C006B2BB6;
+					};
+					7AC602122D75BC4900154A18 = {
+						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
@@ -268,6 +340,7 @@
 				7A7B38D22BA25C2C006B2BB6 /* NormSchedule */,
 				7A7B38E22BA25C2D006B2BB6 /* NormScheduleTests */,
 				7A7B38EC2BA25C2D006B2BB6 /* NormScheduleUITests */,
+				7AC602122D75BC4900154A18 /* NormScheduleCompanion Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -297,6 +370,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AC602112D75BC4900154A18 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -312,11 +392,13 @@
 				7A6495B42D402581006F167D /* LessonModel.swift in Sources */,
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
 				7AD383EE2BCD64B300384D1C /* ParserMain.swift in Sources */,
+				7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */,
 				7A7B38D92BA25C2C006B2BB6 /* ContentView.swift in Sources */,
 				7ACD45512D5D28EB00F6B3BB /* TabBarShape.swift in Sources */,
 				7AC123CC2C1E236A001FD32A /* ScheduleView.swift in Sources */,
 				7A6495B82D4028F9006F167D /* SettingsManagerModel.swift in Sources */,
 				7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */,
+				7AC602262D75BCC000154A18 /* WCProvider.swift in Sources */,
 				7ACD45532D5D4BE100F6B3BB /* InfinitePageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,6 +417,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AC6020F2D75BC4900154A18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ABAE7332D7761080076B06C /* LessonModel.swift in Sources */,
+				7ABAE7342D7761200076B06C /* GroupSchedModel.swift in Sources */,
+				7AC6022B2D75C3C400154A18 /* SettingsManagerModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -347,6 +439,11 @@
 			isa = PBXTargetDependency;
 			target = 7A7B38D22BA25C2C006B2BB6 /* NormSchedule */;
 			targetProxy = 7A7B38EE2BA25C2D006B2BB6 /* PBXContainerItemProxy */;
+		};
+		7AC6021F2D75BC4B00154A18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AC602122D75BC4900154A18 /* NormScheduleCompanion Watch App */;
+			targetProxy = 7AC6021E2D75BC4B00154A18 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -606,6 +703,66 @@
 			};
 			name = Release;
 		};
+		7AC602222D75BC4B00154A18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NormScheduleCompanion Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = GC734AS7G4;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = NormScheduleCompanion;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = keril.NormSchedule;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = keril.NormSchedule.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		7AC602232D75BC4B00154A18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NormScheduleCompanion Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = GC734AS7G4;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = NormScheduleCompanion;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = keril.NormSchedule;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = keril.NormSchedule.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -641,6 +798,15 @@
 			buildConfigurations = (
 				7A7B38FE2BA25C2D006B2BB6 /* Debug */,
 				7A7B38FF2BA25C2D006B2BB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7AC602242D75BC4B00154A18 /* Build configuration list for PBXNativeTarget "NormScheduleCompanion Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AC602222D75BC4B00154A18 /* Debug */,
+				7AC602232D75BC4B00154A18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
