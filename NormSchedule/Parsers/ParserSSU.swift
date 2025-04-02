@@ -181,9 +181,9 @@ func SSU_parseSched(doc: Document) -> GroupSched {
                             //А для учителей ставить группы в поле "учитель"
                             teacherOrGroup = try lesson.getElementsByClass("l-g").text()
                         }
-                        
-                        simLessons.append(Lesson(timeStart: String(times[0]),
-                                                 timeEnd: String(times[1]),
+
+                        simLessons.append(Lesson(timeStart: Lesson.parseTimeInterval(from: String(times[0])), //Lesson.parseTime(String(times[0])),
+                                                 timeEnd: Lesson.parseTimeInterval(from: String(times[1])), //Lesson.parseTime(String(times[1]))
                                                  type: try lesson.getElementsByClass("l-pr-t").text(),
                                                  subgroup: try lesson.getElementsByClass("l-pr-g").text(),
                                                  parity: parity,
@@ -194,8 +194,8 @@ func SSU_parseSched(doc: Document) -> GroupSched {
                     }
                     scheduleOfGroup.pinSchedule[day].append([true:0, false:0]) //Ставится индекс пары, которая в текущую неделю закреплена
                     if (lessons.isEmpty()) {
-                        scheduleOfGroup.schedule[day].append([Lesson(timeStart: String(times[0]),
-                                                                     timeEnd: String(times[1]),
+                        scheduleOfGroup.schedule[day].append([Lesson(timeStart: Lesson.parseTimeInterval(from: String(times[0])), //Lesson.parseTime(String(times[0]))
+                                                                     timeEnd: Lesson.parseTimeInterval(from: String(times[1])), //Lesson.parseTime(String(times[1]))
                                                                      type: "",
                                                                      subgroup: "",
                                                                      parity: [:],
@@ -210,7 +210,7 @@ func SSU_parseSched(doc: Document) -> GroupSched {
             }
         }
         scheduleOfGroup.pinSchedule[6].append([true:0, false:0])
-        scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: "Целый день", timeEnd: "Целую ночь", type: "", subgroup: "", parity: [:], name: "Биг Чиллинг!", teacher: "", place: "")]])
+        scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: 0/*Lesson.parseTime(String("00:00"))*/, timeEnd: 86340 /*Lesson.parseTime(String("23:59"))*/, type: "", subgroup: "", parity: [:], name: "Биг Чиллинг!", teacher: "", place: "")]])
     }
     catch {
         print("ERR")

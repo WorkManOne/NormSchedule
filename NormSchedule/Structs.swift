@@ -24,7 +24,8 @@ struct Group: Identifiable, Equatable {
     var uri : String
 }
 
-struct Teacher: Codable {
+struct Teacher: Codable, Identifiable, Equatable {
+    var id : String { uri }
     var name : String
     var uri : String
     

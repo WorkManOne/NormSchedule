@@ -11,10 +11,15 @@ import SwiftData
 @main
 struct NormScheduleApp: App {
     
+    @ObservedObject var provider = WCProvider.shared
+    @ObservedObject var settingsManager = SettingsManager.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
         }.modelContainer(for: GroupSched.self)
+            .environmentObject(provider)
+            .environmentObject(settingsManager)
     }
 }
 

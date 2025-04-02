@@ -12,11 +12,30 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
     @Binding var selection: T?
     let items: [T]
     let searchKeyPath: KeyPath<T, String>
+    let onSelect: ((T) -> Void)?
+    let onDelete: ((IndexSet) -> Void)?
     let rowContent: (T) -> Content
-    let onSelect: ((T) -> Void)? = nil
+
     @Environment(\.presentationMode) var presentationMode
 
     @State private var searchText = ""
+
+    init(title: String,
+         selection: Binding<T?>,
+         items: [T],
+         searchKeyPath: KeyPath<T, String>,
+         onSelect: ((T) -> Void)? = nil,
+         onDelete: ((IndexSet) -> Void)? = nil,
+         @ViewBuilder rowContent: @escaping (T) -> Content
+         ) {
+        self.title = title
+        self._selection = selection
+        self.items = items
+        self.searchKeyPath = searchKeyPath
+        self.rowContent = rowContent
+        self.onSelect = onSelect
+        self.onDelete = onDelete
+    }
 
     var filteredItems: [T] {
         guard !searchText.isEmpty else { return items }
@@ -46,8 +65,12 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
                         }
                     }
                 }
+                .if(onDelete != nil) { view in
+                    view.onDelete(perform: onDelete!)
+                }
             }
             .listStyle(.plain)
+
         }
         .navigationTitle(title)
         .navigationBarBackButtonHidden(true)
@@ -62,6 +85,17 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
                     }
                 }
             }
+        }
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
         }
     }
 }

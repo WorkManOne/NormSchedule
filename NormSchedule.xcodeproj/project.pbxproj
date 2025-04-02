@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */; };
+		7A4FDC962D9C149600A91862 /* RichTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A4FDC952D9C149600A91862 /* RichTextKit */; };
+		7A4FDC982D9C175D00A91862 /* RichTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A4FDC972D9C175D00A91862 /* RichTextKit */; };
 		7A6495B42D402581006F167D /* LessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B32D402581006F167D /* LessonModel.swift */; };
 		7A6495B82D4028F9006F167D /* SettingsManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B72D4028F9006F167D /* SettingsManagerModel.swift */; };
 		7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38D62BA25C2C006B2BB6 /* NormScheduleApp.swift */; };
@@ -31,6 +33,8 @@
 		7AD383E82BCD636900384D1C /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E72BCD636900384D1C /* Structs.swift */; };
 		7AD383EA2BCD63D100384D1C /* ParserSSTU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E92BCD63D100384D1C /* ParserSSTU.swift */; };
 		7AD383EE2BCD64B300384D1C /* ParserMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383ED2BCD64B300384D1C /* ParserMain.swift */; };
+		7ADBF6DB2D9AAB3C00556106 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */; };
+		7ADBF6DC2D9AAB3C00556106 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +99,7 @@
 		7AD383E72BCD636900384D1C /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Structs.swift; path = NormSchedule/Structs.swift; sourceTree = SOURCE_ROOT; };
 		7AD383E92BCD63D100384D1C /* ParserSSTU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserSSTU.swift; sourceTree = "<group>"; };
 		7AD383ED2BCD64B300384D1C /* ParserMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserMain.swift; sourceTree = "<group>"; };
+		7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -106,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A4FDC962D9C149600A91862 /* RichTextKit in Frameworks */,
 				7AC31A552BB97A830099DB76 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A4FDC982D9C175D00A91862 /* RichTextKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +204,7 @@
 			children = (
 				7ACD45502D5D28EB00F6B3BB /* TabBarShape.swift */,
 				7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */,
+				7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -232,6 +240,7 @@
 			name = NormSchedule;
 			packageProductDependencies = (
 				7AC31A542BB97A830099DB76 /* SwiftSoup */,
+				7A4FDC952D9C149600A91862 /* RichTextKit */,
 			);
 			productName = NormSchedule;
 			productReference = 7A7B38D32BA25C2C006B2BB6 /* NormSchedule.app */;
@@ -290,6 +299,7 @@
 			);
 			name = "NormScheduleCompanion Watch App";
 			packageProductDependencies = (
+				7A4FDC972D9C175D00A91862 /* RichTextKit */,
 			);
 			productName = "NormScheduleCompanion Watch App";
 			productReference = 7AC602132D75BC4900154A18 /* NormScheduleCompanion Watch App.app */;
@@ -332,6 +342,7 @@
 			mainGroup = 7A7B38CA2BA25C2C006B2BB6;
 			packageReferences = (
 				7AC31A532BB97A830099DB76 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				7A4FDC942D9C149600A91862 /* XCRemoteSwiftPackageReference "RichTextKit" */,
 			);
 			productRefGroup = 7A7B38D42BA25C2C006B2BB6 /* Products */;
 			projectDirPath = "";
@@ -398,6 +409,7 @@
 				7AC123CC2C1E236A001FD32A /* ScheduleView.swift in Sources */,
 				7A6495B82D4028F9006F167D /* SettingsManagerModel.swift in Sources */,
 				7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */,
+				7ADBF6DB2D9AAB3C00556106 /* Extensions.swift in Sources */,
 				7AC602262D75BCC000154A18 /* WCProvider.swift in Sources */,
 				7ACD45532D5D4BE100F6B3BB /* InfinitePageView.swift in Sources */,
 			);
@@ -421,6 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ADBF6DC2D9AAB3C00556106 /* Extensions.swift in Sources */,
 				7ABAE7332D7761080076B06C /* LessonModel.swift in Sources */,
 				7ABAE7342D7761200076B06C /* GroupSchedModel.swift in Sources */,
 				7AC6022B2D75C3C400154A18 /* SettingsManagerModel.swift in Sources */,
@@ -814,6 +827,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7A4FDC942D9C149600A91862 /* XCRemoteSwiftPackageReference "RichTextKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielsaidi/RichTextKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.2;
+			};
+		};
 		7AC31A532BB97A830099DB76 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
@@ -825,6 +846,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7A4FDC952D9C149600A91862 /* RichTextKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A4FDC942D9C149600A91862 /* XCRemoteSwiftPackageReference "RichTextKit" */;
+			productName = RichTextKit;
+		};
+		7A4FDC972D9C175D00A91862 /* RichTextKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A4FDC942D9C149600A91862 /* XCRemoteSwiftPackageReference "RichTextKit" */;
+			productName = RichTextKit;
+		};
 		7AC31A542BB97A830099DB76 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7AC31A532BB97A830099DB76 /* XCRemoteSwiftPackageReference "SwiftSoup" */;

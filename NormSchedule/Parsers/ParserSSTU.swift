@@ -209,8 +209,8 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
                     // Извлечение информации о преподавателе
                     var simLessons = [Lesson]()
                     for (index, subGroup) in subGroups.enumerated() {
-                        simLessons.append(Lesson(timeStart: times[lessonIndex][0],
-                                                 timeEnd: times[lessonIndex][1],
+                        simLessons.append(Lesson(timeStart: Lesson.parseTimeInterval(from: times[lessonIndex][0]), //Lesson.parseTime(times[lessonIndex][0]),
+                                                 timeEnd: Lesson.parseTimeInterval(from: times[lessonIndex][1]), //Lesson.parseTime(times[lessonIndex][1]),
                                                  type: lessonType,
                                                  subgroup: subGroup,
                                                  parity: weekNum == 1 ? [true : "Нед. 1"] : [false : "Нед. 2"],
@@ -219,8 +219,8 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
                                                  place: rooms[index]))
                     }
                     if simLessons.isEmpty {
-                        simLessons.append(Lesson(timeStart: times[lessonIndex][0],
-                                                 timeEnd: times[lessonIndex][1],
+                        simLessons.append(Lesson(timeStart: Lesson.parseTimeInterval(from: times[lessonIndex][0]), //Lesson.parseTime(times[lessonIndex][0]),
+                                                 timeEnd: Lesson.parseTimeInterval(from: times[lessonIndex][1]), //Lesson.parseTime(times[lessonIndex][1]),
                                                  type: "",
                                                  subgroup: "",
                                                  parity: weekNum == 1 ? [true : "Нед. 1"] : [false : "Нед. 2"],
@@ -249,7 +249,7 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
         }
 
         scheduleOfGroup.pinSchedule[6].append([true:0, false:0])
-        scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: "Целый день", timeEnd: "Целую ночь", type: "", subgroup: "", parity: [:], name: "Биг Чиллинг!", teacher: "", place: "")]])
+        scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: 0/*Lesson.parseTime(String("00:00"))*/, timeEnd: 86340/*Lesson.parseTime(String("23:59"))*/, type: "", subgroup: "", parity: [:], name: "Биг Чиллинг!", teacher: "", place: "")]])
     }
     catch {
         print("ERR")

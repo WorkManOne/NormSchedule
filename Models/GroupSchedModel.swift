@@ -42,7 +42,7 @@ class GroupSched : ObservableObject {
 
 
     func pinnedReform() {
-        let settingsManager = SettingsManager()
+        let settingsManager = SettingsManager.shared
         guard !schedule.isEmpty, !pinSchedule.isEmpty else { return }
 
         for day in 0..<schedule.count {
