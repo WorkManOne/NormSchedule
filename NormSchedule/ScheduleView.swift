@@ -108,7 +108,7 @@ struct ScheduleView: View {
                                 }
                             }
                             else {
-                                DayView(daySched: groupSchedule.schedule[index],
+                                DayView(daySched: $groupSchedule.schedule[index],
                                         pinSched: Binding(
                                             get: { dayViewErrorBlockator(with: index) },
                                             set: { if groupSchedule.pinSchedule.indices.contains(index) { groupSchedule.pinSchedule[index] = $0 } }
@@ -194,6 +194,12 @@ struct ScheduleView: View {
                                date_read: "now",
                                schedule:
                                 [
+                                    [
+                                        [Lesson(timeStart: 30000 /*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000 /*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "Цифровая кафедра", parity: [:], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424"),
+                                         Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000 /*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "Цифровая кафедра", parity: [:], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424")
+                                        ]
+                                    ],
+                                    [],
                                     [
                                         [Lesson(timeStart: 30000 /*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000 /*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "Цифровая кафедра", parity: [:], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424"),
                                          Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000 /*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "Цифровая кафедра", parity: [:], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424")

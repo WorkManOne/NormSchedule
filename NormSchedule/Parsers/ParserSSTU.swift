@@ -180,7 +180,7 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
                     var subGroups = [String]()
 
                     if lessonTeacher.count == 0 {
-                        for i in stride(from: 1, to: lessonRooms.count, by: 1) { //TODO: ОШИБКА с range когда парсится расписание учителя
+                        for i in stride(from: 1, to: lessonRooms.count, by: 1) {
                             let subGroupDetails = try lessonRooms[i].text().split(separator: ": ")
                             print(subGroupDetails)
                             subGroups.append(subGroupDetails.count > 0 ? String(subGroupDetails[0]) : "")
@@ -194,7 +194,7 @@ func SSTU_parseSched(doc: Document) -> GroupSched {
                             rooms.append(try lessonRooms[0].text())
                         }
                         else {
-                            for i in stride(from: 0, to: lessonRooms.count, by: 2) { //TODO: ОШИБКА с range когда парсится расписание учителя
+                            for i in stride(from: 0, to: lessonRooms.count, by: 2) {
                                 teachers.append(try lessonTeacher[i/2].text())
                                 subGroups.append(try lessonRooms[i].text())
                                 rooms.append(try lessonRooms[i+1].text())

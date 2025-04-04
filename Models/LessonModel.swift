@@ -19,6 +19,7 @@ struct Lesson : Identifiable, Hashable {
     var teacher : String
     var place : String
     var note : NSAttributedString
+    var isHidden : Bool
 
     private static let timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -51,7 +52,8 @@ struct Lesson : Identifiable, Hashable {
         name: String,
         teacher: String,
         place: String,
-        note: NSAttributedString = NSAttributedString(string: "")
+        note: NSAttributedString = NSAttributedString(string: ""),
+        isHidden: Bool = false
     ) {
         self.id = id
         self.timeStart = timeStart
@@ -63,11 +65,9 @@ struct Lesson : Identifiable, Hashable {
         self.teacher = teacher
         self.place = place
         self.note = note
+        self.isHidden = isHidden
     }
 
-//    func timeString() -> String {
-//        return "\(timeStart) - \(timeEnd)" // "\(Lesson.timeFormatter.string(from: timeStart)) - \(Lesson.timeFormatter.string(from: timeEnd))"
-//    }
     func timeString() -> String {
         let start = Lesson.timeFormatter.string(from: Date(timeIntervalSinceReferenceDate: timeStart))
         let end = Lesson.timeFormatter.string(from: Date(timeIntervalSinceReferenceDate: timeEnd))
@@ -85,7 +85,7 @@ struct Lesson : Identifiable, Hashable {
 
 extension Lesson : Codable {
     enum CodingKeys: String, CodingKey {
-        case timeStart, timeEnd, type, subgroup, name, teacher, place, parity, note
+        case timeStart, timeEnd, type, subgroup, name, teacher, place, parity, note, isHidden
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -109,7 +109,7 @@ extension Lesson : Codable {
         name = try container.decode(String.self, forKey: .name)
         teacher = try container.decode(String.self, forKey: .teacher)
         place = try container.decode(String.self, forKey: .place)
-
+        isHidden = try container.decode(Bool.self, forKey: .isHidden)
         let noteData = try container.decode(Data.self, forKey: .note)
         do {
             if let unarchivedNote = try NSKeyedUnarchiver.unarchivedObject(
@@ -141,6 +141,7 @@ extension Lesson : Codable {
         try container.encode(name, forKey: .name)
         try container.encode(teacher, forKey: .teacher)
         try container.encode(place, forKey: .place)
+        try container.encode(isHidden, forKey: .isHidden)
 
         let noteData = try NSKeyedArchiver.archivedData(
             withRootObject: note,

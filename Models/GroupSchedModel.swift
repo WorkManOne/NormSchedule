@@ -21,15 +21,26 @@ class GroupSched : ObservableObject {
         self.date_read = date_read
     }
 
-    required init(from decoder:Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        university = try values.decode(String.self, forKey: .university)
-        faculty = try values.decode(String.self, forKey: .faculty)
-        group = try values.decode(String.self, forKey: .group)
-        id = try values.decode(UUID.self, forKey: .id)
-        schedule = try values.decode([[[Lesson]]].self, forKey: .schedule)
-        pinSchedule = try values.decode([[[Bool:Int]]].self, forKey: .pinSchedule)
-        date_read = try values.decode(String.self, forKey: .date_read)
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.university = (try? container.decode(String.self, forKey: .university)) ?? "Неизвестный университет"
+        self.faculty = (try? container.decode(String.self, forKey: .faculty)) ?? ""
+        self.group = (try? container.decode(String.self, forKey: .group)) ?? "Название группы не указано"
+        self.id = (try? container.decode(UUID.self, forKey: .id)) ?? UUID()
+        self.date_read = (try? container.decode(String.self, forKey: .date_read)) ?? ""
+
+        do {
+            self.schedule = try container.decode([[[Lesson]]].self, forKey: .schedule)
+        } catch {
+            self.schedule = []
+        }
+
+        do {
+            self.pinSchedule = try container.decode([[[Bool:Int]]].self, forKey: .pinSchedule)
+        } catch {
+            self.pinSchedule = []
+        }
     }
 
     var university : String

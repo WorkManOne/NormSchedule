@@ -56,7 +56,7 @@ struct SingleLessonView: View {
     }
 }
 
-struct DetailedLessonView: View {
+struct DetailLessonView: View {
     let lesson: Lesson
     let isPinnedTrue: Bool
     let isPinnedFalse: Bool
@@ -137,7 +137,7 @@ struct LessonView: View {
         .sheet(isPresented: $isShowingDetail) {
             List { //ScrollView looks worse, ux better
                 ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
-                    DetailedLessonView(lesson: lesson, isPinnedTrue: index == pinned[true], isPinnedFalse: index == pinned[false],
+                    DetailLessonView(lesson: lesson, isPinnedTrue: index == pinned[true], isPinnedFalse: index == pinned[false],
                                      isShown: (lesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || lesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 || lesson.parity.isEmpty || settingsManager.isEvenWeek == 0))
                     .tag(index)
                 }
