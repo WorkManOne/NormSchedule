@@ -47,7 +47,7 @@ struct ContentView: View {
     @State private var selectedTeacher : Teacher?
 
     var body: some View {
-            TabView {
+            TabView { //TODO: Попробовать убрать этот TabView, потому что он сеет баги при навигации, и дает меньше возможностей по кастомизации, сделать кастомный?
                 ScheduleView(groupSchedule: selectedSchedule ?? GroupSched(university: "", faculty: "", group: "badInit", date_read: "", schedule: [], pinSchedule: [])) //TODO: решить случай nil
                     .environmentObject(settingsManager)
                     .tabItem { Image(systemName: "book.pages.fill").imageScale(.large) }

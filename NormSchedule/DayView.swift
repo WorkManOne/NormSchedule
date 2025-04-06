@@ -14,10 +14,10 @@ struct DayView: View {
 
     var body: some View {
         ScrollView {
-            VStack {
+            LazyVStack {
                 ForEach(daySched.indices, id: \.self) { index in
                     LessonView(lessons: $daySched[index], pinned: $pinSched[index])
-                        //.frame(height: 210) //TODO: Регулирует вертикальный пробел между [Lesson] элементами, а также не дает им быть меньшего чем это задано в LesoonView размера (там frame height 140 тоже стоит) это странная хуйня и мне это не нравится, но без нее уроки сворачивает нахуй
+                        //.frame(height: 210) //TODO: Регулирует вертикальный пробел между [Lesson] элементами, а также не дает им быть меньшего чем это задано в LesoonView размера (там frame height 140 тоже стоит) это странная хуйня и мне это не нравится, но без нее уроки сворачивает нахуй -> переместилось в LessonView
                 }
             }
             .padding(settingsManager.dayTabBarPosition ? .top : .bottom, 80) //Вот тут можно регулировать отступ, по хорошему менять при изменении по комменту указанному выше

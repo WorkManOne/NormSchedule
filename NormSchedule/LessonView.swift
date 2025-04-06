@@ -13,133 +13,145 @@ struct LessonView: View {
     @Binding var pinned : [Bool:Int]
     @State private var active = 0
     @State private var showDetail = false
+    @State private var showVisibilitySettings = false
+    //    @State private var cornerRadius : CGFloat = 25
+    //    @State private var frameHeight : CGFloat = 100
     //@State var isShown = true
-    
-//    
-//    
-//    init(lessons: [Lesson], pinned: Binding<[Bool:Int]>) {
-//        self.lessons = lessons
-//        self._pinned = pinned
-//        self._active = State(wrappedValue: 0)
-//    }
-    
+
+    //
+    //
+    //    init(lessons: [Lesson], pinned: Binding<[Bool:Int]>) {
+    //        self.lessons = lessons
+    //        self._pinned = pinned
+    //        self._active = State(wrappedValue: 0)
+    //    }
+
     var body: some View {
-        //let isHidden = lessons.allSatisfy { $0.isHidden }
+        let allHidden = lessons.allSatisfy { $0.isHidden }
         TabView (selection: $active) {
             ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
-                VStack (alignment: .center) {
-//                    HStack {
-//                        Spacer()
-//                    }
-                    //Text("\(active) \(pinned[true]!) \(pinned[false]!)")
-                    //if !isHidden {
-                        HStack (alignment: .center) {
-                            Text(lesson.subgroup)
+                if !lesson.isHidden || (allHidden && lesson == lessons.first) {
+                    ZStack {
+                        HStack {
                             Spacer()
-                            Text("\(lesson.timeString())")
-                            Spacer()
-                            Text(lesson.type)
-                            ZStack {
-                                Image(systemName: "pin.fill")
-                                    .foregroundStyle(.blue)
-                                    .opacity(index == pinned[true] ? 0.75 : 0)
-                                //.scaleEffect(1.5)
-                                Image(systemName: "pin.fill")
-                                    .foregroundStyle(.red)
-                                    .opacity(index == pinned[false] ? 0.75 : 0)
-                            }
                         }
-                        Spacer()
-                        HStack (alignment: .center) {
-                            Text(lesson.name)
-                                .fontWeight(.bold)
-                                .padding(5)
-                                .multilineTextAlignment(.center)
-                        }
-                        Spacer()
-                        HStack (alignment: .center) {
-                            Text(lesson.teacher)
-                            Spacer()
-                            if !lesson.parity.isEmpty {
-                                if let firstParity = lesson.parity.first {
-                                    Text(firstParity.value)
-                                        .foregroundColor(.red)
-                                }
-                                else { Text("") }
-                            }
-                            else { Text("") }
-                            Spacer()
-                            Text(lesson.place)
-                        }
-                    //}
-                }
-                .frame(maxWidth: .infinity, maxHeight: 140)
-                .padding(.bottom)
-                .padding()
-                .background {
-                    ZStack (alignment: .topTrailing) {
                         RoundedRectangle(cornerRadius: 25)
-                            .fill(Color("frameColor"))
-                            //.shadow(color: .gray.opacity(0.5), radius: 2)
-                        VStack {
-                            HStack {
-                                Spacer()
-                                if !lesson.note.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                    Path { path in
-                                        path.move(to: CGPoint(x: 0, y: 0))
-                                        path.addLine(to: CGPoint(x: 35, y: 35))
-                                        path.addLine(to: CGPoint(x: 35, y: 0))
-                                        path.closeSubpath()
+                                .fill(Color("frameColor"))
+                                .overlay(alignment: .topTrailing) {
+                                    if !lesson.note.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                        Path { path in
+                                            path.move(to: CGPoint(x: 0, y: 0))
+                                            path.addLine(to: CGPoint(x: 35, y: 35))
+                                            path.addLine(to: CGPoint(x: 35, y: 0))
+                                            path.closeSubpath()
+                                        }
+                                        .fill(Color.yellow)
+                                        .frame(width: 35, height: 35)
                                     }
-                                    .fill(Color.yellow)
-                                    .frame(width: 35, height: 35)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                                .shadow(color: .gray.opacity(0.5), radius: 2)
+
+                        if !allHidden {
+                            VStack (alignment: .center) {
+                                HStack (alignment: .center) {
+                                    Text(lesson.subgroup)
+                                    Spacer()
+                                    Text("\(lesson.timeString())")
+                                    Spacer()
+                                    Text(lesson.type)
+                                    ZStack {
+                                        Image(systemName: "pin.fill")
+                                            .foregroundStyle(.blue)
+                                            .opacity(index == pinned[true] ? 0.75 : 0)
+                                        Image(systemName: "pin.fill")
+                                            .foregroundStyle(.red)
+                                            .opacity(index == pinned[false] ? 0.75 : 0)
+                                    }
+                                }
+                                Spacer()
+                                HStack (alignment: .center) {
+                                    Text(lesson.name)
+                                        .fontWeight(.bold)
+                                        .padding(5)
+                                        .multilineTextAlignment(.center)
+                                }
+                                Spacer()
+                                HStack (alignment: .center) {
+                                    Text(lesson.teacher)
+                                    Spacer()
+                                    if !lesson.parity.isEmpty {
+                                        if let firstParity = lesson.parity.first {
+                                            Text(firstParity.value)
+                                                .foregroundColor(.red)
+                                        }
+                                        else { Text("") }
+                                    }
+                                    else { Text("") }
+                                    Spacer()
+                                    Text(lesson.place)
                                 }
                             }
-                            Spacer()
+                            .padding(.bottom)
+                            .padding()
+                        } else {
+                            HStack (alignment: .center) {
+                                Spacer()
+                                Text("\(lesson.timeString())")
+                                Spacer()
+                            }
                         }
                     }
-                    .clipShape (
-                        RoundedRectangle(cornerRadius: 25)
-                    )
-                    .shadow(color: .gray.opacity(0.5), radius: 2)
-                }
-                .opacity((lesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || lesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 || lesson.parity.isEmpty || settingsManager.isEvenWeek == 0) ? 1 : 0.4)
-                .contextMenu {
-                    Button(action: {
-                        if (lessons[active].parity.keys.contains(false)
-                            && !lessons.allSatisfy { l in l.parity.keys.contains(false) }) {
-                            pinned[false] = active
-                        }
-                        else if (lessons[active].parity.keys.contains(true)
-                                 && !lessons.allSatisfy { l in l.parity.keys.contains(true) }) {
-                            pinned[true] = active
-                        }
-                        else {
-                            pinned[true] = active
-                            pinned[false] = active
-                        }
-                    }) {
-                        Text("Закрепить")
-                        Image(systemName: "pin.fill")
-                    }
-                    Button(action: {
-                        showDetail = true
-                    }) {
-                        Text("Подробнее")
-                        Image(systemName: "info.circle")
-                    }
-                    Button(action: {
-                        withAnimation {
-                            lessons[active].isHidden.toggle()
-                        }
+                    .opacity((lesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || lesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 || lesson.parity.isEmpty || settingsManager.isEvenWeek == 0) ? 1 : 0.4)
+                        .overlay(
+                            Color.clear
+                                .contentShape(RoundedRectangle(cornerRadius: 25))
+                                .contextMenu(menuItems: { //TODO: Важное замечание: происходит странный баланс между переменными active и index? Какую же все таки использовать. Так например active не всегда правильно переопределяется при скрытии пар, но помогает поместить контекстное меню куда угодно! Контекстное меню ломает анимацию при скрытии!
+                                    Button(action: {
+                                        if (lessons[index].parity.keys.contains(false)
+                                            && !lessons.allSatisfy { l in l.parity.keys.contains(false) }) {
+                                            pinned[false] = active
+                                        }
+                                        else if (lessons[index].parity.keys.contains(true)
+                                                 && !lessons.allSatisfy { l in l.parity.keys.contains(true) }) {
+                                            pinned[true] = active
+                                        }
+                                        else {
+                                            pinned[true] = index
+                                            pinned[false] = index
+                                        }
+                                    }) {
+                                        Text("Закрепить")
+                                        Image(systemName: "pin.fill")
+                                    }
+                                    Button(action: {
+                                        showDetail = true
+                                    }) {
+                                        Text("Подробнее")
+                                        Image(systemName: "info.circle")
+                                    }
+                                    Button {
+                                        withAnimation {
+                                            lessons[index].isHidden.toggle()
+                                        }
+                                    } label: {
+                                        Label(
+                                            lessons[index].isHidden ? "Показать пару" : "Скрыть пару",
+                                            systemImage: lessons[index].isHidden ? "eye" : "eye.slash"
+                                        )
+                                    }
+                                    Button {
+                                        showVisibilitySettings = true
+                                    } label: {
+                                        Label("Управление видимостью", systemImage: "list.bullet")
+                                    }
 
-                    }) {
-                        Text(lessons[active].isHidden ? "Показать пару" : "Скрыть пару")
-                        Image(systemName: lessons[active].isHidden ? "eye" : "eye.slash")
-                    }
-
+                                }, preview: {
+                                    LessonCardView(lesson: lesson, allHidden: allHidden, index: index, pinned: pinned)
+                                })
+                        )
+                        .tag(index)
                 }
-                .tag(index)
             }
             .padding(.horizontal, 10)
             .onAppear {
@@ -151,22 +163,25 @@ struct LessonView: View {
                     active = pinned[true] ?? 0
                 }
             }
+            .frame(height: allHidden ? 35 : 180)
         }
-//        .onChange(of: pinned) {
-//            if (settingsManager.isEvenWeek == 2) {
-//                active = pinned[false] ?? 0
-//            }
-//            else {
-//                active = pinned[true] ?? 0
-//            }
-//        }
-        .frame(height: /*isHidden ? 20 : */210)
-        .tabViewStyle(.page(indexDisplayMode: .automatic))
+        //        .onChange(of: pinned) {
+        //            if (settingsManager.isEvenWeek == 2) {
+        //                active = pinned[false] ?? 0
+        //            }
+        //            else {
+        //                active = pinned[true] ?? 0
+        //            }
+        //        }
+        .frame(height: allHidden ? 40 : 210)
+        .tabViewStyle(.page(indexDisplayMode: allHidden ? .never : .automatic))
         .sheet(isPresented: $showDetail) {
             DetailLessonView(lesson: $lessons[active])
         }
+        .sheet(isPresented: $showVisibilitySettings) {
+            LessonVisibilityManagementView(lessons: $lessons)
+        }
     }
-    
 }
 
 #Preview {
