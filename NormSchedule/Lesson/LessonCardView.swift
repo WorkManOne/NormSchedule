@@ -85,7 +85,7 @@ struct LessonCardView: View {
                 }
             }
         }
-        .frame(height: allHidden ? 35 : 180)
+        .frame(height: allHidden ? 50 : 180)
     }
 }
 

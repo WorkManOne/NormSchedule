@@ -17,7 +17,7 @@ struct SingleLessonView: View {
     var body: some View {
         VStack (alignment: .center) {
             HStack (alignment: .center) {
-                Text("\(lesson.timeStart) - \(lesson.timeEnd)")
+                Text(lesson.timeString())
                     .font(.system(size: 12))
                 Spacer()
                 Text(lesson.type)
@@ -56,7 +56,7 @@ struct SingleLessonView: View {
     }
 }
 
-struct DetailLessonView: View {
+struct LessonDetailView: View {
     let lesson: Lesson
     let isPinnedTrue: Bool
     let isPinnedFalse: Bool
@@ -65,7 +65,7 @@ struct DetailLessonView: View {
     var body: some View {
         VStack (alignment: .center) {
             HStack (alignment: .center) {
-                Text("\(lesson.timeStart) - \(lesson.timeEnd)")
+                Text(lesson.timeString())
                     .font(.system(size: 12))
                 Spacer()
                 Text(lesson.type)
@@ -137,7 +137,7 @@ struct LessonView: View {
         .sheet(isPresented: $isShowingDetail) {
             List { //ScrollView looks worse, ux better
                 ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
-                    DetailLessonView(lesson: lesson, isPinnedTrue: index == pinned[true], isPinnedFalse: index == pinned[false],
+                    LessonDetailView(lesson: lesson, isPinnedTrue: index == pinned[true], isPinnedFalse: index == pinned[false],
                                      isShown: (lesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || lesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 || lesson.parity.isEmpty || settingsManager.isEvenWeek == 0))
                     .tag(index)
                 }

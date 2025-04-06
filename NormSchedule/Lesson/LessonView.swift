@@ -36,21 +36,22 @@ struct LessonView: View {
                             Spacer()
                         }
                         RoundedRectangle(cornerRadius: 25)
-                                .fill(Color("frameColor"))
-                                .overlay(alignment: .topTrailing) {
-                                    if !lesson.note.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                        Path { path in
-                                            path.move(to: CGPoint(x: 0, y: 0))
-                                            path.addLine(to: CGPoint(x: 35, y: 35))
-                                            path.addLine(to: CGPoint(x: 35, y: 0))
-                                            path.closeSubpath()
-                                        }
-                                        .fill(Color.yellow)
-                                        .frame(width: 35, height: 35)
+                            .fill(Color("frameColor"))
+                            .overlay(alignment: .topTrailing) {
+                                if !lesson.note.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                    Path { path in
+                                        path.move(to: CGPoint(x: 0, y: 0))
+                                        path.addLine(to: CGPoint(x: 35, y: 35))
+                                        path.addLine(to: CGPoint(x: 35, y: 0))
+                                        path.closeSubpath()
                                     }
+                                    .fill(Color.yellow)
+                                    .frame(width: 35, height: 35)
                                 }
-                                .clipShape(RoundedRectangle(cornerRadius: 25))
-                                .shadow(color: .gray.opacity(0.5), radius: 2)
+
+                            }
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                            .shadow(color: .gray.opacity(0.5), radius: 2)
 
                         if !allHidden {
                             VStack (alignment: .center) {
@@ -103,54 +104,55 @@ struct LessonView: View {
                         }
                     }
                     .opacity((lesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || lesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 || lesson.parity.isEmpty || settingsManager.isEvenWeek == 0) ? 1 : 0.4)
-                        .overlay(
-                            Color.clear
-                                .contentShape(RoundedRectangle(cornerRadius: 25))
-                                .contextMenu(menuItems: { //TODO: Важное замечание: происходит странный баланс между переменными active и index? Какую же все таки использовать. Так например active не всегда правильно переопределяется при скрытии пар, но помогает поместить контекстное меню куда угодно! Контекстное меню ломает анимацию при скрытии!
-                                    Button(action: {
-                                        if (lessons[index].parity.keys.contains(false)
-                                            && !lessons.allSatisfy { l in l.parity.keys.contains(false) }) {
-                                            pinned[false] = active
-                                        }
-                                        else if (lessons[index].parity.keys.contains(true)
-                                                 && !lessons.allSatisfy { l in l.parity.keys.contains(true) }) {
-                                            pinned[true] = active
-                                        }
-                                        else {
-                                            pinned[true] = index
-                                            pinned[false] = index
-                                        }
-                                    }) {
-                                        Text("Закрепить")
-                                        Image(systemName: "pin.fill")
+                    .frame(height: allHidden ? 50 : 180)
+                    .overlay(
+                        Color.clear
+                            .contentShape(RoundedRectangle(cornerRadius: 25))
+                            .contextMenu(menuItems: { //TODO: Важное замечание: происходит странный баланс между переменными active и index? Какую же все таки использовать. Так например active не всегда правильно переопределяется при скрытии пар, но помогает поместить контекстное меню куда угодно! Контекстное меню ломает анимацию при скрытии!
+                                Button(action: {
+                                    if (lessons[index].parity.keys.contains(false)
+                                        && !lessons.allSatisfy { l in l.parity.keys.contains(false) }) {
+                                        pinned[false] = active
                                     }
-                                    Button(action: {
-                                        showDetail = true
-                                    }) {
-                                        Text("Подробнее")
-                                        Image(systemName: "info.circle")
+                                    else if (lessons[index].parity.keys.contains(true)
+                                             && !lessons.allSatisfy { l in l.parity.keys.contains(true) }) {
+                                        pinned[true] = active
                                     }
-                                    Button {
-                                        withAnimation {
-                                            lessons[index].isHidden.toggle()
-                                        }
-                                    } label: {
-                                        Label(
-                                            lessons[index].isHidden ? "Показать пару" : "Скрыть пару",
-                                            systemImage: lessons[index].isHidden ? "eye" : "eye.slash"
-                                        )
+                                    else {
+                                        pinned[true] = index
+                                        pinned[false] = index
                                     }
-                                    Button {
-                                        showVisibilitySettings = true
-                                    } label: {
-                                        Label("Управление видимостью", systemImage: "list.bullet")
+                                }) {
+                                    Text("Закрепить")
+                                    Image(systemName: "pin.fill")
+                                }
+                                Button(action: {
+                                    showDetail = true
+                                }) {
+                                    Text("Подробнее")
+                                    Image(systemName: "info.circle")
+                                }
+                                Button {
+                                    withAnimation {
+                                        lessons[index].isHidden.toggle()
                                     }
+                                } label: {
+                                    Label(
+                                        lessons[index].isHidden ? "Показать пару" : "Скрыть пару",
+                                        systemImage: lessons[index].isHidden ? "eye" : "eye.slash"
+                                    )
+                                }
+                                Button {
+                                    showVisibilitySettings = true
+                                } label: {
+                                    Label("Управление видимостью", systemImage: "list.bullet")
+                                }
 
-                                }, preview: {
-                                    LessonCardView(lesson: lesson, allHidden: allHidden, index: index, pinned: pinned)
-                                })
-                        )
-                        .tag(index)
+                            }, preview: {
+                                LessonCardView(lesson: lesson, allHidden: allHidden, index: index, pinned: pinned)
+                            })
+                    )
+                    .tag(index)
                 }
             }
             .padding(.horizontal, 10)
@@ -163,7 +165,6 @@ struct LessonView: View {
                     active = pinned[true] ?? 0
                 }
             }
-            .frame(height: allHidden ? 35 : 180)
         }
         //        .onChange(of: pinned) {
         //            if (settingsManager.isEvenWeek == 2) {
@@ -173,10 +174,30 @@ struct LessonView: View {
         //                active = pinned[true] ?? 0
         //            }
         //        }
-        .frame(height: allHidden ? 40 : 210)
+        .frame(height: allHidden ? 55 : 210)
         .tabViewStyle(.page(indexDisplayMode: allHidden ? .never : .automatic))
+        .overlay {
+            if lessons.filter({ $0.isHidden }).count > 0 && !allHidden {
+                    let hiddenCount = lessons.filter { $0.isHidden }.count
+
+                    Text("Ещё \(hiddenCount) скрыт\(hiddenCount == 1 ? "ая пара" : hiddenCount < 5 ? "ые пары" : "ых пар")")
+                        .font(.caption)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(Color.secondary.opacity(0.15))
+                        .cornerRadius(12)
+                        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.secondary.opacity(0.3)))
+                        .shadow(radius: 2)
+                        .padding(.trailing, 16)
+                        .padding(.bottom, 6)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                }
+            else {
+                Text("")
+            }
+        }
         .sheet(isPresented: $showDetail) {
-            DetailLessonView(lesson: $lessons[active])
+            LessonDetailView(lesson: $lessons[active])
         }
         .sheet(isPresented: $showVisibilitySettings) {
             LessonVisibilityManagementView(lessons: $lessons)

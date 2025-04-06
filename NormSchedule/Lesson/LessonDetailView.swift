@@ -8,7 +8,7 @@
 import SwiftUI
 import RichTextKit
 
-struct DetailLessonView: View {
+struct LessonDetailView: View {
     @Binding var lesson: Lesson
     @Environment(\.presentationMode) var presentationMode
     @State private var editedNote = NSAttributedString()
@@ -135,6 +135,6 @@ struct DetailLessonView: View {
 }
 
 #Preview {
-    DetailLessonView(lesson: .constant(Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000/*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "Цифровая кафедра", parity: [true: "чет."], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424")))
+    LessonDetailView(lesson: .constant(Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000/*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "Цифровая кафедра", parity: [true: "чет."], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424")))
 }
 
