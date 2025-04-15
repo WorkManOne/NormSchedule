@@ -19,7 +19,7 @@ struct DayView: View {
             Text(day)
             List {
                 ForEach (daySched.indices, id: \.self) { index in
-                    LessonView(lessons: daySched[index], pinned: $pinSched[index])
+                    LessonsView(lessons: daySched[index], pinned: $pinSched[index])
                         .frame(height: 100)
                 }
             }

@@ -48,19 +48,19 @@ class WCProvider: NSObject, WCSessionDelegate, ObservableObject {
         }
     }
     private func saveSchedule(_ schedule: GroupSched) {
-            if let encoded = try? JSONEncoder().encode(schedule) {
-                UserDefaults.standard.set(encoded, forKey: "schedule")
-                print("Schedule saved to UserDefaults")
-            }
+        if let encoded = try? JSONEncoder().encode(schedule) {
+            UserDefaults.standard.set(encoded, forKey: "schedule")
+            print("Schedule saved to UserDefaults")
         }
-
-        private func loadSchedule() {
-            if let data = UserDefaults.standard.data(forKey: "schedule"),
-               let decoded = try? JSONDecoder().decode(GroupSched.self, from: data) {
-                self.receivedSchedule = decoded
-                print("Schedule loaded from UserDefaults")
-            }
+    }
+    
+    private func loadSchedule() {
+        if let data = UserDefaults.standard.data(forKey: "schedule"),
+           let decoded = try? JSONDecoder().decode(GroupSched.self, from: data) {
+            self.receivedSchedule = decoded
+            print("Schedule loaded from UserDefaults")
         }
+    }
 }
 
 
