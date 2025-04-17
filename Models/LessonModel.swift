@@ -74,6 +74,7 @@ struct Lesson : Identifiable, Hashable {
         return "\(start) - \(end)"
     }
 
+
 //    func isCurrent(now: Date = Date()) -> Bool {
 //        return now >= timeStart && now <= timeEnd
 //    }

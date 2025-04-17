@@ -13,6 +13,10 @@
 		7A4FDC962D9C149600A91862 /* RichTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A4FDC952D9C149600A91862 /* RichTextKit */; };
 		7A4FDC982D9C175D00A91862 /* RichTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A4FDC972D9C175D00A91862 /* RichTextKit */; };
 		7A4FDD032D9DFF7E00A91862 /* LessonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4FDD022D9DFF7E00A91862 /* LessonDetailView.swift */; };
+		7A516C572DAE415300E97730 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A516C562DAE415300E97730 /* WidgetKit.framework */; };
+		7A516C592DAE415300E97730 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A516C582DAE415300E97730 /* SwiftUI.framework */; };
+		7A516C642DAE415400E97730 /* NormWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7A516C542DAE415300E97730 /* NormWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7A516C6A2DAE491E00E97730 /* LessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B32D402581006F167D /* LessonModel.swift */; };
 		7A6495B42D402581006F167D /* LessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B32D402581006F167D /* LessonModel.swift */; };
 		7A6495B82D4028F9006F167D /* SettingsManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B72D4028F9006F167D /* SettingsManagerModel.swift */; };
 		7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38D62BA25C2C006B2BB6 /* NormScheduleApp.swift */; };
@@ -41,6 +45,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7A516C622DAE415400E97730 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A7B38CB2BA25C2C006B2BB6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A516C532DAE415300E97730;
+			remoteInfo = NormWidgetExtension;
+		};
 		7A7B38E42BA25C2D006B2BB6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A7B38CB2BA25C2C006B2BB6 /* Project object */;
@@ -65,6 +76,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7A516C692DAE415400E97730 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7A516C642DAE415400E97730 /* NormWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AC602212D75BC4B00154A18 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -83,6 +105,9 @@
 		7A33F7372DA21922003394B6 /* LessonVisibilityManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonVisibilityManagementView.swift; sourceTree = "<group>"; };
 		7A33F7482DA23AF3003394B6 /* LessonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCardView.swift; sourceTree = "<group>"; };
 		7A4FDD022D9DFF7E00A91862 /* LessonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailView.swift; sourceTree = "<group>"; };
+		7A516C542DAE415300E97730 /* NormWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NormWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A516C562DAE415300E97730 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		7A516C582DAE415300E97730 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		7A6495B32D402581006F167D /* LessonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonModel.swift; sourceTree = "<group>"; };
 		7A6495B72D4028F9006F167D /* SettingsManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManagerModel.swift; sourceTree = "<group>"; };
 		7A7B38D32BA25C2C006B2BB6 /* NormSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NormSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,11 +133,31 @@
 		7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7A516C652DAE415400E97730 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 7A516C532DAE415300E97730 /* NormWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		7A516C5A2DAE415300E97730 /* NormWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7A516C652DAE415400E97730 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = NormWidget; sourceTree = "<group>"; };
 		7AC602142D75BC4900154A18 /* NormScheduleCompanion Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "NormScheduleCompanion Watch App"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7A516C512DAE415300E97730 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A516C592DAE415300E97730 /* SwiftUI.framework in Frameworks */,
+				7A516C572DAE415300E97730 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A7B38D02BA25C2C006B2BB6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -158,6 +203,15 @@
 			path = Lesson;
 			sourceTree = "<group>";
 		};
+		7A516C552DAE415300E97730 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A516C562DAE415300E97730 /* WidgetKit.framework */,
+				7A516C582DAE415300E97730 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7A6495B62D4025FE006F167D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +228,8 @@
 				7A6495B62D4025FE006F167D /* Models */,
 				7A7B38D52BA25C2C006B2BB6 /* NormSchedule */,
 				7AC602142D75BC4900154A18 /* NormScheduleCompanion Watch App */,
+				7A516C5A2DAE415300E97730 /* NormWidget */,
+				7A516C552DAE415300E97730 /* Frameworks */,
 				7A7B38D42BA25C2C006B2BB6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -185,6 +241,7 @@
 				7A7B38E32BA25C2D006B2BB6 /* NormScheduleTests.xctest */,
 				7A7B38ED2BA25C2D006B2BB6 /* NormScheduleUITests.xctest */,
 				7AC602132D75BC4900154A18 /* NormScheduleCompanion Watch App.app */,
+				7A516C542DAE415300E97730 /* NormWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -240,6 +297,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7A516C532DAE415300E97730 /* NormWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A516C662DAE415400E97730 /* Build configuration list for PBXNativeTarget "NormWidgetExtension" */;
+			buildPhases = (
+				7A516C502DAE415300E97730 /* Sources */,
+				7A516C512DAE415300E97730 /* Frameworks */,
+				7A516C522DAE415300E97730 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7A516C5A2DAE415300E97730 /* NormWidget */,
+			);
+			name = NormWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = NormWidgetExtension;
+			productReference = 7A516C542DAE415300E97730 /* NormWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		7A7B38D22BA25C2C006B2BB6 /* NormSchedule */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A7B38F72BA25C2D006B2BB6 /* Build configuration list for PBXNativeTarget "NormSchedule" */;
@@ -248,11 +327,13 @@
 				7A7B38D02BA25C2C006B2BB6 /* Frameworks */,
 				7A7B38D12BA25C2C006B2BB6 /* Resources */,
 				7AC602212D75BC4B00154A18 /* Embed Watch Content */,
+				7A516C692DAE415400E97730 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				7AC6021F2D75BC4B00154A18 /* PBXTargetDependency */,
+				7A516C632DAE415400E97730 /* PBXTargetDependency */,
 			);
 			name = NormSchedule;
 			packageProductDependencies = (
@@ -332,6 +413,9 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
+					7A516C532DAE415300E97730 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					7A7B38D22BA25C2C006B2BB6 = {
 						CreatedOnToolsVersion = 15.3;
 					};
@@ -369,11 +453,19 @@
 				7A7B38E22BA25C2D006B2BB6 /* NormScheduleTests */,
 				7A7B38EC2BA25C2D006B2BB6 /* NormScheduleUITests */,
 				7AC602122D75BC4900154A18 /* NormScheduleCompanion Watch App */,
+				7A516C532DAE415300E97730 /* NormWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7A516C522DAE415300E97730 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A7B38D12BA25C2C006B2BB6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -408,6 +500,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7A516C502DAE415300E97730 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A516C6A2DAE491E00E97730 /* LessonModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A7B38CF2BA25C2C006B2BB6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -463,6 +563,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7A516C632DAE415400E97730 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A516C532DAE415300E97730 /* NormWidgetExtension */;
+			targetProxy = 7A516C622DAE415400E97730 /* PBXContainerItemProxy */;
+		};
 		7A7B38E52BA25C2D006B2BB6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7A7B38D22BA25C2C006B2BB6 /* NormSchedule */;
@@ -481,6 +586,62 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		7A516C672DAE415400E97730 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GC734AS7G4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NormWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NormWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = keril.NormSchedule.NormWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A516C682DAE415400E97730 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GC734AS7G4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NormWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NormWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = keril.NormSchedule.NormWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		7A7B38F52BA25C2D006B2BB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -605,16 +766,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NormSchedule/Preview Content\"";
 				DEVELOPMENT_TEAM = GC734AS7G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NormSchedule/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Norm;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -639,16 +802,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NormSchedule/Preview Content\"";
 				DEVELOPMENT_TEAM = GC734AS7G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NormSchedule/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Norm;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -799,6 +964,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7A516C662DAE415400E97730 /* Build configuration list for PBXNativeTarget "NormWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A516C672DAE415400E97730 /* Debug */,
+				7A516C682DAE415400E97730 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7A7B38CE2BA25C2C006B2BB6 /* Build configuration list for PBXProject "NormSchedule" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
