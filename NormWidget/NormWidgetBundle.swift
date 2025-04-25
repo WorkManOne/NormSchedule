@@ -11,7 +11,8 @@ import SwiftUI
 @main
 struct NormWidgetBundle: WidgetBundle {
     var body: some Widget {
-        NextAccessoryWidget()
+        ProgressAccessoryWidget()
+        TimeLeftAccessoryWidget()
         CurNextWidget()
         LargeListWidget()
     }

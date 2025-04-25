@@ -267,6 +267,7 @@ struct ContentView: View {
                             searchKeyPath: \.group,
                             onSelect: { item in
                                 provider.updateSchedule(schedule: item)
+                                DataManager().save(schedule: item, parity: settingsManager.isEvenWeek)
                             },
                             onDelete: deleteSchedules
                         ) { item in

@@ -74,6 +74,16 @@ struct Lesson : Identifiable, Hashable {
         return "\(start) - \(end)"
     }
 
+    func timeStartString() -> String {
+        let start = Lesson.timeFormatter.string(from: Date(timeIntervalSinceReferenceDate: timeStart))
+        return "\(start)"
+    }
+
+    func timeEndString() -> String {
+        let end = Lesson.timeFormatter.string(from: Date(timeIntervalSinceReferenceDate: timeEnd))
+        return "\(end)"
+    }
+
 
 //    func isCurrent(now: Date = Date()) -> Bool {
 //        return now >= timeStart && now <= timeEnd

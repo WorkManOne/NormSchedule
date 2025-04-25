@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LargeListWidgetEntry: TimelineEntry {
     var date: Date
-    let lessons: [Lesson]
+    let lessons: [DataManager.LessonWithTitle] //TODO: мда блять, интересненькая имплементация структуру, ебучий вонючий, ну я хуй знает как это архитектурно правильно сделать, один хуй используется только тут
 }
 
 struct LargeListWidgetView : View {
@@ -21,9 +21,10 @@ struct LargeListWidgetView : View {
             Text("Занятий нет")
                 .fontWeight(.bold)
         } else {
-            VStack(alignment: .leading, spacing: 0) {
-                ForEach(entry.lessons.prefix(6)) { lesson in
-                    LessonRowView(lesson: lesson)
+            VStack(alignment: .leading, spacing: 0) { //TODO: Мне если честно не очень нравится то, что показывается просто список без обозначений Сейчас/Далее/Завтра/Четверг
+                ForEach(entry.lessons.prefix(6).indices, id: \.self) { index in
+                    let lesson = entry.lessons[index]
+                    LessonRowView(title: lesson.title, lesson: lesson.lesson)
                         //.padding(.vertical, 4)
                 }
             }
@@ -49,7 +50,7 @@ struct LargeListWidget: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("Ближайшие занятия")
+        .configurationDisplayName("Список ближайших занятий")
         .description("Список занятий во временном порядке их следования")
         .supportedFamilies([.systemLarge, .systemExtraLarge])
     }
@@ -59,14 +60,11 @@ struct LargeListWidget: Widget {
     LargeListWidget()
 } timeline: {
     LargeListWidgetEntry(date: .now,
-                         lessons: [
-                            Lesson(timeStart: 30000, timeEnd: 32000, type: "практ.", subgroup: "2", parity: [:], name: "Программирование и конфигурирование в компьютерных сетях", teacher: "Кабанова Любовь Александровна", place: "12 корпус 414 ауд."),
-                            Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"),
-                            Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"),
-                            Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"),
-                            Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"),
-                            Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"),
-                            Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"),
-                            Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"),
-                            Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310")])
+                         lessons: [DataManager.LessonWithTitle(lesson: Lesson(timeStart: 30000, timeEnd: 32000, type: "практ.", subgroup: "2", parity: [:], name: "Программирование и конфигурирование в компьютерных сетях", teacher: "Кабанова Любовь Александровна", place: "12 корпус 414 ауд."), title: "Cейчас"),
+                                   DataManager.LessonWithTitle(lesson: Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"), title: "Далее"),
+                                   DataManager.LessonWithTitle(lesson: Lesson(timeStart: 42000, timeEnd: 45000, type: "лекция.", subgroup: "", parity: [:], name: "Компьютерные сети", teacher: "Мистер Лектор", place: "Аудитория 215"), title: nil),
+                                   DataManager.LessonWithTitle(lesson: Lesson(timeStart: 46000, timeEnd: 50000, type: "лекция.", subgroup: "", parity: [:], name: "Пример пары", teacher: "Пример преподавателя", place: "12 к. 310"), title: nil),
+                                   DataManager.LessonWithTitle(lesson: Lesson(timeStart: 30000, timeEnd: 32000, type: "практика.", subgroup: "подгр. 1", parity: [true:"чет."], name: "Статистический анализ данных", teacher: "Иванов Иван Иванович", place: "10 к. 418 ауд."), title: "Завтра"),
+                                   DataManager.LessonWithTitle(lesson: Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"), title: "Понедельник"),
+                                   DataManager.LessonWithTitle(lesson: Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [:], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"), title: "Вторник")])
 }

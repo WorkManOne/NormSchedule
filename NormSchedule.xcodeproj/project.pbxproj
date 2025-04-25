@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7A2080522DB1257F001BC0FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A2080512DB1257F001BC0FB /* LaunchScreen.storyboard */; };
+		7A2080F32DB3FBD5001BC0FB /* DataManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2080F22DB3FBD4001BC0FB /* DataManagerModel.swift */; };
+		7A2080F42DB3FBD5001BC0FB /* DataManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2080F22DB3FBD4001BC0FB /* DataManagerModel.swift */; };
+		7A2080F52DB3FBD5001BC0FB /* DataManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2080F22DB3FBD4001BC0FB /* DataManagerModel.swift */; };
+		7A2080F82DB4676A001BC0FB /* GroupSchedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39002BA25C78006B2BB6 /* GroupSchedModel.swift */; };
 		7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */; };
 		7A33F7382DA21922003394B6 /* LessonVisibilityManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A33F7372DA21922003394B6 /* LessonVisibilityManagementView.swift */; };
 		7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A33F7482DA23AF3003394B6 /* LessonCardView.swift */; };
@@ -89,6 +93,9 @@
 
 /* Begin PBXFileReference section */
 		7A2080512DB1257F001BC0FB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7A2080F22DB3FBD4001BC0FB /* DataManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerModel.swift; sourceTree = "<group>"; };
+		7A2080F62DB3FE2D001BC0FB /* NormSchedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NormSchedule.entitlements; sourceTree = "<group>"; };
+		7A2080F72DB3FE5E001BC0FB /* NormWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NormWidgetExtension.entitlements; sourceTree = "<group>"; };
 		7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchablePickerView.swift; sourceTree = "<group>"; };
 		7A33F7372DA21922003394B6 /* LessonVisibilityManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonVisibilityManagementView.swift; sourceTree = "<group>"; };
 		7A33F7482DA23AF3003394B6 /* LessonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCardView.swift; sourceTree = "<group>"; };
@@ -190,6 +197,7 @@
 				7A7B39002BA25C78006B2BB6 /* GroupSchedModel.swift */,
 				7A6495B32D402581006F167D /* LessonModel.swift */,
 				7A6495B72D4028F9006F167D /* SettingsManagerModel.swift */,
+				7A2080F22DB3FBD4001BC0FB /* DataManagerModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -197,6 +205,7 @@
 		7A7B38CA2BA25C2C006B2BB6 = {
 			isa = PBXGroup;
 			children = (
+				7A2080F72DB3FE5E001BC0FB /* NormWidgetExtension.entitlements */,
 				7A6495B62D4025FE006F167D /* Models */,
 				7A7B38D52BA25C2C006B2BB6 /* NormSchedule */,
 				7AC602142D75BC4900154A18 /* NormScheduleCompanion Watch App */,
@@ -219,6 +228,7 @@
 		7A7B38D52BA25C2C006B2BB6 /* NormSchedule */ = {
 			isa = PBXGroup;
 			children = (
+				7A2080F62DB3FE2D001BC0FB /* NormSchedule.entitlements */,
 				7A7B39022BA25D97006B2BB6 /* sched.json */,
 				7A7B38D62BA25C2C006B2BB6 /* NormScheduleApp.swift */,
 				7A7B38D82BA25C2C006B2BB6 /* ContentView.swift */,
@@ -416,6 +426,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A2080F52DB3FBD5001BC0FB /* DataManagerModel.swift in Sources */,
+				7A2080F82DB4676A001BC0FB /* GroupSchedModel.swift in Sources */,
 				7A516C6A2DAE491E00E97730 /* LessonModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +447,7 @@
 				7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */,
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
 				7AD383EE2BCD64B300384D1C /* ParserMain.swift in Sources */,
+				7A2080F42DB3FBD5001BC0FB /* DataManagerModel.swift in Sources */,
 				7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */,
 				7A7B38D92BA25C2C006B2BB6 /* ContentView.swift in Sources */,
 				7ACD45512D5D28EB00F6B3BB /* TabBarShape.swift in Sources */,
@@ -455,6 +468,7 @@
 				7ABAE7332D7761080076B06C /* LessonModel.swift in Sources */,
 				7ABAE7342D7761200076B06C /* GroupSchedModel.swift in Sources */,
 				7AC6022B2D75C3C400154A18 /* SettingsManagerModel.swift in Sources */,
+				7A2080F32DB3FBD5001BC0FB /* DataManagerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = NormWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GC734AS7G4;
@@ -507,6 +522,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = NormWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GC734AS7G4;
@@ -655,6 +671,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = NormSchedule/NormSchedule.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NormSchedule/Preview Content\"";
@@ -692,6 +709,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = NormSchedule/NormSchedule.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NormSchedule/Preview Content\"";
