@@ -43,6 +43,7 @@ final class DataManager {
         WidgetCenter.shared.reloadTimelines(ofKind: "CurNextWidget")
         WidgetCenter.shared.reloadTimelines(ofKind: "TimeLeftAccessoryWidget")
         WidgetCenter.shared.reloadTimelines(ofKind: "ProgressAccessoryWidget")
+        WidgetCenter.shared.reloadTimelines(ofKind: "LargeListWidget")
     }
     func lessonsForParity() -> [[Lesson]] {
         guard let schedule = schedule else { return [] }
