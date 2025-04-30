@@ -55,20 +55,35 @@ struct LessonView: View {
 
                         if !allHidden {
                             VStack (alignment: .center) {
-                                HStack (alignment: .center) {
+                                HStack {
                                     Text(lesson.subgroup)
-                                    Spacer()
-                                    Text("\(lesson.timeString())")
-                                    Spacer()
-                                    Text(lesson.type)
-                                    ZStack {
-                                        Image(systemName: "pin.fill")
-                                            .foregroundStyle(.blue)
-                                            .opacity(index == pinned[true] ? 0.75 : 0)
-                                        Image(systemName: "pin.fill")
-                                            .foregroundStyle(.red)
-                                            .opacity(index == pinned[false] ? 0.75 : 0)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                                    HStack {
+                                        if let icon = lesson.importance.icon {
+                                            icon
+                                                .foregroundStyle(lesson.importance.iconColor)
+                                                .help(lesson.importance.description)
+                                        }
+                                        Text(lesson.timeString())
+                                            .fontWeight(.medium)
+                                            .lineLimit(1)
+                                            .fixedSize()
                                     }
+                                    .frame(maxWidth: .infinity)
+
+                                    HStack(spacing: 4) {
+                                        Text(lesson.type)
+                                        ZStack {
+                                            Image(systemName: "pin.fill")
+                                                .foregroundStyle(.blue)
+                                                .opacity(index == pinned[true] ? 0.75 : 0)
+                                            Image(systemName: "pin.fill")
+                                                .foregroundStyle(.red)
+                                                .opacity(index == pinned[false] ? 0.75 : 0)
+                                        }
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
                                 }
                                 Spacer()
                                 HStack (alignment: .center) {
@@ -206,6 +221,6 @@ struct LessonView: View {
 }
 
 #Preview {
-    LessonView(lessons: .constant([Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000/*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "Цифровая кафедра", parity: [true: "чет."], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424"), Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000/*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "АУЕ урок", parity: [false: "знам."], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424")]), pinned: .constant([true:1, false:0]))
+    LessonView(lessons: .constant([Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000/*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "Цифровая кафедра", parity: [true: "чет."], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424", importance: .high), Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000/*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "АУЕ урок", parity: [false: "знам."], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424", importance: .high)]), pinned: .constant([true:1, false:0]))
         .environmentObject(SettingsManager())
 }

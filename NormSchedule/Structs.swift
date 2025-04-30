@@ -8,7 +8,7 @@
 import Foundation
 
 struct University: Identifiable, Equatable {
-    var id : Int
+    var id : String
     var name : String
 }
 

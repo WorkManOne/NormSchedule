@@ -32,10 +32,12 @@
 		7A7B39032BA25D97006B2BB6 /* sched.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B39022BA25D97006B2BB6 /* sched.json */; };
 		7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39042BA42955006B2BB6 /* DayView.swift */; };
 		7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39062BA52F3E006B2BB6 /* LessonView.swift */; };
+		7A98BCAE2DBEDB3B00AC75C8 /* UniversityParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98BCAD2DBEDB3B00AC75C8 /* UniversityParserProtocol.swift */; };
+		7A98BCB02DBEE6FB00AC75C8 /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98BCAF2DBEE6FB00AC75C8 /* ParseError.swift */; };
 		7ABAE7332D7761080076B06C /* LessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B32D402581006F167D /* LessonModel.swift */; };
 		7ABAE7342D7761200076B06C /* GroupSchedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39002BA25C78006B2BB6 /* GroupSchedModel.swift */; };
 		7AC123CC2C1E236A001FD32A /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC123CB2C1E236A001FD32A /* ScheduleView.swift */; };
-		7AC31A512BB979D30099DB76 /* ParserSSU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A502BB979D30099DB76 /* ParserSSU.swift */; };
+		7AC31A512BB979D30099DB76 /* SSUParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC31A502BB979D30099DB76 /* SSUParser.swift */; };
 		7AC31A552BB97A830099DB76 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 7AC31A542BB97A830099DB76 /* SwiftSoup */; };
 		7AC602202D75BC4B00154A18 /* NormScheduleCompanion Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 7AC602132D75BC4900154A18 /* NormScheduleCompanion Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AC602262D75BCC000154A18 /* WCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC602252D75BCC000154A18 /* WCProvider.swift */; };
@@ -43,8 +45,8 @@
 		7ACD45512D5D28EB00F6B3BB /* TabBarShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD45502D5D28EB00F6B3BB /* TabBarShape.swift */; };
 		7ACD45532D5D4BE100F6B3BB /* InfinitePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */; };
 		7AD383E82BCD636900384D1C /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E72BCD636900384D1C /* Structs.swift */; };
-		7AD383EA2BCD63D100384D1C /* ParserSSTU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E92BCD63D100384D1C /* ParserSSTU.swift */; };
-		7AD383EE2BCD64B300384D1C /* ParserMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383ED2BCD64B300384D1C /* ParserMain.swift */; };
+		7AD383EA2BCD63D100384D1C /* SSTUParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E92BCD63D100384D1C /* SSTUParser.swift */; };
+		7AD383EE2BCD64B300384D1C /* ParserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383ED2BCD64B300384D1C /* ParserManager.swift */; };
 		7ADBF6DB2D9AAB3C00556106 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */; };
 		7ADBF6DC2D9AAB3C00556106 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -114,15 +116,17 @@
 		7A7B39022BA25D97006B2BB6 /* sched.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sched.json; sourceTree = "<group>"; };
 		7A7B39042BA42955006B2BB6 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		7A7B39062BA52F3E006B2BB6 /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
+		7A98BCAD2DBEDB3B00AC75C8 /* UniversityParserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityParserProtocol.swift; sourceTree = "<group>"; };
+		7A98BCAF2DBEE6FB00AC75C8 /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
 		7AC123CB2C1E236A001FD32A /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
-		7AC31A502BB979D30099DB76 /* ParserSSU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserSSU.swift; sourceTree = "<group>"; };
+		7AC31A502BB979D30099DB76 /* SSUParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSUParser.swift; sourceTree = "<group>"; };
 		7AC602132D75BC4900154A18 /* NormScheduleCompanion Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NormScheduleCompanion Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC602252D75BCC000154A18 /* WCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCProvider.swift; sourceTree = "<group>"; };
 		7ACD45502D5D28EB00F6B3BB /* TabBarShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarShape.swift; sourceTree = "<group>"; };
 		7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinitePageView.swift; sourceTree = "<group>"; };
 		7AD383E72BCD636900384D1C /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Structs.swift; path = NormSchedule/Structs.swift; sourceTree = SOURCE_ROOT; };
-		7AD383E92BCD63D100384D1C /* ParserSSTU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserSSTU.swift; sourceTree = "<group>"; };
-		7AD383ED2BCD64B300384D1C /* ParserMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserMain.swift; sourceTree = "<group>"; };
+		7AD383E92BCD63D100384D1C /* SSTUParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSTUParser.swift; sourceTree = "<group>"; };
+		7AD383ED2BCD64B300384D1C /* ParserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserManager.swift; sourceTree = "<group>"; };
 		7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -267,10 +271,12 @@
 		7AD383E62BCD62BB00384D1C /* Parsers */ = {
 			isa = PBXGroup;
 			children = (
-				7AD383ED2BCD64B300384D1C /* ParserMain.swift */,
-				7AC31A502BB979D30099DB76 /* ParserSSU.swift */,
-				7AD383E92BCD63D100384D1C /* ParserSSTU.swift */,
+				7AD383ED2BCD64B300384D1C /* ParserManager.swift */,
+				7AC31A502BB979D30099DB76 /* SSUParser.swift */,
+				7AD383E92BCD63D100384D1C /* SSTUParser.swift */,
 				7AD383E72BCD636900384D1C /* Structs.swift */,
+				7A98BCAD2DBEDB3B00AC75C8 /* UniversityParserProtocol.swift */,
+				7A98BCAF2DBEE6FB00AC75C8 /* ParseError.swift */,
 			);
 			path = Parsers;
 			sourceTree = "<group>";
@@ -436,21 +442,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AD383EA2BCD63D100384D1C /* ParserSSTU.swift in Sources */,
+				7A98BCAE2DBEDB3B00AC75C8 /* UniversityParserProtocol.swift in Sources */,
+				7AD383EA2BCD63D100384D1C /* SSTUParser.swift in Sources */,
 				7A4FDD032D9DFF7E00A91862 /* LessonDetailView.swift in Sources */,
 				7AD383E82BCD636900384D1C /* Structs.swift in Sources */,
 				7A7B39012BA25C78006B2BB6 /* GroupSchedModel.swift in Sources */,
 				7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */,
-				7AC31A512BB979D30099DB76 /* ParserSSU.swift in Sources */,
+				7AC31A512BB979D30099DB76 /* SSUParser.swift in Sources */,
 				7A6495B42D402581006F167D /* LessonModel.swift in Sources */,
 				7A33F7382DA21922003394B6 /* LessonVisibilityManagementView.swift in Sources */,
 				7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */,
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
-				7AD383EE2BCD64B300384D1C /* ParserMain.swift in Sources */,
+				7AD383EE2BCD64B300384D1C /* ParserManager.swift in Sources */,
 				7A2080F42DB3FBD5001BC0FB /* DataManagerModel.swift in Sources */,
 				7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */,
 				7A7B38D92BA25C2C006B2BB6 /* ContentView.swift in Sources */,
 				7ACD45512D5D28EB00F6B3BB /* TabBarShape.swift in Sources */,
+				7A98BCB02DBEE6FB00AC75C8 /* ParseError.swift in Sources */,
 				7AC123CC2C1E236A001FD32A /* ScheduleView.swift in Sources */,
 				7A6495B82D4028F9006F167D /* SettingsManagerModel.swift in Sources */,
 				7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */,
@@ -752,7 +760,7 @@
 				DEVELOPMENT_TEAM = GC734AS7G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = NormScheduleCompanion;
+				INFOPLIST_KEY_CFBundleDisplayName = "Norm Watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = keril.NormSchedule;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -782,7 +790,7 @@
 				DEVELOPMENT_TEAM = GC734AS7G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = NormScheduleCompanion;
+				INFOPLIST_KEY_CFBundleDisplayName = "Norm Watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = keril.NormSchedule;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -13,6 +13,7 @@ struct LessonDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var editedNote = NSAttributedString()
     @State private var selectedParityType: Int = 0
+    @State private var selectedImportance: LessonImportance = .unspecified
     @State private var customParityName: String = ""
     @StateObject var context = RichTextContext()
     var body: some View {
@@ -23,7 +24,22 @@ struct LessonDetailView: View {
                     TextEditor(text: $lesson.teacher)
                     TextEditor(text: $lesson.place)
                 }
-                
+                Section(header: Text("Важность")) {
+                    Picker("Выберите важность", selection: $lesson.importance) {
+                        ForEach (LessonImportance.allCases, id: \.self) { importance in
+                            HStack {
+                                if let icon = importance.icon {
+                                    icon
+                                        .foregroundStyle(importance.iconColor)
+                                }
+                                Text(importance.description)
+                            }
+                            .tag(importance)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                }
+
                 Section(header: Text("Время")) {
                     DatePicker(
                         "Начало",
@@ -73,7 +89,6 @@ struct LessonDetailView: View {
                             .onChange(of: customParityName) { updateParity() }
                     }
                 }
-                .onAppear { setupInitialValues() }
                 
                 Section(header: Text("Заметки")) {
                     RichTextEditor(text: $editedNote, context: context)
@@ -91,6 +106,7 @@ struct LessonDetailView: View {
         }
         .onAppear {
             editedNote = lesson.note
+            setupInitialValues()
         }
         .onDisappear {
             lesson.note = editedNote

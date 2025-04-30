@@ -39,6 +39,11 @@ struct LessonCardView: View {
                 VStack (alignment: .center) {
                     HStack (alignment: .center) {
                         Text(lesson.subgroup)
+                        if let icon = lesson.importance.icon {
+                            icon
+                                .foregroundStyle(lesson.importance.iconColor)
+                                .help(lesson.importance.description)
+                        }
                         Spacer()
                         Text("\(lesson.timeString())")
                         Spacer()
