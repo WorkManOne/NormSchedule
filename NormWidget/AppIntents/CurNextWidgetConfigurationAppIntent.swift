@@ -29,7 +29,7 @@ struct CurNextWidgetConfigurationAppIntent: WidgetConfigurationIntent {
 }
 
 enum InfoField: String, AppEnum {
-    case teacher, time, place, type, subgroup, parity
+    case teacher, time, place, type, subgroup, parity, importance
 
     static var typeDisplayRepresentation: TypeDisplayRepresentation = "Что показывать из пары"
 
@@ -39,6 +39,7 @@ enum InfoField: String, AppEnum {
         .place: "Место",
         .type: "Тип занятия",
         .subgroup: "Подгруппа",
-        .parity: "Четность (Неделя)"
+        .parity: "Четность (Неделя)",
+        .importance: "Важность"
     ]
 }

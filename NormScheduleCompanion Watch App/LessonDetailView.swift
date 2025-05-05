@@ -16,6 +16,11 @@ struct LessonDetailView: View {
     var body: some View {
         VStack (alignment: .center) {
             HStack (alignment: .center) {
+                if let icon = lesson.importance.icon {
+                    icon
+                        .foregroundStyle(lesson.importance.iconColor)
+                        .help(lesson.importance.description)
+                }
                 Text(lesson.timeString())
                     .font(.system(size: 12))
                 Spacer()
@@ -61,5 +66,5 @@ struct LessonDetailView: View {
 
 
 #Preview {
-    LessonDetailView(lesson: Lesson(timeStart: 0, timeEnd: 2000, type: "sdas", subgroup: "asf", parity: [:], name: "name", teacher: "treacher", place: "gg"), isPinnedTrue: true, isPinnedFalse: true, isShown: true)
+    LessonDetailView(lesson: Lesson(timeStart: 0, timeEnd: 2000, type: "sdas", subgroup: "asf", parity: [:], name: "name", teacher: "treacher", place: "gg", importance: .high), isPinnedTrue: true, isPinnedFalse: true, isShown: true)
 }

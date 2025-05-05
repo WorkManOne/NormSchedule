@@ -37,8 +37,16 @@ struct LessonRowView: View {
                 }
             }
             if family != .accessoryRectangular {
-                Text(lesson.timeString())
-                    .font(.caption)
+                HStack {
+                    Text(lesson.timeString())
+                        .font(.caption)
+                    Spacer()
+                    if let icon = lesson.importance.icon {
+                        icon
+                            .foregroundStyle(lesson.importance.iconColor)
+                            .imageScale(.small)
+                    }
+                }
             }
             HStack {
                 RoundedRectangle(cornerRadius: 3)

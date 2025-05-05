@@ -33,7 +33,7 @@ struct CurNextWidgetView : View {
             }.frame(maxWidth: .infinity, alignment: .leading)
         }
     }
-    func getInfo(for lesson: Lesson, isNowLesson: Bool) -> (info: String, image: Image) {
+    func getInfo(for lesson: Lesson, isNowLesson: Bool) -> (info: String, image: Image?) {
         switch entry.configuration.selectedInfoField {
         case .teacher:
             (lesson.teacher, Image(systemName: "person.fill"))
@@ -47,6 +47,8 @@ struct CurNextWidgetView : View {
             (lesson.subgroup, Image(systemName: "person.3"))
         case .parity:
             (lesson.parity.values.first ?? "", Image(systemName: "calendar"))
+        case .importance:
+            (isNowLesson ? lesson.timeEndString() : lesson.timeStartString(), lesson.importance.icon)
         }
     }
     func buildItems(isAccessoryWidget: Bool) -> [LessonDisplayItem] {

@@ -16,6 +16,11 @@ struct LessonsPreviewView: View {
     var body: some View {
         VStack (alignment: .center) {
             HStack (alignment: .center) {
+                if let icon = lesson.importance.icon {
+                    icon
+                        .foregroundStyle(lesson.importance.iconColor)
+                        .help(lesson.importance.description)
+                }
                 Text(lesson.timeString())
                     .font(.system(size: 12))
                 Spacer()
@@ -56,5 +61,5 @@ struct LessonsPreviewView: View {
 }
 
 #Preview {
-    LessonsPreviewView(lesson: Lesson(timeStart: 0, timeEnd: 32000, type: "type", subgroup: "sub", parity: [:], name: "sdf", teacher: "teacher", place: "pplcae"), isPinnedTrue: true, isPinnedFalse: true, isShown: true)
+    LessonsPreviewView(lesson: Lesson(timeStart: 0, timeEnd: 32000, type: "type", subgroup: "sub", parity: [:], name: "sdf", teacher: "teacher", place: "pplcae", importance: .high), isPinnedTrue: true, isPinnedFalse: true, isShown: true)
 }
