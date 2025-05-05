@@ -8,50 +8,6 @@
 import Foundation
 import SwiftUI
 
-enum LessonImportance: Int, Codable, CaseIterable, Identifiable {
-    case unspecified = 0
-    case low = 1
-    case normal = 2
-    case high = 3
-
-    var id: Int { rawValue }
-    
-    var icon: Image? {
-        switch self {
-        case .unspecified:
-            return nil
-        case .low:
-            return Image(systemName: "minus.circle")
-        case .normal:
-            return Image(systemName: "circle.fill")
-        case .high:
-            return Image(systemName: "exclamationmark.circle.fill")
-        }
-    }
-    
-    var iconColor: Color {
-        switch self {
-        case .unspecified:
-            return .clear
-        case .low:
-            return .gray
-        case .normal:
-            return .blue
-        case .high:
-            return .red
-        }
-    }
-    
-    var description: String {
-        switch self {
-        case .unspecified: return "Важность не указана"
-        case .low: return "Можно не ходить"
-        case .normal: return "Желательно присутствовать"
-        case .high: return "Обязательно к посещению"
-        }
-    }
-}
-
 struct Lesson : Identifiable, Hashable {
     var id = UUID()
     
@@ -241,5 +197,49 @@ extension Lesson {
             note: note,
             isHidden: isHidden
         )
+    }
+}
+
+enum LessonImportance: Int, Codable, CaseIterable, Identifiable {
+    case unspecified = 0
+    case low = 1
+    case normal = 2
+    case high = 3
+
+    var id: Int { rawValue }
+
+    var icon: Image? {
+        switch self {
+        case .unspecified:
+            return nil
+        case .low:
+            return Image(systemName: "minus.circle")
+        case .normal:
+            return Image(systemName: "circle.fill")
+        case .high:
+            return Image(systemName: "exclamationmark.circle.fill")
+        }
+    }
+
+    var iconColor: Color {
+        switch self {
+        case .unspecified:
+            return .clear
+        case .low:
+            return .gray
+        case .normal:
+            return .blue
+        case .high:
+            return .red
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .unspecified: return "Важность не указана"
+        case .low: return "Можно не ходить"
+        case .normal: return "Желательно присутствовать"
+        case .high: return "Обязательно к посещению"
+        }
     }
 }

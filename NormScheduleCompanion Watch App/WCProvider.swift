@@ -33,9 +33,9 @@ class WCProvider: NSObject, WCSessionDelegate, ObservableObject {
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if let error = error {
-            print("Session activation failed with error: \(error.localizedDescription)")
+            print("Watch: Session activation failed with error: \(error.localizedDescription)")
         } else {
-            print("Session activated with state: \(activationState.rawValue)")
+            print("Watch: Session activated with state: \(activationState.rawValue)")
         }
     }
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
@@ -43,14 +43,14 @@ class WCProvider: NSObject, WCSessionDelegate, ObservableObject {
             if let scheduleData = applicationContext["schedule"] as? Data,
                let schedule = try? JSONDecoder().decode(GroupSched.self, from: scheduleData) {
                 self.receivedSchedule = schedule
-                print("Данные получены и сохранены")
+                print("Watch: Данные получены и сохранены")
             }
         }
     }
     private func saveSchedule(_ schedule: GroupSched) {
         if let encoded = try? JSONEncoder().encode(schedule) {
             UserDefaults.standard.set(encoded, forKey: "schedule")
-            print("Schedule saved to UserDefaults")
+            print("Watch: Schedule saved to UserDefaults")
         }
     }
     
@@ -58,7 +58,7 @@ class WCProvider: NSObject, WCSessionDelegate, ObservableObject {
         if let data = UserDefaults.standard.data(forKey: "schedule"),
            let decoded = try? JSONDecoder().decode(GroupSched.self, from: data) {
             self.receivedSchedule = decoded
-            print("Schedule loaded from UserDefaults")
+            print("Watch: Schedule loaded from UserDefaults")
         }
     }
 }

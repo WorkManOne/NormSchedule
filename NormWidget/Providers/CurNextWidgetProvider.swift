@@ -31,7 +31,7 @@ struct CurNextWidgetProvider: AppIntentTimelineProvider {
 
     func timeline(for configuration: Intent, in context: Context) async -> Timeline<Entry> {
         var entries: [CurNextWidgetEntry] = []
-        let dataManager = DataManager()
+        let dataManager = WidgetDataManager()
         print("getTimeline")
 
         var nextEntryDate: Date =  Date()

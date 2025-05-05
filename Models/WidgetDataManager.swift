@@ -1,5 +1,5 @@
 //
-//  DataManagerModel.swift
+//  WidgetDataManagerModel.swift
 //  NormSchedule
 //
 //  Created by Кирилл Архипов on 19.04.2025.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import WidgetKit
 
-final class DataManager {
+final class WidgetDataManager {
     private let userDefaults = UserDefaults(suiteName: "group.NormSchedule")
 
     private let scheduleKey = "schedule"

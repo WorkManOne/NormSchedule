@@ -288,7 +288,7 @@ struct ContentView: View {
         .onChange(of: parity) {
             let weekNumber = parityNames.firstIndex(of: parity) ?? 0
             settingsManager.isEvenWeek = weekNumber
-            DataManager().save(parity: weekNumber)
+            WidgetDataManager().save(parity: weekNumber)
         }
         .onChange(of: dayTabBarPosition) {
             settingsManager.dayTabBarPosition = dayTabBarPosition == "Сверху"
@@ -319,8 +319,8 @@ struct ContentView: View {
                             searchKeyPath: \.group,
                             onSelect: { item in
                                 provider.updateSchedule(schedule: item)
-                                DataManager().save(schedule: item)
-                                DataManager().save(parity: settingsManager.isEvenWeek)
+                                WidgetDataManager().save(schedule: item)
+                                WidgetDataManager().save(parity: settingsManager.isEvenWeek)
                             },
                             onDelete: deleteSchedules
                         ) { item in

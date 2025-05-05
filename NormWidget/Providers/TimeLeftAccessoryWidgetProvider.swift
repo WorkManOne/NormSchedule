@@ -21,7 +21,7 @@ struct TimeLeftAccessoryWidgetProvider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [TimeLeftAccessoryWidgetEntry] = []
-        let dataManager = DataManager()
+        let dataManager = WidgetDataManager()
         print("getTimeline")
 
         let currentDate = Date()
