@@ -236,7 +236,8 @@ final class SSTUParser: UniversityParser {
         }
 
         scheduleOfGroup.date_read = Date().formatted() //гарантия того что парсинг прошел успешно - добавление даты парсинга
-
+        scheduleOfGroup.pinnedReform()
+        
         //    DEBUG=======================================
         //    print(scheduleOfGroup.universities)
         //    print(scheduleOfGroup.faculty)

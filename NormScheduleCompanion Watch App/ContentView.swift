@@ -71,7 +71,6 @@ struct ContentView: View {
                 selectedDayButton = currentDay
                 selectedDayTab = currentDay
                 //selectedDayTabNum = days.firstIndex(of: currentDay) ?? 0
-                provider.receivedSchedule.pinnedReform()
             }
         }
     }

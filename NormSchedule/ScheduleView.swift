@@ -45,7 +45,6 @@ struct ScheduleView: View {
             selectedDayButton = currentDay
             selectedDayTab = currentDay
             //selectedDayTabNum = days.firstIndex(of: currentDay) ?? 0
-            groupSchedule.pinnedReform()
         }
     }
     var dayTabBarView: some View {
@@ -63,16 +62,17 @@ struct ScheduleView: View {
                         synchronizeTabView(with: day)
                     }) {
                         Text(day)
-                            .font(.headline)
+                            .font(.system(size: 18))
+                            .fontWeight(.bold)
                             .foregroundStyle(selectedDayButton == day ? .lines : .gray)
-                            .padding(.horizontal, 12)
+                            .frame(maxWidth: .infinity)
                             .background {
                                 RoundedRectangle(cornerRadius: 5)
                                     .fill(Color("frameColor"))
                                     .shadow(color: .gray.opacity(0.5), radius: 1)
                                     .frame(height: 35)
                             }
-                            .foregroundStyle(selectedDayButton == day ? .lines : .lines.opacity(0.5))
+                            //.foregroundStyle(selectedDayButton == day ? .lines : .lines.opacity(0.5))
                     }
                 }
                 Spacer()

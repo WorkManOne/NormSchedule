@@ -71,9 +71,7 @@ struct LessonDetailView: View {
                 
                 Section(header: Text("Детали")) {
                     TextField("Тип занятия", text: $lesson.type)
-                    
                     TextField("Подгруппа", text: $lesson.subgroup)
-                    
                 }
                 Section(header: Text("Четность недели")) {
                     Picker("Выберите тип", selection: $selectedParityType) {

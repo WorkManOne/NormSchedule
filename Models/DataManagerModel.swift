@@ -32,30 +32,40 @@ final class DataManager {
         }
     }
 
-    func save(schedule: GroupSched, parity: Int) {
+    func save(schedule: GroupSched) {
         if let data = try? JSONEncoder().encode(schedule) {
             userDefaults?.set(data, forKey: scheduleKey)
         }
-        userDefaults?.set(parity, forKey: parityKey)
-
         self.schedule = schedule
+        updateWidgets()
+    }
+    
+    func save(parity: Int) {
+        userDefaults?.set(parity, forKey: parityKey)
         self.parity = parity
+        updateWidgets()
+    }
+
+    func updateWidgets() {
         WidgetCenter.shared.reloadTimelines(ofKind: "CurNextWidget")
         WidgetCenter.shared.reloadTimelines(ofKind: "TimeLeftAccessoryWidget")
         WidgetCenter.shared.reloadTimelines(ofKind: "ProgressAccessoryWidget")
         WidgetCenter.shared.reloadTimelines(ofKind: "LargeListWidget")
     }
-    func lessonsForParity() -> [[Lesson]] {
+
+    func lessonsForParity(parity: Int) -> [[Lesson]] {
         guard let schedule = schedule else { return [] }
         var result: [[Lesson]] = []
         for day in 0..<schedule.pinSchedule.count {
             var lessons: [Lesson] = []
             for index in 0..<schedule.pinSchedule[day].count {
-                if schedule.pinSchedule[day][index].keys.contains(parity != 2),
-                   let lessonIndex = schedule.pinSchedule[day][index][parity != 2],
-                    (schedule.schedule[day][index][lessonIndex].parity.keys.contains(parity != 2) || parity == 0),
-                    schedule.schedule[day][index][lessonIndex].name != "Пары нет",
-                    schedule.schedule[day][index][lessonIndex].name != "Биг Чиллинг!" { //TODO: Нужно будет разрешить как то такие nil пары
+                let isParityIncluded = parity == 0 || schedule.pinSchedule[day][index].keys.contains(parity != 2)
+                let key = parity != 2 ? true : false
+                if isParityIncluded,
+                   let lessonIndex = schedule.pinSchedule[day][index][key],
+                   (schedule.schedule[day][index][lessonIndex].parity.keys.contains(key) || schedule.schedule[day][index][lessonIndex].parity.isEmpty || parity == 0),
+                   schedule.schedule[day][index][lessonIndex].name != "Пары нет",
+                   schedule.schedule[day][index][lessonIndex].name != "Биг Чиллинг!" { //TODO: Нужно будет разрешить как то такие nil пары
                     lessons.append(schedule.schedule[day][index][lessonIndex])
                 }
             }
@@ -64,39 +74,33 @@ final class DataManager {
         return result
     }
 
-    func currentLesson(date: Date) -> Lesson? {
-        guard let schedule = schedule else { return nil }
-
-        let weekday = Calendar.current.component(.weekday, from: date)
-        let todayIndex = (weekday + 5) % 7
-
-        guard todayIndex < schedule.schedule.count else { return nil }
-        guard todayIndex < schedule.pinSchedule.count else { return nil }
+    func computeParity(for date: Date) -> Int {
+        guard let baseParity = parity, baseParity != 0
+        else { return 0 }
 
         let calendar = Calendar.current
-        let midnight = calendar.startOfDay(for: date)
-        let currentTime = date.timeIntervalSince(midnight)
+        let baseWeek = calendar.component(.weekOfYear, from: .now)
+        let currentWeek = calendar.component(.weekOfYear, from: date)
 
-        let parityLessons = lessonsForParity()
-        var currentLesson : Lesson? = nil
-        for lesson in parityLessons[todayIndex] {
-            if currentTime >= lesson.timeStart
-                && currentTime < lesson.timeEnd { //TODO: По хорошему уточнить все таки что "по времени" является текущим/следуюшим/прошлым занятием
-                currentLesson = lesson
-                break
-            }
+        let weeksPassed = currentWeek - baseWeek
+        let parityOffset = weeksPassed % 2
+
+        if baseParity == 1 {
+            return parityOffset == 0 ? 1 : 2
+        } else {
+            return parityOffset == 0 ? 2 : 1
         }
-        return currentLesson
     }
 
     func nextLesson(date: Date) -> LessonWithDate? {
         let calendar = Calendar.current
         let midnight = calendar.startOfDay(for: date)
         let currentTime = date.timeIntervalSince(midnight)
-        let parityLessons = lessonsForParity() //TODO: Что если четная неделя, а след занятие на нечетной?
 
         for dayOffset in 0..<7 {
             let searchDate = calendar.date(byAdding: .day, value: dayOffset, to: date)!
+            let computedParity = computeParity(for: searchDate)
+            let parityLessons = lessonsForParity(parity: computedParity)
             let weekday = (calendar.component(.weekday, from: searchDate) + 5) % 7
             guard weekday < parityLessons.count else { continue }
             let lessonsToday = parityLessons[weekday]
@@ -115,24 +119,52 @@ final class DataManager {
         return nil
     }
 
-    func prevLesson(date: Date) -> (lesson: Lesson, date: Date)? {
+    func currentLesson(date: Date) -> Lesson? {
+        guard let schedule = schedule else { return nil }
+
+        let weekday = Calendar.current.component(.weekday, from: date)
+        let todayIndex = (weekday + 5) % 7
+
+        guard todayIndex < schedule.schedule.count else { return nil }
+        guard todayIndex < schedule.pinSchedule.count else { return nil }
+
         let calendar = Calendar.current
         let midnight = calendar.startOfDay(for: date)
         let currentTime = date.timeIntervalSince(midnight)
-        let parityLessons = lessonsForParity()
+
+        let computedParity = computeParity(for: date)
+        let parityLessons = lessonsForParity(parity: computedParity)
+        var currentLesson : Lesson? = nil
+        for lesson in parityLessons[todayIndex] {
+            if currentTime >= lesson.timeStart
+                && currentTime < lesson.timeEnd { //TODO: По хорошему уточнить все таки что "по времени" является текущим/следуюшим/прошлым занятием
+                currentLesson = lesson
+                break
+            }
+        }
+        return currentLesson
+    }
+
+    func prevLesson(date: Date) -> LessonWithDate? {
+        let calendar = Calendar.current
+        let midnight = calendar.startOfDay(for: date)
+        let currentTime = date.timeIntervalSince(midnight)
 
         for dayOffset in 0..<7 {
             let searchDate = calendar.date(byAdding: .day, value: -dayOffset, to: date)!
+            let computedParity = computeParity(for: searchDate)
+            let parityLessons = lessonsForParity(parity: computedParity)
             let weekday = (calendar.component(.weekday, from: searchDate) + 5) % 7
-
             guard weekday < parityLessons.count else { continue }
             let lessonsToday = parityLessons[weekday]
 
             for lesson in lessonsToday.reversed() {
                 if dayOffset == 0 {
-                    if lesson.timeEnd <= currentTime { return (lesson, searchDate) }
+                    if lesson.timeEnd <= currentTime {
+                        return LessonWithDate(lesson: lesson, date: searchDate)
+                    }
                 } else {
-                    return (lesson, searchDate) //TODO: Нужно будет разрешить как то такие nil пары
+                    return LessonWithDate(lesson: lesson, date: searchDate)
                 }
             }
         }

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LargeListWidgetEntry: TimelineEntry {
     var date: Date
-    let lessons: [DataManager.LessonWithTitle] //TODO: мда блять, интересненькая имплементация структуру, ебучий вонючий, ну я хуй знает как это архитектурно правильно сделать, один хуй используется только тут
+    let lessons: [DataManager.LessonWithTitle] //TODO: мда блять, интересненькая имплементация структуры, ебучий вонючий, ну я хуй знает как это архитектурно правильно сделать, один хуй используется только тут
 }
 
 struct LargeListWidgetView : View {
@@ -21,7 +21,7 @@ struct LargeListWidgetView : View {
             Text("Занятий нет")
                 .fontWeight(.bold)
         } else {
-            VStack(alignment: .leading, spacing: 0) { //TODO: Мне если честно не очень нравится то, что показывается просто список без обозначений Сейчас/Далее/Завтра/Четверг
+            VStack(alignment: .leading, spacing: 0) {
                 ForEach(entry.lessons.prefix(6).indices, id: \.self) { index in
                     let lesson = entry.lessons[index]
                     LessonRowView(title: lesson.title, lesson: lesson.lesson)

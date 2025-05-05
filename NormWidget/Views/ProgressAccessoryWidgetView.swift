@@ -19,8 +19,6 @@ struct ProgressAccessoryWidgetView: View {
                 Text(entry.timeStart)
                     .fontWeight(.bold)
                     .lineLimit(1)
-                    //.allowsTightening(true)
-                    //.minimumScaleFactor(0.5) //TODO: Из-за этого может плохо работать на устройствах с маленьким экраном, но для этого нужны реальные тесты (не критично)
                     .padding(.bottom, 4)
                 Gauge(value: entry.progress){}
                     .gaugeStyle(.accessoryLinearCapacity)

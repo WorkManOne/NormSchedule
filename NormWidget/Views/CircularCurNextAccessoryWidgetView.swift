@@ -10,6 +10,15 @@ import WidgetKit
 
 struct CircularCurNextAccessoryWidgetView : View {
     var entry: CurNextWidgetEntry
+
+    var iconName: String {
+        if entry.configuration.showCurrent && entry.currentLesson != nil {
+            return "book.fill"
+        } else {
+            return "hourglass"
+        }
+    }
+
     var titleText: String {
         if entry.configuration.showCurrent && entry.currentLesson != nil {
             return "Конец"
@@ -32,7 +41,7 @@ struct CircularCurNextAccessoryWidgetView : View {
 
     var body: some View {
         VStack {
-            Image(systemName: titleText == "Конец" ? "book.fill" : "hourglass") //TODO: Ебанутая логика по строке условие вычислять (особенно если я задумаю локализацию)
+            Image(systemName: iconName)
             if entry.configuration.showLabels {
                 Text(titleText)
                     .fontWeight(.black)

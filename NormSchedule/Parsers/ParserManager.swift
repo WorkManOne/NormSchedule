@@ -25,28 +25,3 @@ final class ParserManager {
         }
     }
 }
-
-//func getGroup(id: Int, uri: String, completion: @escaping (GroupSched) -> Void) {
-//    let scheduleOfGroup = GroupSched(university: "",
-//                                     faculty: "",
-//                                     group: "",
-//                                     date_read: "",
-//                                     schedule: [],
-//                                     pinSchedule: [])
-//    switch id {
-//    case 1:
-//        SSU_getSchedule (uri: uri) { s in
-//            s.pinnedReform() //TODO: FiX logic
-//            completion(s)
-//        }
-//    case 2:
-//        SSTU_getSchedule (uri: uri) { s in
-//            s.pinnedReform() //TODO: FiX logic
-//            completion(s)
-//        }
-//    default:
-//        completion(scheduleOfGroup)
-//    }
-//    
-//}
-
