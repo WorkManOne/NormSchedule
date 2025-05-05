@@ -85,6 +85,7 @@ struct LessonRowView: View {
                         if !lesson.place.isEmpty && family != .accessoryRectangular {
                             Image(systemName: "mappin")
                             Text(lesson.place)
+                                .truncationMode(.middle)
                         }
                     }
                     .font(.caption2)
