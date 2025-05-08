@@ -10,7 +10,7 @@ import SwiftUI
 import WidgetKit
 
 final class WidgetDataManager {
-    private let userDefaults = UserDefaults(suiteName: "group.NormSchedule")
+    private let userDefaults = UserDefaults(suiteName: "group.com.KirillArkhipov.NormSchedule")
 
     private let scheduleKey = "schedule"
     private let parityKey = "parity"
@@ -32,7 +32,7 @@ final class WidgetDataManager {
         }
     }
 
-    func save(schedule: GroupSched) {
+    func save(schedule: GroupSched?) {
         if let data = try? JSONEncoder().encode(schedule) {
             userDefaults?.set(data, forKey: scheduleKey)
         }

@@ -32,6 +32,7 @@
 		7A7B39032BA25D97006B2BB6 /* sched.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B39022BA25D97006B2BB6 /* sched.json */; };
 		7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39042BA42955006B2BB6 /* DayView.swift */; };
 		7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39062BA52F3E006B2BB6 /* LessonView.swift */; };
+		7A9323CD2DC9585C0007CA0A /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9323CC2DC9585C0007CA0A /* SyncManager.swift */; };
 		7A98BCAE2DBEDB3B00AC75C8 /* UniversityParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98BCAD2DBEDB3B00AC75C8 /* UniversityParserProtocol.swift */; };
 		7A98BCB02DBEE6FB00AC75C8 /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98BCAF2DBEE6FB00AC75C8 /* ParseError.swift */; };
 		7ABAE7332D7761080076B06C /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B32D402581006F167D /* Lesson.swift */; };
@@ -116,6 +117,7 @@
 		7A7B39022BA25D97006B2BB6 /* sched.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sched.json; sourceTree = "<group>"; };
 		7A7B39042BA42955006B2BB6 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		7A7B39062BA52F3E006B2BB6 /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
+		7A9323CC2DC9585C0007CA0A /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		7A98BCAD2DBEDB3B00AC75C8 /* UniversityParserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityParserProtocol.swift; sourceTree = "<group>"; };
 		7A98BCAF2DBEE6FB00AC75C8 /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
 		7AC123CB2C1E236A001FD32A /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				7A6495B32D402581006F167D /* Lesson.swift */,
 				7A6495B72D4028F9006F167D /* SettingsManager.swift */,
 				7A2080F22DB3FBD4001BC0FB /* WidgetDataManager.swift */,
+				7A9323CC2DC9585C0007CA0A /* SyncManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */,
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
 				7AD383EE2BCD64B300384D1C /* ParserManager.swift in Sources */,
+				7A9323CD2DC9585C0007CA0A /* SyncManager.swift in Sources */,
 				7A2080F42DB3FBD5001BC0FB /* WidgetDataManager.swift in Sources */,
 				7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */,
 				7A7B38D92BA25C2C006B2BB6 /* ContentView.swift in Sources */,
