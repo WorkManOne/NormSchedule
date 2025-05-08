@@ -11,9 +11,9 @@ import WatchConnectivity
 class WCProvider: NSObject, WCSessionDelegate, ObservableObject {
 
     static let shared = WCProvider()
-    private var pendingSchedule: GroupSched?
-
+    private var pendingContext = [String: Any]()
     private var session: WCSession?
+    private let queue = DispatchQueue(label: "com.KirillArkhipov.NormSchedule.wcprovider.context")
 
     private override init() {
         super.init()
@@ -21,56 +21,69 @@ class WCProvider: NSObject, WCSessionDelegate, ObservableObject {
             session = WCSession.default
             session?.delegate = self
             session?.activate()
-            print("Сессия активирована")
+            print("Session initialized")
         }
     }
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if let error = error {
-            print("Session activation failed with error: \(error.localizedDescription)")
-        } else {
-            print("Session activated with state: \(activationState.rawValue)")
-            sendPendingSchedule()
+        queue.async {
+            if let error = error {
+                print("Activation error: \(error.localizedDescription)")
+                return
+            }
+
+            print("Session activated: \(activationState.rawValue)")
+            self.sendPendingContext()
         }
     }
 
     func sessionDidBecomeInactive(_ session: WCSession) {
         print("Session Inactive")
-        session.activate()
     }
 
     func sessionDidDeactivate(_ session: WCSession) {
         print("Session Deactivated")
-        session.activate()
     }
 
-    public func updateSchedule(schedule: GroupSched) {
-        guard let session = session else {
-            print("WCSession is not supported.")
-            return
-        }
-
-        if session.activationState == .activated {
-            do {
-                let data = try JSONEncoder().encode(schedule)
-                try session.updateApplicationContext(["schedule": data])
-            } catch {
-                print("Updating of application context failed: \(error)")
+    func update(schedule: GroupSched?, parity: Int) {
+        queue.async {
+            if let schedule = schedule {
+                do {
+                    let data = try JSONEncoder().encode(schedule)
+                    self.pendingContext["schedule"] = data
+                } catch {
+                    print("Schedule encoding error: \(error)")
+                }
             }
-        } else {
-            pendingSchedule = schedule
-            print("Session is not activated yet. Context saved to buffer.")
+            self.pendingContext["parity"] = parity
+            
+            self.sendContextImmediately()
         }
     }
 
-    private func sendPendingSchedule() {
-        guard let session = session, session.activationState == .activated else {
+    private func sendContextImmediately() {
+        guard let session = session else {
+            print("WCSession not supported")
             return
         }
-        if let schedule = pendingSchedule {
-            updateSchedule(schedule: schedule)
+
+        guard session.activationState == .activated else {
+            print("Session not active, saving to pending")
+            return
         }
-        pendingSchedule = nil
+
+        do {
+            print("Context successfully sent: \(pendingContext.keys)")
+            try session.updateApplicationContext(pendingContext)
+            pendingContext = [:]
+        } catch {
+            print("Context send error: \(error)")
+        }
+    }
+
+    private func sendPendingContext() {
+        guard !pendingContext.isEmpty else { return }
+        sendContextImmediately()
     }
 
 }

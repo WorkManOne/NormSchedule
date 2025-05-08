@@ -43,7 +43,14 @@ class WCProvider: NSObject, WCSessionDelegate, ObservableObject {
             if let scheduleData = applicationContext["schedule"] as? Data,
                let schedule = try? JSONDecoder().decode(GroupSched.self, from: scheduleData) {
                 self.receivedSchedule = schedule
-                print("Watch: Данные получены и сохранены")
+                print("Watch: Расписание получено")
+            } else if applicationContext.keys.contains("schedule") == false {
+                self.receivedSchedule = GroupSched(university: "", faculty: "", group: "", date_read: "", schedule: [], pinSchedule: [])
+                print("Watch: Расписание сброшено (nil)")
+            }
+            if let parity = applicationContext["parity"] as? Int {
+                SettingsManager.shared.isEvenWeek = parity
+                print("Watch: Чётность обновлена: \(parity)")
             }
         }
     }

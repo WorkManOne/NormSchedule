@@ -13,18 +13,20 @@ struct DayView: View {
     var daySched : [[Lesson]]
     @EnvironmentObject var settingsManager: SettingsManager
     @Binding var pinSched : [[Bool:Int]]
-    
+
     var body: some View {
         VStack {
             Text(day)
             List {
                 ForEach (daySched.indices, id: \.self) { index in
-                    LessonsView(lessons: daySched[index], pinned: $pinSched[index])
-                        .frame(height: 100)
+                    if pinSched.indices.contains(index) { //TODO: Условия для мистера SwiftUI который почему то после GroupSched -> nil хочет отрисовать DayView
+                        LessonsView(lessons: daySched[index], pinned: $pinSched[index])
+                            .frame(height: 100)
+                    }
                 }
             }
             .listStyle(.carousel)
-            
+
         }
     }
 }

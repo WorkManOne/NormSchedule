@@ -39,6 +39,14 @@ struct LessonsView: View {
                 active = pinned[true] ?? 0
             }
         }
+        .onChange(of: settingsManager.isEvenWeek) {
+            if (settingsManager.isEvenWeek == 2) {
+                active = pinned[false] ?? 0
+            }
+            else {
+                active = pinned[true] ?? 0
+            }
+        }
     }
 }
 

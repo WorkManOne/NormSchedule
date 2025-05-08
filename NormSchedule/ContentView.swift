@@ -230,6 +230,34 @@ struct ContentView: View {
         //                            print("update from pinned (onChange of groupsched)")
         //                            provider.updateSchedule(schedule: schedules[selectedSchedule])
         //                        }
+        .onAppear {
+            settingsManager.updateParityIfNeeded()
+        }
+        .onChange(of: selectedSchedule?.schedule) { // MARK: Забирает с собой случаи удаления расписания так что отдельный onChange на selectedSchedule не нужен
+            print("sent Onchange schedule")
+            SyncManager.shared.syncAll(
+                schedule: selectedSchedule,
+                parity: settingsManager.isEvenWeek
+            )
+        }
+        .onChange(of: selectedSchedule?.pinSchedule) {
+            print("sent Onchange pinSchedule")
+            SyncManager.shared.syncAll(
+                schedule: selectedSchedule,
+                parity: settingsManager.isEvenWeek
+            )
+        }
+        .onChange(of: settingsManager.isEvenWeek) {
+            print("sent Onchange settingsManager")
+            SyncManager.shared.syncAll(
+                schedule: selectedSchedule,
+                parity: settingsManager.isEvenWeek
+            )
+        }
+        .onChange(of: parity) {
+            let weekNumber = parityNames.firstIndex(of: parity) ?? 0
+            settingsManager.isEvenWeek = weekNumber
+        }
         .onChange(of: selectedUniversity) { _, newValue in //TODO: Порождает баг, когда нет интернета и при повторной попытка нажать на тот же item ни пизды не произойдет, потому что onChange ебать его в попочку
             guard let university = selectedUniversity else { return }
             groups.removeAll()
@@ -285,20 +313,12 @@ struct ContentView: View {
                 }
             }
         }
-        .onChange(of: parity) {
-            let weekNumber = parityNames.firstIndex(of: parity) ?? 0
-            settingsManager.isEvenWeek = weekNumber
-            WidgetDataManager().save(parity: weekNumber)
-        }
         .onChange(of: dayTabBarPosition) {
             settingsManager.dayTabBarPosition = dayTabBarPosition == "Сверху"
         }
         .onChange(of: dayTabBarStyle) {
             settingsManager.dayTabBarStyle = dayTabBarStyle == "Округлый"
         } //TODO: Блядский визуальный баг при навигации когда сверху чуть смещается вниз экран, типо когда с одного экрана на другой тыкаешь с навлинк и резко так экран вниз смещается (с которого переходишь)
-        .onAppear {
-            settingsManager.updateParityIfNeeded()
-        }
         .alert("Ошибка", isPresented: $isShowAlert) {
             Button("Ок", role: .cancel) { }
         } message: {
@@ -318,9 +338,7 @@ struct ContentView: View {
                             items: schedules,
                             searchKeyPath: \.group,
                             onSelect: { item in
-                                provider.updateSchedule(schedule: item)
-                                WidgetDataManager().save(schedule: item)
-                                WidgetDataManager().save(parity: settingsManager.isEvenWeek)
+                                SyncManager.shared.syncAll(schedule: item, parity: settingsManager.isEvenWeek)
                             },
                             onDelete: deleteSchedules
                         ) { item in

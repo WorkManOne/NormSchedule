@@ -32,15 +32,11 @@ final class WidgetDataManager {
         }
     }
 
-    func save(schedule: GroupSched?) {
+    func save(schedule: GroupSched?, parity: Int) {
         if let data = try? JSONEncoder().encode(schedule) {
             userDefaults?.set(data, forKey: scheduleKey)
         }
         self.schedule = schedule
-        updateWidgets()
-    }
-    
-    func save(parity: Int) {
         userDefaults?.set(parity, forKey: parityKey)
         self.parity = parity
         updateWidgets()

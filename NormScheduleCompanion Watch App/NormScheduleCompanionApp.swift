@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct NormScheduleCompanion_Watch_AppApp: App {
+
+    @ObservedObject var provider = WCProvider.shared
+    @ObservedObject var settingsManager = SettingsManager.shared
+
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+        .environmentObject(provider)
+        .environmentObject(settingsManager)
     }
 }

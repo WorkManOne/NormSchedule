@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var provider = WCProvider.shared
     let days = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
     @State private var selectedDayButton: String = "Пн"
     @State private var selectedDayTab: String = "Пн"
-    @ObservedObject var settingsManager = SettingsManager()
+    @EnvironmentObject var provider : WCProvider
+    @EnvironmentObject var settingsManager : SettingsManager
     //    @Bindable var groupSchedule : GroupSched
 
     //    init(initialDay: String = "Пн", groupSchedule: GroupSched)
@@ -56,7 +56,6 @@ struct ContentView: View {
                                         set: { if provider.receivedSchedule.pinSchedule.indices.contains(index) { provider.receivedSchedule.pinSchedule[index] = $0 } }
                                     )
                             )
-                            .environmentObject(settingsManager)
                             .tag(day)
                         }
                     }

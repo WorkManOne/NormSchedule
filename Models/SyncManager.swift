@@ -10,15 +10,9 @@ import Foundation
 class SyncManager {
     static let shared = SyncManager()
 
-    func syncAll(schedule: GroupSched?, parity: Int) { //TODO: нельзя просто пихать только один параметр потому что контекст всегда синхронит ПОСЛЕДНИЕ данные
+    func syncAll(schedule: GroupSched?, parity: Int) {
         print("syncAll")
-        //if let schedule = schedule {
-            WCProvider.shared.updateSchedule(schedule: schedule)
-            WidgetDataManager().save(schedule: schedule)
-        //}
-        //if let parity = parity {
-            WCProvider.shared.updateParity(parity: parity)
-            WidgetDataManager().save(parity: parity)
-        //}
+        WidgetDataManager().save(schedule: schedule, parity: parity)
+        WCProvider.shared.update(schedule: schedule, parity: parity) //TODO: Работает так потому что работает через контекст
     }
 }
