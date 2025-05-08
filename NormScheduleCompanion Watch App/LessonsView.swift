@@ -19,8 +19,19 @@ struct LessonsView: View {
         Button {
             isShowingDetail.toggle()
         } label: {
-            LessonsPreviewView(lesson: lessons[active], isPinnedTrue: active == pinned[true], isPinnedFalse: active == pinned[false],
-                             isShown: (lessons[active].parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || lessons[active].parity.keys.contains(false) && settingsManager.isEvenWeek == 2 || lessons[active].parity.isEmpty || settingsManager.isEvenWeek == 0))
+            if lessons.indices.contains(active) { //TODO: Еще один бермудский треугольник SwiftUI, то же условие (уже 2 штуки по коду) чтобы не сыпало ошибку при обновлении расписания с телефона
+                LessonsPreviewView(
+                    lesson: lessons[active],
+                    isPinnedTrue: active == pinned[true],
+                    isPinnedFalse: active == pinned[false],
+                    isShown: (
+                        lessons[active].parity.keys.contains(true) && settingsManager.isEvenWeek == 1 ||
+                        lessons[active].parity.keys.contains(false) && settingsManager.isEvenWeek == 2 ||
+                        lessons[active].parity.isEmpty ||
+                        settingsManager.isEvenWeek == 0
+                    )
+                )
+            }
         }
         .sheet(isPresented: $isShowingDetail) {
             List { //ScrollView looks worse, ux better

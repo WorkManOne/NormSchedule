@@ -66,7 +66,7 @@ struct ContentView: View {
                 selectedDayButton = newTab
             })
             .onAppear {
-                let currentDay = settingsManager.recalcCurrDay() //TODO: Ебучий вонючий вот и нашла коса на камень, я хуею оказывается SettingManager в каждом устройстве разный и поэтому настройка четности недели не передается между устройствами - решение: ебануть AppGroup и писать настройки туда (это надо потому что во первых я охуею если буду в ручную передавать четность и еще это не даст автономности моему приложению на часы
+                let currentDay = settingsManager.recalcCurrDay()
                 selectedDayButton = currentDay
                 selectedDayTab = currentDay
                 //selectedDayTabNum = days.firstIndex(of: currentDay) ?? 0

@@ -226,10 +226,7 @@ struct ContentView: View {
             }
             .tabItem { Image(systemName: "gear") }
         }
-        //                        .onChange(of: schedules[selectedSchedule]) {  //TODO: Ебать справа пожалуйста остановите, а как сделать чтобы на изменение pinned обновленная версия передавалась на часы? + Отследить все пути которые ведут к изменению расписания groupSched, потому что в качестве костылей я насоздавал слишком много всяких триггеров onChange - плохая практика, вообще везде надо глянуть onChange, код связанный с логикой и данными должен быть в коде а не в ui
-        //                            print("update from pinned (onChange of groupsched)")
-        //                            provider.updateSchedule(schedule: schedules[selectedSchedule])
-        //                        }
+        //TODO: я насоздавал слишком много всяких триггеров onChange - плохая практика, вообще везде надо глянуть onChange, код связанный с логикой и данными должен быть в коде а не в ui
         .onAppear {
             settingsManager.updateParityIfNeeded()
         }
@@ -258,61 +255,6 @@ struct ContentView: View {
             let weekNumber = parityNames.firstIndex(of: parity) ?? 0
             settingsManager.isEvenWeek = weekNumber
         }
-        .onChange(of: selectedUniversity) { _, newValue in //TODO: Порождает баг, когда нет интернета и при повторной попытка нажать на тот же item ни пизды не произойдет, потому что onChange ебать его в попочку
-            guard let university = selectedUniversity else { return }
-            groups.removeAll()
-            faculties.removeAll()
-
-            if let cached = cachedFaculties[university.id] {
-                faculties = cached
-            } else {
-
-                isLoadingFaculties = true
-                Task {
-                    if let parser = ParserManager.parser(for: university.id) {
-                        let result = await parser.getFaculties()
-
-                        switch result {
-                        case .success(let facs):
-                            self.faculties = facs
-                            self.cachedFaculties[university.id] = facs
-                            isLoadingFaculties = false
-                        case .failure(let error):
-                            alertMessage = error.localizedDescription
-                            isShowAlert = true
-                            isLoadingFaculties = false
-                        }
-                    }
-                }
-            }
-        }
-        .onChange(of: selectedFaculty?.uri) { _, newValue in
-            guard let uri = newValue,
-                  let university = selectedUniversity else { return }
-            groups.removeAll()
-
-            if let cached = cachedGroups[uri] {
-                groups = cached
-            } else {
-                isLoadingGroups = true
-                Task {
-                    if let parser = ParserManager.parser(for: university.id) {
-                        let result = await parser.getGroups(uri: uri)
-
-                        switch result {
-                        case .success(let groups):
-                            self.groups = groups
-                            self.cachedGroups[uri] = groups
-                            isLoadingGroups = false
-                        case .failure(let error):
-                            alertMessage = error.localizedDescription
-                            isShowAlert = true
-                            isLoadingGroups = false
-                        }
-                    }
-                }
-            }
-        }
         .onChange(of: dayTabBarPosition) {
             settingsManager.dayTabBarPosition = dayTabBarPosition == "Сверху"
         }
@@ -325,6 +267,8 @@ struct ContentView: View {
             Text(alertMessage)
         }
     }
+
+    // MARK: - Pickers
     private var SchedulePicker: some View {
         NavigationLink(destination:
                         SearchablePickerView(
@@ -365,7 +309,10 @@ struct ContentView: View {
                             title: "Выберите университет",
                             selection: $selectedUniversity,
                             items: universities,
-                            searchKeyPath: \.id
+                            searchKeyPath: \.id,
+                            onSelect: { _ in
+                                universitySelect()
+                            }
                         ) { item in
                             HStack {
                                 Text(item.name)
@@ -386,7 +333,10 @@ struct ContentView: View {
                             title: "Выберите факультет",
                             selection: $selectedFaculty,
                             items: faculties,
-                            searchKeyPath: \.name
+                            searchKeyPath: \.name,
+                            onSelect: { _ in
+                                facultySelect()
+                            }
                         ) { item in
                             HStack {
                                 Text(item.name)
@@ -446,10 +396,67 @@ struct ContentView: View {
         }
     }
 
+    // MARK: - Data functions
+    
     func deleteSchedules(_ indexSet: IndexSet) {
         for index in indexSet {
             let schedule = schedules[index]
             modelContext.delete(schedule)
+        }
+    }
+    private func universitySelect() {
+        guard let university = selectedUniversity else { return }
+        groups.removeAll()
+        faculties.removeAll()
+
+        if let cached = cachedFaculties[university.id] {
+            faculties = cached
+        } else {
+
+            isLoadingFaculties = true
+            Task {
+                if let parser = ParserManager.parser(for: university.id) {
+                    let result = await parser.getFaculties()
+
+                    switch result {
+                    case .success(let facs):
+                        self.faculties = facs
+                        self.cachedFaculties[university.id] = facs
+                        isLoadingFaculties = false
+                    case .failure(let error):
+                        alertMessage = error.localizedDescription
+                        isShowAlert = true
+                        isLoadingFaculties = false
+                    }
+                }
+            }
+        }
+    }
+    private func facultySelect() {
+        guard let uri = selectedFaculty?.uri,
+              let university = selectedUniversity else { return }
+        groups.removeAll()
+
+        if let cached = cachedGroups[uri] {
+            groups = cached
+        } else {
+            isLoadingGroups = true
+            Task {
+                if let parser = ParserManager.parser(for: university.id) {
+                    let result = await parser.getGroups(uri: uri)
+
+                    switch result {
+                    case .success(let groups):
+                        self.groups = groups
+                        self.cachedGroups[uri] = groups
+                        isLoadingGroups = false
+                    case .failure(let error):
+                        alertMessage = error.localizedDescription
+                        isShowAlert = true
+                        isLoadingGroups = false
+                    }
+                }
+            }
         }
     }
 }
