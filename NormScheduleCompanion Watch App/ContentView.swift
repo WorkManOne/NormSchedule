@@ -25,12 +25,17 @@ struct ContentView: View {
         if (provider.receivedSchedule.schedule.isEmpty) {
             Spacer()
             VStack {
-                Text("Похоже у вас пока нет расписания")
-                    .font(.headline)
+                Text("Похоже у вас пока нет расписания на часах")
+                    .font(.system(size: 14))
                     .multilineTextAlignment(.center)
                     .fontWeight(.bold)
-                Text("Выберите его в настройках на вашем iPhone (убедитесь что устройства связаны во время выбора)")
-                    .font(.caption2)
+                Text("Выберите его в настройках на вашем iPhone")
+                    .font(.system(size: 12))
+                    .fontWeight(.light)
+                    .multilineTextAlignment(.center)
+                Text("убедитесь что устройства связаны во время выбора")
+                    .font(.system(size: 12))
+                    .opacity(0.5)
                     .multilineTextAlignment(.center)
             }
             Spacer()
