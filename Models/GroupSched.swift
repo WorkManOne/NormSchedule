@@ -10,7 +10,8 @@ import SwiftData
 #if os(iOS)
 @Model
 #endif
-class GroupSched : ObservableObject {
+
+final class GroupSched : ObservableObject {
     init(university: String, faculty: String, group: String, date_read: String, schedule: [[[Lesson]]], pinSchedule: [[[Bool:Int]]], id: UUID? = nil) {
         self.university = university
         self.faculty = faculty
@@ -94,42 +95,6 @@ class GroupSched : ObservableObject {
             }
         }
     }
-
-//    func pinnedReform() {
-//        let settingsManager = SettingsManager()
-//        //Добавить реформ всех расписаний?? Или сделать так чтобы они реформились когда их загружаешь
-//        for day in 0..<schedule.count { //А если дня не будет? - Так тогда и цикла не будет ебана мяу (или он будет ограничен тем количеством дней которые есть)
-//            for lessons in 0..<schedule[day].count {
-//                var needReformTrue = true
-//                var needReformFalse = true
-//                let pinned = pinSchedule[day][lessons]
-//                //print(items[currItem].schedule[day][lessons], pinned[true] ?? 0)
-//                if schedule[day][lessons].isEmpty { return }
-//                if (schedule[day][lessons][pinned[true] ?? 0].parity.keys.contains(true)) {
-//                    needReformTrue = false
-//                }
-//                if (schedule[day][lessons][pinned[false] ?? 0].parity.keys.contains(false)) {
-//                    needReformFalse = false
-//                }
-//                
-//                if (needReformTrue || needReformFalse) {
-//                    for lesson in 0..<schedule[day][lessons].count {
-//                        if (needReformTrue && schedule[day][lessons][lesson].parity.keys.contains(true)) {
-//                            pinSchedule[day][lessons][true] = lesson
-//                                needReformTrue = false
-//                        }
-//                        if (needReformFalse && schedule[day][lessons][lesson].parity.keys.contains(false)) {
-//                            pinSchedule[day][lessons][false] = lesson
-//                            needReformFalse = false
-//                        }
-//                        if (!needReformTrue && !needReformFalse) { break }
-//                    }
-//                }
-//            }
-//        }
-//        print("reformed: now - \(settingsManager.isEvenWeek)")
-//        
-//    }
 }
 
 
@@ -148,7 +113,16 @@ extension GroupSched: Codable {
         try values.encode(pinSchedule, forKey: .pinSchedule)
         try values.encode(date_read, forKey: .date_read)
     }
+
+    func asData() -> GroupSchedData {
+        GroupSchedData(
+            university: university,
+            faculty: faculty,
+            group: group,
+            date_read: date_read,
+            schedule: schedule,
+            pinSchedule: pinSchedule,
+            id: id
+        )
+    }
 }
-
-
-//    var pinSchedule : [[Int]] =   [ [[true:0, false:0],[true:0, false:0],[true:0, false:0],[true:2, false:0],[true:0, false:0],[true:0, false:0],[true:0, false:0],[true:0, false:0],[true:0, false:0]], [1,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0] ]

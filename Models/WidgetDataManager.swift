@@ -15,7 +15,7 @@ final class WidgetDataManager {
     private let scheduleKey = "schedule"
     private let parityKey = "parity"
 
-    private(set) var schedule: GroupSched?
+    private(set) var schedule: GroupSchedData?
     private(set) var parity: Int?
 
     init() {
@@ -24,7 +24,7 @@ final class WidgetDataManager {
 
     func load() {
         if let data = userDefaults?.data(forKey: scheduleKey),
-           let decoded = try? JSONDecoder().decode(GroupSched.self, from: data) {
+           let decoded = try? JSONDecoder().decode(GroupSchedData.self, from: data) {
             schedule = decoded
         }
         if let parityValue = userDefaults?.value(forKey: parityKey) as? Int {
@@ -36,7 +36,7 @@ final class WidgetDataManager {
         if let data = try? JSONEncoder().encode(schedule) {
             userDefaults?.set(data, forKey: scheduleKey)
         }
-        self.schedule = schedule
+        self.schedule = schedule?.asData()
         userDefaults?.set(parity, forKey: parityKey)
         self.parity = parity
         updateWidgets()

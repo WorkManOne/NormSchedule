@@ -54,7 +54,7 @@ struct LessonRowView: View {
                     .foregroundStyle(.blue)
                 VStack (alignment: .leading, spacing: 0) {
                     Text(lesson.name)
-                        .font(.system(size: 16))
+                        .font(.system(size: family != .accessoryRectangular ? 16 : 12))
                         .fontWeight(family != .accessoryRectangular ? .regular : .black)
                         .padding(.leading, 5)
                     HStack (spacing: 0) {
