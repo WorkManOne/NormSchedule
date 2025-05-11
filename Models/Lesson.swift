@@ -175,7 +175,7 @@ extension Lesson {
         timeEnd: TimeInterval = Lesson.parseTimeInterval(from: "10:00"),
         type: String = "лекция",
         subgroup: String = "1",
-        parity: [Bool: String] = [true: "Четная", false: "Нечетная"],
+        parity: [Bool: String] = [true: "Четная"],
         name: String = "Математика",
         teacher: String = "Иванов И.И.",
         place: String = "ауд. 101",

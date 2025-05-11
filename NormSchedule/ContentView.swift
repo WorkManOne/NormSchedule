@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @AppStorage("onboardingCompleted") private var onboardingCompleted = false
     @AppStorage("selectedScheduleID") private var selectedScheduleID: String?
     var selectedSchedule: GroupSched? {
         guard let idString = selectedScheduleID, let uuid = UUID(uuidString: idString) else { return nil }
@@ -21,7 +22,7 @@ struct ContentView: View {
     @EnvironmentObject var provider : WCProvider
     @EnvironmentObject var settingsManager : SettingsManager
 
-    let universities = [University(id: "1", name: "СГУ"), University(id: "2", name: "СГТУ")]
+    let universities = [UniversityModel(id: "1", name: "СГУ"), UniversityModel(id: "2", name: "СГТУ")]
     @State private var parity = "Нет"
     let parityNames = ["Нет", "Чет", "Нечет"]
     @State private var dayTabBarPosition = "Сверху"
@@ -37,18 +38,18 @@ struct ContentView: View {
     @State private var isShowAlert = false
     @State private var alertMessage = ""
 
-    @State private var cachedFaculties: [String: [Faculty]] = [:]
-    @State private var cachedTeachers: [String: [Teacher]] = [:]
-    @State private var cachedGroups: [String: [Group]] = [:]
+    @State private var cachedFaculties: [String: [FacultyModel]] = [:]
+    @State private var cachedTeachers: [String: [TeacherModel]] = [:]
+    @State private var cachedGroups: [String: [GroupModel]] = [:]
 
-    @State private var faculties : [Faculty] = []
-    @State private var groups: [Group] = []
-    @State private var teachers : [Teacher] = []
+    @State private var faculties : [FacultyModel] = []
+    @State private var groups: [GroupModel] = []
+    @State private var teachers : [TeacherModel] = []
 
-    @State private var selectedUniversity : University?
-    @State private var selectedFaculty : Faculty?
-    @State private var selectedGroup : Group?
-    @State private var selectedTeacher : Teacher?
+    @State private var selectedUniversity : UniversityModel?
+    @State private var selectedFaculty : FacultyModel?
+    @State private var selectedGroup : GroupModel?
+    @State private var selectedTeacher : TeacherModel?
 
     var body: some View {
         TabView { //TODO: Попробовать убрать этот TabView, потому что он сеет баги при навигации, и дает меньше возможностей по кастомизации, сделать кастомный?
@@ -203,6 +204,11 @@ struct ContentView: View {
                         }
                     }
                     Section ("Системные настройки") {
+                        Button("Пройти обучение заново") {
+                            withAnimation {
+                                onboardingCompleted = false
+                            }
+                        }
                         Button(action: {
                             schedules.forEach { schedule in
                                 modelContext.delete(schedule)

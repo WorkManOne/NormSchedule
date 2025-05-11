@@ -7,24 +7,24 @@
 
 import Foundation
 
-struct University: Identifiable, Equatable {
+struct UniversityModel: Identifiable, Equatable {
     var id : String
     var name : String
 }
 
-struct Faculty: Identifiable, Equatable {
+struct FacultyModel: Identifiable, Equatable {
     var id : String { uri }
     var name : String
     var uri : String
 }
 
-struct Group: Identifiable, Equatable {
+struct GroupModel: Identifiable, Equatable {
     var id : String { uri }
     var name : String
     var uri : String
 }
 
-struct Teacher: Codable, Identifiable, Equatable {
+struct TeacherModel: Codable, Identifiable, Equatable {
     var id : String { uri }
     var name : String
     var uri : String

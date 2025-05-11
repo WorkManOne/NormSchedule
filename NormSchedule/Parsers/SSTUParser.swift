@@ -9,7 +9,7 @@ import Foundation
 import SwiftSoup
 
 final class SSTUParser: UniversityParser {
-    func getFaculties() async -> Result<[Faculty], ParserError> {
+    func getFaculties() async -> Result<[FacultyModel], ParserError> {
         do {
             guard let url = URL(string: "https://rasp.sstu.ru/") else {
                 return .failure(.invalidData)
@@ -18,7 +18,7 @@ final class SSTUParser: UniversityParser {
             let (data, _) = try await URLSession.shared.data(from: url)
             let htmlString = String(decoding: data, as: UTF8.self)
             let facsPage: Document = try SwiftSoup.parse(htmlString)
-            var faculties : [Faculty] = []
+            var faculties : [FacultyModel] = []
 
             guard let body = facsPage.body() else {
                 return .failure(.parsingFailed(reason: "Не удалось получить тело страницы"))
@@ -28,7 +28,7 @@ final class SSTUParser: UniversityParser {
             for fac in facs {
                 let nameFac = try fac.text()
                 let idFac = try fac.attr("aria-controls")
-                faculties.append(Faculty(name: nameFac, uri: idFac))
+                faculties.append(FacultyModel(name: nameFac, uri: idFac))
             }
             return .success(faculties)
         } catch {
@@ -36,9 +36,9 @@ final class SSTUParser: UniversityParser {
         }
     }
 
-    func getGroups(uri: String) async -> Result<[Group], ParserError> {
+    func getGroups(uri: String) async -> Result<[GroupModel], ParserError> {
         do {
-            var groups : [Group] = []
+            var groups : [GroupModel] = []
             guard let url = URL(string: "https://rasp.sstu.ru/") else {
                 return .failure(.invalidData)
             }
@@ -51,7 +51,7 @@ final class SSTUParser: UniversityParser {
             }
             let dirtGroups = try bodyFac.select("#\(uri) .col-auto.group a")
             for grp in dirtGroups {
-                groups.append(Group(name: try grp.text(), uri: try grp.attr("href")))
+                groups.append(GroupModel(name: try grp.text(), uri: try grp.attr("href")))
             }
 
             return .success(groups)
@@ -75,7 +75,7 @@ final class SSTUParser: UniversityParser {
         }
     }
 
-    func getTeachers() async -> Result<[Teacher], ParserError> {
+    func getTeachers() async -> Result<[TeacherModel], ParserError> {
         do {
             guard let url = URL(string: "https://rasp.sstu.ru/rasp/teachers") else {
                 return .failure(.invalidData)
@@ -87,10 +87,10 @@ final class SSTUParser: UniversityParser {
             guard let body = doc.body() else {
                 return .failure(.parsingFailed(reason: "Не удалось получить тело страницы"))
             }
-            var teachers = [Teacher]()
+            var teachers = [TeacherModel]()
             let dirtyTeachers = try body.select(".list-teacher > .row a")
             for teacher in dirtyTeachers {
-                teachers.append(Teacher(name: try teacher.text(), uri: try teacher.attr("href")))
+                teachers.append(TeacherModel(name: try teacher.text(), uri: try teacher.attr("href")))
             }
             return .success(teachers)
         } catch {

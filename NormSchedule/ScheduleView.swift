@@ -22,8 +22,9 @@ struct ScheduleView: View {
         UIPageControl.appearance().currentPageIndicatorTintColor = .blue
         UIPageControl.appearance().pageIndicatorTintColor = .lines
         UIPageControl.appearance().tintColor = .lines
-        self._selectedDayButton = State(initialValue: initialDay)
-        self._selectedDayTab = State(initialValue: initialDay)
+        let currentDay = SettingsManager.shared.recalcCurrDay()
+        self._selectedDayButton = State(initialValue: currentDay)
+        self._selectedDayTab = State(initialValue: currentDay)
         self.groupSchedule = groupSchedule
     }
 

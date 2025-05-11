@@ -10,7 +10,7 @@ import SwiftSoup
 
 final class SSUParser: UniversityParser {
 
-    func getFaculties() async -> Result<[Faculty], ParserError> {
+    func getFaculties() async -> Result<[FacultyModel], ParserError> {
         do {
             guard let url = URL(string: "https://www.old.sgu.ru/schedule") else {
                 return .failure(.invalidData)
@@ -19,7 +19,7 @@ final class SSUParser: UniversityParser {
             let htmlString = String(decoding: data, as: UTF8.self)
 
             let facsPage: Document = try SwiftSoup.parse(htmlString)
-            var faculties : [Faculty] = []
+            var faculties : [FacultyModel] = []
 
             guard let body = facsPage.body() else {
                 return .failure(.parsingFailed(reason: "Не удалось получить тело страницы"))
@@ -33,7 +33,7 @@ final class SSUParser: UniversityParser {
             for fac in facs {
                 let nameFac = try fac.text()
                 let uriFac = try fac.child(0).attr("href")
-                faculties.append(Faculty(name: nameFac, uri: uriFac))
+                faculties.append(FacultyModel(name: nameFac, uri: uriFac))
             }
             return .success(faculties)
         } catch {
@@ -47,9 +47,9 @@ final class SSUParser: UniversityParser {
         }
     }
 
-    func getGroups(uri: String) async -> Result<[Group], ParserError> {
+    func getGroups(uri: String) async -> Result<[GroupModel], ParserError> {
         do {
-            var groups : [Group] = []
+            var groups : [GroupModel] = []
             guard let url = URL(string: "https://www.old.sgu.ru\(uri)") else {
                 return .failure(.invalidData)
             }
@@ -63,7 +63,7 @@ final class SSUParser: UniversityParser {
             }
             let dirtGroups = try bodyFac.select(".course.form-wrapper > .fieldset-wrapper > a")
             for grp in dirtGroups {
-                groups.append(Group(name: try grp.text(), uri: try grp.attr("href")))
+                groups.append(GroupModel(name: try grp.text(), uri: try grp.attr("href")))
             }
             return .success(groups)
         } catch {
@@ -89,7 +89,7 @@ final class SSUParser: UniversityParser {
         }
     }
 
-    func getTeachers() async -> Result<[Teacher], ParserError> {
+    func getTeachers() async -> Result<[TeacherModel], ParserError> {
         do {
             guard let url = URL(string: "https://old.sgu.ru/schedule/teacher/search") else {
                 return .failure(.invalidData)
@@ -99,7 +99,7 @@ final class SSUParser: UniversityParser {
             request.httpMethod = "POST"
             request.httpBody = "js=1&".data(using: .utf8)
             let (data, _) = try await URLSession.shared.data(for: request)
-            let teachers = try JSONDecoder().decode([Teacher].self, from: data)
+            let teachers = try JSONDecoder().decode([TeacherModel].self, from: data)
             return .success(teachers)
         } catch {
             return .failure(.parsingFailed(reason: error.localizedDescription))

@@ -10,16 +10,22 @@ import SwiftData
 
 @main
 struct NormScheduleApp: App {
-    
+    @AppStorage("onboardingCompleted") private var onboardingCompleted = false
     @ObservedObject var provider = WCProvider.shared
     @ObservedObject var settingsManager = SettingsManager.shared
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }.modelContainer(for: GroupSched.self)
-            .environmentObject(provider)
-            .environmentObject(settingsManager)
+                .fullScreenCover(isPresented: .constant(!onboardingCompleted), content: {
+                    OnboardingView {
+                        onboardingCompleted = true
+                    }
+                })
+        }
+        .modelContainer(for: GroupSched.self)
+        .environmentObject(provider)
+        .environmentObject(settingsManager)
     }
 }
 
