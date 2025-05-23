@@ -61,7 +61,9 @@ final class WidgetDataManager {
                    let lessonIndex = schedule.pinSchedule[day][index][key],
                    (schedule.schedule[day][index][lessonIndex].parity.keys.contains(key) || schedule.schedule[day][index][lessonIndex].parity.isEmpty || parity == 0),
                    schedule.schedule[day][index][lessonIndex].name != "Пары нет",
-                   schedule.schedule[day][index][lessonIndex].name != "Биг Чиллинг!" { //TODO: Нужно будет разрешить как то такие nil пары
+                   schedule.schedule[day][index][lessonIndex].name != "Биг Чиллинг!" //TODO: Нужно будет разрешить как то такие nil пары
+                   /*!schedule.schedule[day][index][lessonIndex].isHidden*/ //TODO: Пока повременить! Чтобы работала первая подходящая пара нужно проходить по всем а не по запинованным!
+                {
                     lessons.append(schedule.schedule[day][index][lessonIndex])
                 }
             }

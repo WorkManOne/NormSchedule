@@ -16,10 +16,10 @@ struct LessonsPreviewView: View {
     var body: some View {
         VStack (alignment: .center) {
             HStack (alignment: .center) {
+
                 if let icon = lesson.importance.icon {
                     icon
                         .foregroundStyle(lesson.importance.iconColor)
-                        .help(lesson.importance.description)
                 }
                 Text(lesson.timeString())
                     .font(.system(size: 12))
@@ -39,6 +39,11 @@ struct LessonsPreviewView: View {
             .padding(.top)
             Spacer()
             HStack (alignment: .center) {
+                if !lesson.note.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    RoundedRectangle(cornerRadius: 3)
+                        .frame(width: 3)
+                        .foregroundStyle(.yellow)
+                }
                 Text(lesson.name)
                     .fontWeight(.bold)
                     .font(.system(size: 14))

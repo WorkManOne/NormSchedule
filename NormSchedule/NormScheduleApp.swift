@@ -11,7 +11,6 @@ import SwiftData
 @main
 struct NormScheduleApp: App {
     @AppStorage("onboardingCompleted") private var onboardingCompleted = false
-    @ObservedObject var provider = WCProvider.shared
     @ObservedObject var settingsManager = SettingsManager.shared
     
     var body: some Scene {
@@ -24,7 +23,6 @@ struct NormScheduleApp: App {
                 })
         }
         .modelContainer(for: GroupSched.self)
-        .environmentObject(provider)
         .environmentObject(settingsManager)
     }
 }

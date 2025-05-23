@@ -49,9 +49,21 @@ struct LessonRowView: View {
                 }
             }
             HStack {
-                RoundedRectangle(cornerRadius: 3)
-                    .frame(width: 3)
-                    .foregroundStyle(.blue)
+                VStack (spacing: 2) {
+                    if !lesson.note.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        Circle()
+                            .frame(width: 3)
+                            .foregroundStyle(.yellow)
+                    }
+                    RoundedRectangle(cornerRadius: 3)
+                        .frame(width: 3)
+                        .foregroundStyle(lesson.note.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? .lines : .yellow)
+                    if !lesson.note.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        Circle()
+                            .frame(width: 3)
+                            .foregroundStyle(.yellow)
+                    }
+                }
                 VStack (alignment: .leading, spacing: 0) {
                     Text(lesson.name)
                         .font(.system(size: family != .accessoryRectangular ? 16 : 12))

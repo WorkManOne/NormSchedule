@@ -19,7 +19,6 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Query(sort: \GroupSched.group) var schedules : [GroupSched]
 
-    @EnvironmentObject var provider : WCProvider
     @EnvironmentObject var settingsManager : SettingsManager
 
     let universities = [UniversityModel(id: "1", name: "СГУ"), UniversityModel(id: "2", name: "СГТУ")]
