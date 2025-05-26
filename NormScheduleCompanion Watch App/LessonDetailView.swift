@@ -39,6 +39,11 @@ struct LessonDetailView: View {
                 .font(.system(size: 12))
             Spacer()
             HStack (alignment: .center) {
+                if !lesson.note.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    RoundedRectangle(cornerRadius: 3)
+                        .frame(width: 3)
+                        .foregroundStyle(.yellow)
+                }
                 Text(lesson.name)
                     .fontWeight(.bold)
                     .font(.system(size: 14))
