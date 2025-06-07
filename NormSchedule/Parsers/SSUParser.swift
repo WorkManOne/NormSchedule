@@ -105,15 +105,22 @@ final class SSUParser: UniversityParser {
 
     func getTeachers() async -> Result<[TeacherModel], ParserError> {
         do {
-            guard let url = URL(string: "https://old.sgu.ru/schedule/teacher/search") else {
+            guard let url = URL(string: "https://www.sgu.ru/schedule") else {
                 return .failure(.invalidData)
             }
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let htmlString = String(decoding: data, as: UTF8.self)
+            let doc = try SwiftSoup.parse(htmlString)
 
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.httpBody = "js=1&".data(using: .utf8)
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let teachers = try JSONDecoder().decode([TeacherModel].self, from: data)
+            guard let body = doc.body() else {
+                return .failure(.parsingFailed(reason: "Не удалось получить тело страницы"))
+            }
+            var teachers = [TeacherModel]()
+            let dirtyTeachers = try body.select(".search-results > li")
+            for teacher in dirtyTeachers {
+                let uriId = try teacher.attr("data-id")
+                teachers.append(TeacherModel(name: try teacher.text(), uri: "/schedule/teacher/" + uriId))
+            }
             return .success(teachers)
         } catch {
             return .failure(.parsingFailed(reason: error.localizedDescription))
