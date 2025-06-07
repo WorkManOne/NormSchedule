@@ -80,8 +80,7 @@ final class SSUParser: UniversityParser {
             return .failure(.parsingFailed(reason: error.localizedDescription))
         }
     }
-
-    func getSchedule(uri: String) async -> Result<GroupSched, ParserError> {
+    func getSchedule(uri: String, university: String?, faculty: String?, group: String?) async -> Result<GroupSched, ParserError> {
         do {
             guard let url = URL(string: "https://www.sgu.ru\(uri)") else {
                 return .failure(.invalidData)
@@ -95,6 +94,9 @@ final class SSUParser: UniversityParser {
                 groupSched.faculty = String(parts[1]) + " " + String(parts[2])
                 groupSched.group = String(parts[3])
             }
+            groupSched.university = university ?? groupSched.university
+            groupSched.faculty = faculty ?? groupSched.faculty
+            groupSched.group = group ?? groupSched.group
             return .success(groupSched)
         } catch {
             return .failure(.parsingFailed(reason: error.localizedDescription))

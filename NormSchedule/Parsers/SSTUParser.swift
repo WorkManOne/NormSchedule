@@ -60,7 +60,7 @@ final class SSTUParser: UniversityParser {
         }
     }
 
-    func getSchedule(uri: String) async -> Result<GroupSched, ParserError> {
+    func getSchedule(uri: String, university: String?, faculty: String?, group: String?) async -> Result<GroupSched, ParserError> {
         do {
             guard let url = URL(string: "https://rasp.sstu.ru/\(uri)") else {
                 return .failure(.invalidData)
@@ -69,6 +69,9 @@ final class SSTUParser: UniversityParser {
             let htmlString = String(decoding: data, as: UTF8.self)
             let doc: Document = try SwiftSoup.parse(htmlString)
             let groupSched = parseSchedule(doc: doc)
+            groupSched.university = university ?? groupSched.university
+            groupSched.faculty = faculty ?? groupSched.faculty
+            groupSched.group = group ?? groupSched.group
             return .success(groupSched)
         } catch {
             return .failure(.parsingFailed(reason: error.localizedDescription))

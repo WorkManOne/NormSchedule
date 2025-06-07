@@ -10,6 +10,6 @@ import Foundation
 protocol UniversityParser {
     func getFaculties() async -> Result<[FacultyModel], ParserError>
     func getGroups(uri: String) async -> Result<[GroupModel], ParserError>
-    func getSchedule(uri: String) async -> Result<GroupSched, ParserError>
+    func getSchedule(uri: String, university: String?, faculty: String?, group: String?) async -> Result<GroupSched, ParserError>
     func getTeachers() async -> Result<[TeacherModel], ParserError>
 }

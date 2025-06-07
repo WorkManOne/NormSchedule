@@ -99,9 +99,8 @@ struct ContentView: View {
                                 isLoadingSchedule = true
 
                                 Task {
-                                    
                                     if let parser = ParserManager.parser(for: university.id) {
-                                        let result = await parser.getSchedule(uri: uri)
+                                        let result = await parser.getSchedule(uri: uri, university: selectedUniversity?.name, faculty: selectedFaculty?.name, group: selectedGroup?.name)
 
                                         switch result {
                                         case .success(let schedule):
@@ -169,13 +168,10 @@ struct ContentView: View {
                                 isLoadingSchedule = true
                                 Task {
                                     if let parser = ParserManager.parser(for: university.id) {
-                                        let result = await parser.getSchedule(uri: uri)
+                                        let result = await parser.getSchedule(uri: uri, university: selectedUniversity?.name, faculty: nil, group: selectedTeacher?.name)
 
                                         switch result {
                                         case .success(let schedule):
-//                                            schedule.university = selectedUniversity?.name ?? schedule.university
-//                                            schedule.group = selectedGroup?.name ?? schedule.group
-//                                            schedule.faculty = selectedFaculty?.name ?? schedule.faculty
                                             modelContext.insert(schedule)
                                             isLoadingSchedule = false
                                             isScheduleUpdated = true
