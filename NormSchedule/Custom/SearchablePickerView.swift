@@ -73,6 +73,7 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
 
         }
         .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
