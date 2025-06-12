@@ -15,6 +15,9 @@
 		7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */; };
 		7A33F7382DA21922003394B6 /* LessonVisibilityManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A33F7372DA21922003394B6 /* LessonVisibilityManagementView.swift */; };
 		7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A33F7482DA23AF3003394B6 /* LessonCardView.swift */; };
+		7A39843A2DFA248D00AFAE53 /* YandexMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 7A3984392DFA248D00AFAE53 /* YandexMobileAds */; };
+		7A39843C2DFA256F00AFAE53 /* MobileAdsBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A39843B2DFA256F00AFAE53 /* MobileAdsBundle.bundle */; };
+		7A3984752DFA38E800AFAE53 /* YandexAdaptiveBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */; };
 		7A4FDC962D9C149600A91862 /* RichTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A4FDC952D9C149600A91862 /* RichTextKit */; };
 		7A4FDC982D9C175D00A91862 /* RichTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A4FDC972D9C175D00A91862 /* RichTextKit */; };
 		7A4FDD032D9DFF7E00A91862 /* LessonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4FDD022D9DFF7E00A91862 /* LessonDetailView.swift */; };
@@ -106,6 +109,8 @@
 		7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchablePickerView.swift; sourceTree = "<group>"; };
 		7A33F7372DA21922003394B6 /* LessonVisibilityManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonVisibilityManagementView.swift; sourceTree = "<group>"; };
 		7A33F7482DA23AF3003394B6 /* LessonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCardView.swift; sourceTree = "<group>"; };
+		7A39843B2DFA256F00AFAE53 /* MobileAdsBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MobileAdsBundle.bundle; sourceTree = "<group>"; };
+		7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexAdaptiveBanner.swift; sourceTree = "<group>"; };
 		7A4FDD022D9DFF7E00A91862 /* LessonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailView.swift; sourceTree = "<group>"; };
 		7A516C542DAE415300E97730 /* NormWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NormWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A516C562DAE415300E97730 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -168,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A4FDC962D9C149600A91862 /* RichTextKit in Frameworks */,
+				7A39843A2DFA248D00AFAE53 /* YandexMobileAds in Frameworks */,
 				7AC31A552BB97A830099DB76 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,6 +225,7 @@
 		7A7B38CA2BA25C2C006B2BB6 = {
 			isa = PBXGroup;
 			children = (
+				7A39843B2DFA256F00AFAE53 /* MobileAdsBundle.bundle */,
 				7A2080F72DB3FE5E001BC0FB /* NormWidgetExtension.entitlements */,
 				7A6495B62D4025FE006F167D /* Models */,
 				7A7B38D52BA25C2C006B2BB6 /* NormSchedule */,
@@ -275,6 +282,7 @@
 				7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */,
 				7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */,
 				7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */,
+				7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -337,6 +345,7 @@
 			packageProductDependencies = (
 				7AC31A542BB97A830099DB76 /* SwiftSoup */,
 				7A4FDC952D9C149600A91862 /* RichTextKit */,
+				7A3984392DFA248D00AFAE53 /* YandexMobileAds */,
 			);
 			productName = NormSchedule;
 			productReference = 7A7B38D32BA25C2C006B2BB6 /* NormSchedule.app */;
@@ -398,6 +407,7 @@
 			packageReferences = (
 				7AC31A532BB97A830099DB76 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				7A4FDC942D9C149600A91862 /* XCRemoteSwiftPackageReference "RichTextKit" */,
+				7A3984382DFA236F00AFAE53 /* XCRemoteSwiftPackageReference "yandex-ads-sdk-ios" */,
 			);
 			productRefGroup = 7A7B38D42BA25C2C006B2BB6 /* Products */;
 			projectDirPath = "";
@@ -422,6 +432,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A39843C2DFA256F00AFAE53 /* MobileAdsBundle.bundle in Resources */,
 				7A7B38DE2BA25C2D006B2BB6 /* Preview Assets.xcassets in Resources */,
 				7A2080522DB1257F001BC0FB /* LaunchScreen.storyboard in Resources */,
 				7A7B39032BA25D97006B2BB6 /* sched.json in Resources */,
@@ -465,6 +476,7 @@
 				7A33F7382DA21922003394B6 /* LessonVisibilityManagementView.swift in Sources */,
 				7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */,
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
+				7A3984752DFA38E800AFAE53 /* YandexAdaptiveBanner.swift in Sources */,
 				7A9327B32DCEA9840007CA0A /* OnboardingView.swift in Sources */,
 				7AD383EE2BCD64B300384D1C /* ParserManager.swift in Sources */,
 				7A9323CD2DC9585C0007CA0A /* SyncManager.swift in Sources */,
@@ -627,6 +639,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -683,6 +696,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -705,6 +719,7 @@
 				INFOPLIST_FILE = NormSchedule/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Norm;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Мы используем анонимный рекламный идентификатор (IDFA), чтобы показывать вам более релевантную и ненавязчивую рекламу, а также поддерживать развитие приложения без платной подписки.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -743,6 +758,7 @@
 				INFOPLIST_FILE = NormSchedule/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Norm;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Мы используем анонимный рекламный идентификатор (IDFA), чтобы показывать вам более релевантную и ненавязчивую рекламу, а также поддерживать развитие приложения без платной подписки.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -867,6 +883,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7A3984382DFA236F00AFAE53 /* XCRemoteSwiftPackageReference "yandex-ads-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yandexmobile/yandex-ads-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.13.0;
+			};
+		};
 		7A4FDC942D9C149600A91862 /* XCRemoteSwiftPackageReference "RichTextKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/danielsaidi/RichTextKit.git";
@@ -886,6 +910,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7A3984392DFA248D00AFAE53 /* YandexMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A3984382DFA236F00AFAE53 /* XCRemoteSwiftPackageReference "yandex-ads-sdk-ios" */;
+			productName = YandexMobileAds;
+		};
 		7A4FDC952D9C149600A91862 /* RichTextKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7A4FDC942D9C149600A91862 /* XCRemoteSwiftPackageReference "RichTextKit" */;

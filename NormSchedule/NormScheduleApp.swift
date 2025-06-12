@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SwiftData
+import YandexMobileAds
+import AppTrackingTransparency
 
 @main
 struct NormScheduleApp: App {
@@ -24,6 +26,25 @@ struct NormScheduleApp: App {
         }
         .modelContainer(for: GroupSched.self)
         .environmentObject(settingsManager)
+    }
+
+    init() {
+        requestTrackingAndInitializeAdsIfNeeded()
+    }
+
+    func requestTrackingAndInitializeAdsIfNeeded() {
+        let status = ATTrackingManager.trackingAuthorizationStatus
+
+        if status == .notDetermined {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                ATTrackingManager.requestTrackingAuthorization { newStatus in
+                    print("ATT status: \(newStatus)")
+                    MobileAds.initializeSDK()
+                }
+            }
+        } else {
+            MobileAds.initializeSDK()
+        }
     }
 }
 

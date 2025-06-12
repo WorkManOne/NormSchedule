@@ -12,9 +12,17 @@ struct DayView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @Binding var pinSched : [[Bool:Int]]
 
+//    init(daySched: Binding<[[Lesson]]>, pinSched: Binding<[[Bool:Int]]>) {
+//            self._daySched = daySched
+//            self._pinSched = pinSched
+//        print("DayView инициализирован")
+//    }
+
     var body: some View {
         ScrollView {
-            LazyVStack {
+            VStack {
+                YandexAdaptiveBanner(adUnitID: "demo-banner-yandex", padding: 10)
+                    .frame(height: 50)
                 ForEach(daySched.indices, id: \.self) { index in
                     LessonView(lessons: $daySched[index], pinned: $pinSched[index])
                         //.frame(height: 210) //TODO: Регулирует вертикальный пробел между [Lesson] элементами, а также не дает им быть меньшего чем это задано в LesoonView размера (там frame height 140 тоже стоит) это странная хуйня и мне это не нравится, но без нее уроки сворачивает нахуй -> переместилось в LessonView
