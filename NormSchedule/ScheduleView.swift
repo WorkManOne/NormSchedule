@@ -85,19 +85,24 @@ struct ScheduleView: View {
         VStack {
             if (groupSchedule.schedule.isEmpty) {
                 Spacer()
-                VStack {
+                VStack (spacing: 10) {
                     Text("Похоже у вас пока нет расписания")
                         .font(.headline)
                         .multilineTextAlignment(.center)
                         .fontWeight(.bold)
                     Text("Перейдите в настройки чтобы получить его")
+                    Text("Если расписание выбрано, но не отображается, проверьте сайт вуза, возможно там тоже пусто :)")
+                        .font(.caption)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal)
                 }
                 Spacer()
             }
             else {
                 TabView(selection: $selectedDayTab) {
-                    ForEach(days, id: \.self) { day in
-                        let index = days.firstIndex(of: day) ?? 0
+                    ForEach(days.indices, id: \.self) { index in
+                        let day = days[index]
                         VStack {
                             if (!groupSchedule.schedule.indices.contains(index) || groupSchedule.schedule[index].flatMap { $0 }.isEmpty) {
                                 VStack {
@@ -110,7 +115,10 @@ struct ScheduleView: View {
                             }
                             else {
                                 DayView(daySched: $groupSchedule.schedule[index],
-                                        pinSched: Binding(
+                                        pinSched:
+//                                            $groupSchedule.pinSchedule[index]
+
+                                            Binding(
                                             get: { dayViewErrorBlockator(with: index) },
                                             set: { if groupSchedule.pinSchedule.indices.contains(index) { groupSchedule.pinSchedule[index] = $0 } }
                                         )
@@ -125,36 +133,6 @@ struct ScheduleView: View {
                 .onChange(of: selectedDayTab, { _, newTab in
                     selectedDayButton = newTab
                 })
-//                InfinitePageView(
-//                    selection: $selectedDayTabNum,
-//                    before: { correctedIndex(for: $0 - 1) },
-//                    after: { correctedIndex(for: $0 + 1) },
-//                    view: { index in
-//                        VStack {
-//                            if (!groupSchedule.schedule.indices.contains(index) || groupSchedule.schedule[index].flatMap { $0 }.isEmpty) {
-//                                VStack {
-//                                    Text("В этот день занятий вроде нет")
-//                                        .font(.headline)
-//                                        .multilineTextAlignment(.center)
-//                                        .fontWeight(.bold)
-//                                    Text("Кайф")
-//                                }
-//                            }
-//                            else {
-//                                DayView(daySched: groupSchedule.schedule[index],
-//                                        pinSched: Binding(
-//                                            get: { dayViewErrorBlockator(with: index) },
-//                                            set: { if groupSchedule.pinSchedule.indices.contains(index) { groupSchedule.pinSchedule[index] = $0 } }
-//                                        )
-//                                )
-//                            }
-//                        }
-//                        .environmentObject(settingsManager)
-//                    }
-//                ).onChange(of: selectedDayTabNum, { _, newTab in
-//                    print("selectedDayTab triggered")
-//                    selectedDayButton = days[newTab]
-//                })
             }
         }.ignoresSafeArea()
     }

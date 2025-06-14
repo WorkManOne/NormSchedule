@@ -12,15 +12,16 @@ struct DayView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @Binding var pinSched : [[Bool:Int]]
 
-//    init(daySched: Binding<[[Lesson]]>, pinSched: Binding<[[Bool:Int]]>) {
-//            self._daySched = daySched
-//            self._pinSched = pinSched
-//        print("DayView инициализирован")
-//    }
+    init(daySched: Binding<[[Lesson]]>, pinSched: Binding<[[Bool:Int]]>) {
+            self._daySched = daySched
+            self._pinSched = pinSched
+        print("♻️ DayView инициализирован \(UUID())") // или index
+    }
 
     var body: some View {
-        ScrollView {
-            VStack {
+        let _ = print("🎯 DayView body - settingsManager изменился?")
+        return ScrollView {
+            LazyVStack {
                 YandexAdaptiveBanner(adUnitID: "demo-banner-yandex", padding: 10)
                     .frame(height: 50)
                 ForEach(daySched.indices, id: \.self) { index in

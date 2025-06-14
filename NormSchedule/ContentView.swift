@@ -29,10 +29,11 @@ struct ContentView: View {
     @State private var dayTabBarStyle = "Округлый"
     let styleNames = ["Округлый", "Прямой"]
 
-    @State private var isLoadingFaculties = false
-    @State private var isLoadingGroups = false
-    @State private var isLoadingSchedule = false
-    @State private var isLoadingTeachers = false
+    @State private var isFacultiesLoading = false
+    @State private var isGroupsLoading = false
+    @State private var isScheduleLoading = false
+    @State private var isTeacherScheduleLoading = false
+    @State private var isTeachersLoading = false
 
     @State private var isFacultiesUpdated = false
     @State private var isGroupsUpdated = false
@@ -62,9 +63,6 @@ struct ContentView: View {
                 .tabItem { Image(systemName: "book.pages.fill").imageScale(.large) }
             NavigationStack {
                 Form {
-                    Section ("Выбор расписания") {
-                        SchedulePicker
-                    }
                     Section ("Настройки интерфейса") {
                         Picker(selection: $parity, label: Text("Четность недели")) {
                             ForEach(parityNames, id: \.self) { name in
@@ -86,17 +84,20 @@ struct ContentView: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                     }
+                    Section ("Выбор расписания") {
+                        SchedulePicker
+                    }
                     Section ("Университет для загрузки") {
                         UniversityPicker
                     }
-                    Section ("Загрузить расписание группы") {
+                    Section ("Загрузить расписание") {
                         FacultyPicker
                         GroupPicker
                         Button(action: {
                             if (!groups.isEmpty) {
                                 guard let uri = selectedGroup?.uri,
                                       let university = selectedUniversity else { return }
-                                isLoadingSchedule = true
+                                isScheduleLoading = true
 
                                 Task {
                                     if let parser = ParserManager.parser(for: university.id) {
@@ -105,18 +106,18 @@ struct ContentView: View {
                                         switch result {
                                         case .success(let schedule):
                                             modelContext.insert(schedule)
-                                            isLoadingSchedule = false
+                                            isScheduleLoading = false
                                             isScheduleUpdated = true
                                         case .failure(let error):
                                             alertMessage = error.localizedDescription
                                             isShowAlert = true
-                                            isLoadingSchedule = false
+                                            isScheduleLoading = false
                                         }
                                     }
                                 }
                             }
                         }) {
-                            if isLoadingSchedule {
+                            if isScheduleLoading {
                                 HStack {
                                     Spacer()
                                     ProgressView()
@@ -129,43 +130,12 @@ struct ContentView: View {
                                 Text("Загрузить выбранное расписание")
                             }
                         }
-                    }
-                    Section ("Загрузить расписание преподавателя") {
-                        Button(action: {
-                            guard let university = selectedUniversity else {
-                                alertMessage = "Выберите университет"
-                                isShowAlert = true
-                                return
-                            }
-                            withAnimation {
-                                isLoadingTeachers = true
-                            }
-                            Task {
-                                if let parser = ParserManager.parser(for: university.id) {
-                                    let result = await parser.getTeachers()
-                                    withAnimation {
-                                        switch result {
-                                        case .success(let teachers):
-                                            self.teachers = teachers
-                                            isLoadingTeachers = false
-                                            isTeachersUpdated = true
-                                        case .failure(let error):
-                                            alertMessage = error.localizedDescription
-                                            isShowAlert = true
-                                            isLoadingTeachers = false
-                                        }
-                                    }
-                                }
-                            }
-                        }) {
-                            Text("Загрузить преподавателей")
-                        }
                         TeacherPicker
                         Button(action: {
                             if (!teachers.isEmpty) {
                                 guard let uri = selectedTeacher?.uri,
                                       let university = selectedUniversity else { return }
-                                isLoadingSchedule = true
+                                isTeacherScheduleLoading = true
                                 Task {
                                     if let parser = ParserManager.parser(for: university.id) {
                                         let result = await parser.getSchedule(uri: uri, university: selectedUniversity?.name, faculty: nil, group: selectedTeacher?.name)
@@ -173,18 +143,18 @@ struct ContentView: View {
                                         switch result {
                                         case .success(let schedule):
                                             modelContext.insert(schedule)
-                                            isLoadingSchedule = false
+                                            isTeacherScheduleLoading = false
                                             isScheduleUpdated = true
                                         case .failure(let error):
                                             alertMessage = error.localizedDescription
                                             isShowAlert = true
-                                            isLoadingSchedule = false
+                                            isTeacherScheduleLoading = false
                                         }
                                     }
                                 }
                             }
                         }) {
-                            if isLoadingSchedule {
+                            if isTeacherScheduleLoading {
                                 HStack {
                                     Spacer()
                                     ProgressView()
@@ -377,7 +347,7 @@ struct ContentView: View {
                         .frame(width: 8, height: 8)
                         .transition(.scale)
                 }
-                if isLoadingFaculties {
+                if isFacultiesLoading {
                     ProgressView()
                         .progressViewStyle(.circular)
                         .scaledToFill()
@@ -406,7 +376,7 @@ struct ContentView: View {
             HStack {
                 Text("Группа")
                 Spacer()
-                if isLoadingGroups {
+                if isGroupsLoading {
                     ProgressView()
                         .progressViewStyle(.circular)
                         .scaledToFill()
@@ -443,7 +413,7 @@ struct ContentView: View {
                         .frame(width: 8, height: 8)
                         .transition(.scale)
                 }
-                if isLoadingTeachers {
+                if isTeachersLoading {
                     ProgressView()
                         .progressViewStyle(.circular)
                         .scaledToFill()
@@ -480,7 +450,7 @@ struct ContentView: View {
             }
         } else {
             withAnimation {
-                isLoadingFaculties = true
+                isFacultiesLoading = true
             }
             Task {
                 if let parser = ParserManager.parser(for: university.id) {
@@ -490,12 +460,40 @@ struct ContentView: View {
                         case .success(let facs):
                             self.faculties = facs
                             self.cachedFaculties[university.id] = facs
-                            isLoadingFaculties = false
+                            isFacultiesLoading = false
                             isFacultiesUpdated = true
                         case .failure(let error):
                             alertMessage = error.localizedDescription
                             isShowAlert = true
-                            isLoadingFaculties = false
+                            isFacultiesLoading = false
+                        }
+                    }
+                }
+            }
+        }
+        if let cached = cachedTeachers[university.id] {
+            teachers = cached
+            withAnimation {
+                isTeachersUpdated = true
+            }
+        } else {
+            withAnimation {
+                isTeachersLoading = true
+            }
+            Task {
+                if let parser = ParserManager.parser(for: university.id) {
+                    let result = await parser.getTeachers()
+                    withAnimation {
+                        switch result {
+                        case .success(let teachers):
+                            self.teachers = teachers
+                            self.cachedTeachers[university.id] = teachers
+                            isTeachersLoading = false
+                            isTeachersUpdated = true
+                        case .failure(let error):
+                            alertMessage = error.localizedDescription
+                            isShowAlert = true
+                            isTeachersLoading = false
                         }
                     }
                 }
@@ -516,7 +514,7 @@ struct ContentView: View {
             }
         } else {
             withAnimation {
-                isLoadingGroups = true
+                isGroupsLoading = true
             }
             Task {
                 if let parser = ParserManager.parser(for: university.id) {
@@ -526,12 +524,12 @@ struct ContentView: View {
                         case .success(let groups):
                             self.groups = groups
                             self.cachedGroups[uri] = groups
-                            isLoadingGroups = false
+                            isGroupsLoading = false
                             isGroupsUpdated = true
                         case .failure(let error):
                             alertMessage = error.localizedDescription
                             isShowAlert = true
-                            isLoadingGroups = false
+                            isGroupsLoading = false
                         }
                     }
 
