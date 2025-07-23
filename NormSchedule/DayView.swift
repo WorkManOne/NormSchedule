@@ -15,12 +15,10 @@ struct DayView: View {
     init(daySched: Binding<[[Lesson]]>, pinSched: Binding<[[Bool:Int]]>) {
             self._daySched = daySched
             self._pinSched = pinSched
-        print("♻️ DayView инициализирован \(UUID())") // или index
     }
 
     var body: some View {
-        let _ = print("🎯 DayView body - settingsManager изменился?")
-        return ScrollView {
+        ScrollView {
             LazyVStack {
                 YandexAdaptiveBanner(adUnitID: "demo-banner-yandex", padding: 10)
                     .frame(height: 50)

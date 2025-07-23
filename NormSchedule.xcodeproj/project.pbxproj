@@ -7,17 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A0462BC2E2A770300468EF0 /* YandexRewardedAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0462BB2E2A770300468EF0 /* YandexRewardedAd.swift */; };
+		7A0462BE2E2B07D600468EF0 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0462BD2E2B07D600468EF0 /* UIApplicationExtension.swift */; };
+		7A0462C02E2B0A2400468EF0 /* RewardPhraseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0462BF2E2B0A2400468EF0 /* RewardPhraseManager.swift */; };
+		7A0462C32E2B2DC600468EF0 /* RewardExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0462C22E2B2DC600468EF0 /* RewardExplanationView.swift */; };
+		7A0462FD2E2CA54D00468EF0 /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = 7A0462FC2E2CA54D00468EF0 /* Pow */; };
 		7A2080522DB1257F001BC0FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A2080512DB1257F001BC0FB /* LaunchScreen.storyboard */; };
 		7A2080F32DB3FBD5001BC0FB /* WidgetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2080F22DB3FBD4001BC0FB /* WidgetDataManager.swift */; };
 		7A2080F42DB3FBD5001BC0FB /* WidgetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2080F22DB3FBD4001BC0FB /* WidgetDataManager.swift */; };
 		7A2080F52DB3FBD5001BC0FB /* WidgetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2080F22DB3FBD4001BC0FB /* WidgetDataManager.swift */; };
 		7A2080F82DB4676A001BC0FB /* GroupSched.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B39002BA25C78006B2BB6 /* GroupSched.swift */; };
 		7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */; };
+		7A336B582E2F2DD000E43317 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7A336B572E2F2DD000E43317 /* DotLottie */; };
 		7A33F7382DA21922003394B6 /* LessonVisibilityManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A33F7372DA21922003394B6 /* LessonVisibilityManagementView.swift */; };
 		7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A33F7482DA23AF3003394B6 /* LessonCardView.swift */; };
 		7A39843A2DFA248D00AFAE53 /* YandexMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 7A3984392DFA248D00AFAE53 /* YandexMobileAds */; };
 		7A39843C2DFA256F00AFAE53 /* MobileAdsBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A39843B2DFA256F00AFAE53 /* MobileAdsBundle.bundle */; };
 		7A3984752DFA38E800AFAE53 /* YandexAdaptiveBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */; };
+		7A4BDBCD2E2D1FBB002A00F6 /* RewardTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4BDBCC2E2D1FBB002A00F6 /* RewardTextView.swift */; };
 		7A4FDC962D9C149600A91862 /* RichTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A4FDC952D9C149600A91862 /* RichTextKit */; };
 		7A4FDC982D9C175D00A91862 /* RichTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A4FDC972D9C175D00A91862 /* RichTextKit */; };
 		7A4FDD032D9DFF7E00A91862 /* LessonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4FDD022D9DFF7E00A91862 /* LessonDetailView.swift */; };
@@ -102,6 +109,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7A0462BB2E2A770300468EF0 /* YandexRewardedAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexRewardedAd.swift; sourceTree = "<group>"; };
+		7A0462BD2E2B07D600468EF0 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
+		7A0462BF2E2B0A2400468EF0 /* RewardPhraseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardPhraseManager.swift; sourceTree = "<group>"; };
+		7A0462C22E2B2DC600468EF0 /* RewardExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardExplanationView.swift; sourceTree = "<group>"; };
 		7A2080512DB1257F001BC0FB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7A2080F22DB3FBD4001BC0FB /* WidgetDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataManager.swift; sourceTree = "<group>"; };
 		7A2080F62DB3FE2D001BC0FB /* NormSchedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NormSchedule.entitlements; sourceTree = "<group>"; };
@@ -111,6 +122,7 @@
 		7A33F7482DA23AF3003394B6 /* LessonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCardView.swift; sourceTree = "<group>"; };
 		7A39843B2DFA256F00AFAE53 /* MobileAdsBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MobileAdsBundle.bundle; sourceTree = "<group>"; };
 		7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexAdaptiveBanner.swift; sourceTree = "<group>"; };
+		7A4BDBCC2E2D1FBB002A00F6 /* RewardTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardTextView.swift; sourceTree = "<group>"; };
 		7A4FDD022D9DFF7E00A91862 /* LessonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailView.swift; sourceTree = "<group>"; };
 		7A516C542DAE415300E97730 /* NormWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NormWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A516C562DAE415300E97730 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -155,6 +167,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7A516C5A2DAE415300E97730 /* NormWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7A516C652DAE415400E97730 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = NormWidget; sourceTree = "<group>"; };
+		7AB335FA2E2F275E000E7283 /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
 		7AC602142D75BC4900154A18 /* NormScheduleCompanion Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "NormScheduleCompanion Watch App"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -173,8 +186,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A4FDC962D9C149600A91862 /* RichTextKit in Frameworks */,
+				7A0462FD2E2CA54D00468EF0 /* Pow in Frameworks */,
 				7A39843A2DFA248D00AFAE53 /* YandexMobileAds in Frameworks */,
 				7AC31A552BB97A830099DB76 /* SwiftSoup in Frameworks */,
+				7A336B582E2F2DD000E43317 /* DotLottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +204,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A0462C12E2B267200468EF0 /* AdComponents */ = {
+			isa = PBXGroup;
+			children = (
+				7A4BDBCC2E2D1FBB002A00F6 /* RewardTextView.swift */,
+				7A0462BF2E2B0A2400468EF0 /* RewardPhraseManager.swift */,
+				7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */,
+				7A0462BB2E2A770300468EF0 /* YandexRewardedAd.swift */,
+				7A0462C22E2B2DC600468EF0 /* RewardExplanationView.swift */,
+			);
+			path = AdComponents;
+			sourceTree = "<group>";
+		};
 		7A33F7592DA2F683003394B6 /* Lesson */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +252,7 @@
 		7A7B38CA2BA25C2C006B2BB6 = {
 			isa = PBXGroup;
 			children = (
+				7AB335FA2E2F275E000E7283 /* Resources */,
 				7A39843B2DFA256F00AFAE53 /* MobileAdsBundle.bundle */,
 				7A2080F72DB3FE5E001BC0FB /* NormWidgetExtension.entitlements */,
 				7A6495B62D4025FE006F167D /* Models */,
@@ -253,6 +281,7 @@
 				7A7B39022BA25D97006B2BB6 /* sched.json */,
 				7A7B38D62BA25C2C006B2BB6 /* NormScheduleApp.swift */,
 				7A7B38D82BA25C2C006B2BB6 /* ContentView.swift */,
+				7A0462C12E2B267200468EF0 /* AdComponents */,
 				7A9327B22DCEA9840007CA0A /* OnboardingView.swift */,
 				7AC123CB2C1E236A001FD32A /* ScheduleView.swift */,
 				7A7B39042BA42955006B2BB6 /* DayView.swift */,
@@ -282,7 +311,7 @@
 				7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */,
 				7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */,
 				7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */,
-				7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */,
+				7A0462BD2E2B07D600468EF0 /* UIApplicationExtension.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -341,11 +370,16 @@
 				7AC6021F2D75BC4B00154A18 /* PBXTargetDependency */,
 				7A516C632DAE415400E97730 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				7AB335FA2E2F275E000E7283 /* Resources */,
+			);
 			name = NormSchedule;
 			packageProductDependencies = (
 				7AC31A542BB97A830099DB76 /* SwiftSoup */,
 				7A4FDC952D9C149600A91862 /* RichTextKit */,
 				7A3984392DFA248D00AFAE53 /* YandexMobileAds */,
+				7A0462FC2E2CA54D00468EF0 /* Pow */,
+				7A336B572E2F2DD000E43317 /* DotLottie */,
 			);
 			productName = NormSchedule;
 			productReference = 7A7B38D32BA25C2C006B2BB6 /* NormSchedule.app */;
@@ -408,6 +442,8 @@
 				7AC31A532BB97A830099DB76 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				7A4FDC942D9C149600A91862 /* XCRemoteSwiftPackageReference "RichTextKit" */,
 				7A3984382DFA236F00AFAE53 /* XCRemoteSwiftPackageReference "yandex-ads-sdk-ios" */,
+				7A0462FB2E2CA54D00468EF0 /* XCRemoteSwiftPackageReference "Pow" */,
+				7A336B562E2F2DD000E43317 /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
 			);
 			productRefGroup = 7A7B38D42BA25C2C006B2BB6 /* Products */;
 			projectDirPath = "";
@@ -470,6 +506,7 @@
 				7A4FDD032D9DFF7E00A91862 /* LessonDetailView.swift in Sources */,
 				7AD383E82BCD636900384D1C /* Structs.swift in Sources */,
 				7A7B39012BA25C78006B2BB6 /* GroupSched.swift in Sources */,
+				7A0462C32E2B2DC600468EF0 /* RewardExplanationView.swift in Sources */,
 				7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */,
 				7AC31A512BB979D30099DB76 /* SSUParser.swift in Sources */,
 				7A6495B42D402581006F167D /* Lesson.swift in Sources */,
@@ -480,15 +517,19 @@
 				7A9327B32DCEA9840007CA0A /* OnboardingView.swift in Sources */,
 				7AD383EE2BCD64B300384D1C /* ParserManager.swift in Sources */,
 				7A9323CD2DC9585C0007CA0A /* SyncManager.swift in Sources */,
+				7A0462BE2E2B07D600468EF0 /* UIApplicationExtension.swift in Sources */,
 				7A2080F42DB3FBD5001BC0FB /* WidgetDataManager.swift in Sources */,
 				7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */,
+				7A0462BC2E2A770300468EF0 /* YandexRewardedAd.swift in Sources */,
 				7A7B38D92BA25C2C006B2BB6 /* ContentView.swift in Sources */,
 				7ACD45512D5D28EB00F6B3BB /* TabBarShape.swift in Sources */,
 				7A98BCB02DBEE6FB00AC75C8 /* ParseError.swift in Sources */,
 				7AC123CC2C1E236A001FD32A /* ScheduleView.swift in Sources */,
+				7A0462C02E2B0A2400468EF0 /* RewardPhraseManager.swift in Sources */,
 				7A9327AF2DCE87A30007CA0A /* GroupSchedData.swift in Sources */,
 				7A6495B82D4028F9006F167D /* SettingsManager.swift in Sources */,
 				7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */,
+				7A4BDBCD2E2D1FBB002A00F6 /* RewardTextView.swift in Sources */,
 				7ADBF6DB2D9AAB3C00556106 /* Extensions.swift in Sources */,
 				7AC602262D75BCC000154A18 /* WCProvider.swift in Sources */,
 				7ACD45532D5D4BE100F6B3BB /* InfinitePageView.swift in Sources */,
@@ -883,6 +924,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7A0462FB2E2CA54D00468EF0 /* XCRemoteSwiftPackageReference "Pow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EmergeTools/Pow";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.5;
+			};
+		};
+		7A336B562E2F2DD000E43317 /* XCRemoteSwiftPackageReference "dotlottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LottieFiles/dotlottie-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		7A3984382DFA236F00AFAE53 /* XCRemoteSwiftPackageReference "yandex-ads-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yandexmobile/yandex-ads-sdk-ios";
@@ -910,6 +967,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7A0462FC2E2CA54D00468EF0 /* Pow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A0462FB2E2CA54D00468EF0 /* XCRemoteSwiftPackageReference "Pow" */;
+			productName = Pow;
+		};
+		7A336B572E2F2DD000E43317 /* DotLottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A336B562E2F2DD000E43317 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			productName = DotLottie;
+		};
 		7A3984392DFA248D00AFAE53 /* YandexMobileAds */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7A3984382DFA236F00AFAE53 /* XCRemoteSwiftPackageReference "yandex-ads-sdk-ios" */;

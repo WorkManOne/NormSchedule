@@ -28,9 +28,9 @@ struct NormScheduleApp: App {
         .environmentObject(settingsManager)
     }
 
-    init() {
-        requestTrackingAndInitializeAdsIfNeeded()
-    }
+//    init() {
+//        requestTrackingAndInitializeAdsIfNeeded()
+//    }
 
     func requestTrackingAndInitializeAdsIfNeeded() {
         let status = ATTrackingManager.trackingAuthorizationStatus

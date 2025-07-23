@@ -1,5 +1,5 @@
 {
-  "originHash" : "06dfd43da194b077eb37957e93f768fcb34cd0ed3a12c8ff111deb685e8db395",
+  "originHash" : "5d1fad7d189ae3df330a69a5c3751be6e22fa61684c7a4f45ab6a693e791f5de",
   "pins" : [
     {
       "identity" : "applovin-max-swift-package",
@@ -38,6 +38,15 @@
       }
     },
     {
+      "identity" : "dotlottie-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/LottieFiles/dotlottie-ios",
+      "state" : {
+        "branch" : "main",
+        "revision" : "64f326caa074127adf23087c929d329b270f2122"
+      }
+    },
+    {
       "identity" : "kscrash",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kstenerud/KSCrash",
@@ -71,6 +80,15 @@
       "state" : {
         "revision" : "6cfceb59bb6bbadacdd562ab295b3f7890f46f3d",
         "version" : "3.2.1"
+      }
+    },
+    {
+      "identity" : "pow",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/EmergeTools/Pow",
+      "state" : {
+        "revision" : "a504eb6d144bcf49f4f33029a2795345cb39e6b4",
+        "version" : "1.0.5"
       }
     },
     {

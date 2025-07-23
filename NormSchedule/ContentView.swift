@@ -21,6 +21,11 @@ struct ContentView: View {
 
     @EnvironmentObject var settingsManager : SettingsManager
 
+    @StateObject private var adManager = RewardedAdManager()
+    @StateObject private var rewardPhraseManager = RewardPhraseManager()
+    @State private var showRewardSheet = false
+    @State private var showRewardAdSheet = false
+
     let universities = [UniversityModel(id: "1", name: "СГУ"), UniversityModel(id: "2", name: "СГТУ")]
     @State private var parity = "Нет"
     let parityNames = ["Нет", "Чет", "Нечет"]
@@ -170,6 +175,19 @@ struct ContentView: View {
                     }
                     Section ("Помощь") {
                         Button {
+                            showRewardAdSheet = true
+                        } label : {
+                            Label("Накормить разработчика", systemImage: "fork.knife")
+                        }
+                        .onAppear {
+                            adManager.onReward = {
+                                rewardPhraseManager.generateAnimation()
+                                rewardPhraseManager.generatePhrase()
+                                showRewardSheet = true
+                            }
+                            adManager.loadAd()
+                        }
+                        Button {
                             withAnimation {
                                 onboardingCompleted = false
                             }
@@ -254,6 +272,26 @@ struct ContentView: View {
             Button("Ок", role: .cancel) { }
         } message: {
             Text(alertMessage)
+        }
+        .sheet(isPresented: $showRewardAdSheet) {
+            RewardExplanationView(
+                onStart: {
+                    showRewardAdSheet = false
+                    if let rootVC = UIApplication.rootViewController() {
+                        adManager.showAd(from: rootVC)
+                    }
+                },
+                isAdReady: adManager.isAdReady
+            )
+            .presentationDetents([.medium])
+            .presentationDragIndicator(.visible)
+        }
+        .sheet(isPresented: $showRewardSheet) {
+            VStack {
+                RewardTextView(phrase: rewardPhraseManager.currentPhrase ?? "", animationName: rewardPhraseManager.currentAnimation ?? "")
+            }
+            .presentationDetents([.medium])
+            .presentationDragIndicator(.visible)
         }
     }
 
