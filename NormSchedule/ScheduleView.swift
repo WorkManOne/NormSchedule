@@ -121,7 +121,8 @@ struct ScheduleView: View {
                                             Binding(
                                             get: { dayViewErrorBlockator(with: index) },
                                             set: { if groupSchedule.pinSchedule.indices.contains(index) { groupSchedule.pinSchedule[index] = $0 } }
-                                        )
+                                        ),
+                                        dayKey: day
                                 ) //TODO: DayView пересоздается при перелистывании каждый раз?
                             }
                         }

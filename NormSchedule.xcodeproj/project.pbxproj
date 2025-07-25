@@ -21,6 +21,8 @@
 		7A336B582E2F2DD000E43317 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7A336B572E2F2DD000E43317 /* DotLottie */; };
 		7A33F7382DA21922003394B6 /* LessonVisibilityManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A33F7372DA21922003394B6 /* LessonVisibilityManagementView.swift */; };
 		7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A33F7482DA23AF3003394B6 /* LessonCardView.swift */; };
+		7A382FF82E32D333008CB7A2 /* AdBannerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A382FF72E32D333008CB7A2 /* AdBannerManager.swift */; };
+		7A382FFA2E32D386008CB7A2 /* CachedYandexAdaptiveBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A382FF92E32D386008CB7A2 /* CachedYandexAdaptiveBanner.swift */; };
 		7A39843A2DFA248D00AFAE53 /* YandexMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 7A3984392DFA248D00AFAE53 /* YandexMobileAds */; };
 		7A39843C2DFA256F00AFAE53 /* MobileAdsBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A39843B2DFA256F00AFAE53 /* MobileAdsBundle.bundle */; };
 		7A3984752DFA38E800AFAE53 /* YandexAdaptiveBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */; };
@@ -120,6 +122,8 @@
 		7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchablePickerView.swift; sourceTree = "<group>"; };
 		7A33F7372DA21922003394B6 /* LessonVisibilityManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonVisibilityManagementView.swift; sourceTree = "<group>"; };
 		7A33F7482DA23AF3003394B6 /* LessonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCardView.swift; sourceTree = "<group>"; };
+		7A382FF72E32D333008CB7A2 /* AdBannerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerManager.swift; sourceTree = "<group>"; };
+		7A382FF92E32D386008CB7A2 /* CachedYandexAdaptiveBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedYandexAdaptiveBanner.swift; sourceTree = "<group>"; };
 		7A39843B2DFA256F00AFAE53 /* MobileAdsBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MobileAdsBundle.bundle; sourceTree = "<group>"; };
 		7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexAdaptiveBanner.swift; sourceTree = "<group>"; };
 		7A4BDBCC2E2D1FBB002A00F6 /* RewardTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardTextView.swift; sourceTree = "<group>"; };
@@ -211,7 +215,9 @@
 				7A0462BF2E2B0A2400468EF0 /* RewardPhraseManager.swift */,
 				7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */,
 				7A0462BB2E2A770300468EF0 /* YandexRewardedAd.swift */,
+				7A382FF92E32D386008CB7A2 /* CachedYandexAdaptiveBanner.swift */,
 				7A0462C22E2B2DC600468EF0 /* RewardExplanationView.swift */,
+				7A382FF72E32D333008CB7A2 /* AdBannerManager.swift */,
 			);
 			path = AdComponents;
 			sourceTree = "<group>";
@@ -508,8 +514,10 @@
 				7A7B39012BA25C78006B2BB6 /* GroupSched.swift in Sources */,
 				7A0462C32E2B2DC600468EF0 /* RewardExplanationView.swift in Sources */,
 				7A7B39052BA42955006B2BB6 /* DayView.swift in Sources */,
+				7A382FF82E32D333008CB7A2 /* AdBannerManager.swift in Sources */,
 				7AC31A512BB979D30099DB76 /* SSUParser.swift in Sources */,
 				7A6495B42D402581006F167D /* Lesson.swift in Sources */,
+				7A382FFA2E32D386008CB7A2 /* CachedYandexAdaptiveBanner.swift in Sources */,
 				7A33F7382DA21922003394B6 /* LessonVisibilityManagementView.swift in Sources */,
 				7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */,
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
