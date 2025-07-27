@@ -37,12 +37,18 @@ struct LessonVisibilityManagementView: View {
                         ))
                     }
                 }
+                .onMove(perform: moveLesson)
             }
-            .navigationTitle("Управление видимостью")
+            .navigationTitle("Видимость и порядок")
             .navigationBarItems(trailing: Button("Готово") {
                 presentationMode.wrappedValue.dismiss()
             })
         }
+    }
+
+    func moveLesson(from: IndexSet, to destination: Int) {
+        lessons.move(fromOffsets: from, toOffset: destination)
+        
     }
 }
 

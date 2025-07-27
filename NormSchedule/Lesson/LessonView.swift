@@ -160,7 +160,26 @@ struct LessonView: View {
                                 Button {
                                     showVisibilitySettings = true
                                 } label: {
-                                    Label("Управление видимостью", systemImage: "list.bullet")
+                                    Label("Видимость и порядок", systemImage: "list.bullet")
+                                }
+                                Button {
+                                    withAnimation {
+                                        lessons.append(Lesson(timeStart: lessons.first?.timeStart ?? 0, timeEnd: lessons.first?.timeEnd ?? 0, name: "Новая пара"))
+                                        active = lessons.isEmpty ? 0 : lessons.count - 1
+                                    }
+                                } label: {
+                                    Label("Добавить пару", systemImage: "plus.circle")
+                                }
+                                Button(role: .destructive) {
+                                    withAnimation {
+                                        if !lessons.isEmpty {
+                                            lessons.remove(at: active)
+
+                                        }
+                                        //TODO: Реализовать открепление пары (для правильных индексов) а также то что будет происходить при удалении единственной пары а именно удаление массива из массива
+                                    }
+                                } label : {
+                                    Label("Удалить пару", systemImage: "trash")
                                 }
 
                             }, preview: {
@@ -181,11 +200,13 @@ struct LessonView: View {
                 }
             }
             .onChange(of: settingsManager.isEvenWeek) {
-                if (settingsManager.isEvenWeek == 2) {
-                    active = pinned[false] ?? 0
-                }
-                else {
-                    active = pinned[true] ?? 0
+                withAnimation {
+                    if (settingsManager.isEvenWeek == 2) {
+                        active = pinned[false] ?? 0
+                    }
+                    else {
+                        active = pinned[true] ?? 0
+                    }
                 }
             }
         }
