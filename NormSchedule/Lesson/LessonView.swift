@@ -10,10 +10,11 @@ import SwiftUI
 struct LessonView: View {
     @Binding var lessons : [Lesson] //TODO: Could lead to technical difficulties, non-tested Binding feature, in case: replace with non-binding and at higher levels
     @EnvironmentObject var settingsManager: SettingsManager
-    @Binding var pinned : [Bool:Int]
-    @State private var active = 0
+    @Binding var pinned : [Bool:UUID]
+    @State private var activeUUID: UUID? = nil
     @State private var showDetail = false
     @State private var showVisibilitySettings = false
+    var onRemoveLastLesson: (() -> Void)?
     //    @State private var cornerRadius : CGFloat = 25
     //    @State private var frameHeight : CGFloat = 100
     //@State var isShown = true
@@ -28,7 +29,7 @@ struct LessonView: View {
 
     var body: some View {
         let allHidden = lessons.allSatisfy { $0.isHidden }
-        TabView (selection: $active) {
+        TabView (selection: $activeUUID) {
             ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
                 if !lesson.isHidden || (allHidden && lesson == lessons.first) {
                     ZStack {
@@ -48,14 +49,13 @@ struct LessonView: View {
                                     .fill(Color.yellow)
                                     .frame(width: 35, height: 35)
                                 }
-
                             }
                             .clipShape(RoundedRectangle(cornerRadius: 25))
                             .shadow(color: .gray.opacity(0.5), radius: 2)
 
                         if !allHidden {
                             VStack (alignment: .center) {
-                                HStack {
+                                HStack (alignment: .top) {
                                     Text(lesson.subgroup)
                                             .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -77,10 +77,10 @@ struct LessonView: View {
                                         ZStack {
                                             Image(systemName: "pin.fill")
                                                 .foregroundStyle(.blue)
-                                                .opacity(index == pinned[true] ? 0.75 : 0)
+                                                .opacity(lesson.id == pinned[true] ? 0.75 : 0)
                                             Image(systemName: "pin.fill")
                                                 .foregroundStyle(.red)
-                                                .opacity(index == pinned[false] ? 0.75 : 0)
+                                                .opacity(lesson.id == pinned[false] ? 0.75 : 0)
                                         }
                                     }
                                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -93,7 +93,7 @@ struct LessonView: View {
                                         .multilineTextAlignment(.center)
                                 }
                                 Spacer()
-                                HStack (alignment: .center) {
+                                HStack (alignment: .bottom) {
                                     Text(lesson.teacher)
                                     Spacer()
                                     if !lesson.parity.isEmpty {
@@ -117,6 +117,14 @@ struct LessonView: View {
                                 Spacer()
                             }
                         }
+//                        VStack { // MARK: Отладка
+//                            Text("\(lesson.id)")
+//                                .foregroundStyle(.blue)
+//                            Text("\(pinned[true])")
+//                                .foregroundStyle(.red)
+//                            Text("\(pinned[false])")
+//                                .foregroundStyle(.red)
+//                        }
                     }
                     .opacity((lesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 || lesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 || lesson.parity.isEmpty || settingsManager.isEvenWeek == 0) ? 1 : 0.4)
                     .frame(height: allHidden ? 50 : 180)
@@ -127,15 +135,15 @@ struct LessonView: View {
                                 Button(action: {
                                     if (lessons[index].parity.keys.contains(false)
                                         && !lessons.allSatisfy { l in l.parity.keys.contains(false) }) {
-                                        pinned[false] = active
+                                        pinned[false] = activeUUID
                                     }
                                     else if (lessons[index].parity.keys.contains(true)
                                              && !lessons.allSatisfy { l in l.parity.keys.contains(true) }) {
-                                        pinned[true] = active
+                                        pinned[true] = activeUUID
                                     }
                                     else {
-                                        pinned[true] = index
-                                        pinned[false] = index
+                                        pinned[true] = lesson.id
+                                        pinned[false] = lesson.id
                                     }
                                 }) {
                                     Text("Закрепить")
@@ -164,17 +172,25 @@ struct LessonView: View {
                                 }
                                 Button {
                                     withAnimation {
-                                        lessons.append(Lesson(timeStart: lessons.first?.timeStart ?? 0, timeEnd: lessons.first?.timeEnd ?? 0, name: "Новая пара"))
-                                        active = lessons.isEmpty ? 0 : lessons.count - 1
+                                        let newLesson = Lesson(timeStart: lessons.first?.timeStart ?? 0, timeEnd: lessons.first?.timeEnd ?? 0, name: "Новая пара")
+                                        lessons.append(newLesson)
+                                        activeUUID = newLesson.id
                                     }
                                 } label: {
                                     Label("Добавить пару", systemImage: "plus.circle")
                                 }
                                 Button(role: .destructive) {
                                     withAnimation {
-                                        if !lessons.isEmpty {
-                                            lessons.remove(at: active)
-
+                                        if pinned[true] == lesson.id {
+                                            pinned[true] = nil
+                                        }
+                                        if pinned[false] == lesson.id {
+                                            pinned[false] = nil
+                                        }
+                                        if lessons.count > 1 {
+                                            lessons.remove(at: index)
+                                        } else if lessons.count == 1 {
+                                            onRemoveLastLesson?()
                                         }
                                         //TODO: Реализовать открепление пары (для правильных индексов) а также то что будет происходить при удалении единственной пары а именно удаление массива из массива
                                     }
@@ -183,30 +199,19 @@ struct LessonView: View {
                                 }
 
                             }, preview: {
-                                LessonCardView(lesson: lesson, allHidden: allHidden, index: index, pinned: pinned)
+                                LessonCardView(lesson: lesson, allHidden: allHidden, pinned: pinned)
                             })
                     )
-                    .tag(index)
+                    .tag(lesson.id)
                 }
             }
             .padding(.horizontal, 10)
             .onAppear {
-                //print("appeared")
-                if (settingsManager.isEvenWeek == 2) {
-                    active = pinned[false] ?? 0
-                }
-                else {
-                    active = pinned[true] ?? 0
-                }
+                updateActiveLesson()
             }
             .onChange(of: settingsManager.isEvenWeek) {
                 withAnimation {
-                    if (settingsManager.isEvenWeek == 2) {
-                        active = pinned[false] ?? 0
-                    }
-                    else {
-                        active = pinned[true] ?? 0
-                    }
+                    updateActiveLesson()
                 }
             }
         }
@@ -241,15 +246,26 @@ struct LessonView: View {
             }
         }
         .sheet(isPresented: $showDetail) {
-            LessonDetailView(lesson: $lessons[active])
+            if let currentUUID = activeUUID,
+               let lessonIndex = lessons.firstIndex(where: { $0.id == currentUUID }) {
+                LessonDetailView(lesson: $lessons[lessonIndex])
+            }
         }
         .sheet(isPresented: $showVisibilitySettings) {
             LessonVisibilityManagementView(lessons: $lessons)
         }
     }
+
+    private func updateActiveLesson() {
+        if settingsManager.isEvenWeek == 2 {
+            activeUUID = pinned[false] ?? lessons.first?.id
+        } else {
+            activeUUID = pinned[true] ?? lessons.first?.id
+        }
+    }
 }
 
 #Preview {
-    LessonView(lessons: .constant([Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000/*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "Цифровая кафедра", parity: [true: "чет."], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424", importance: .high), Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000/*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "АУЕ урок", parity: [false: "знам."], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424", importance: .high)]), pinned: .constant([true:1, false:0]))
+    LessonView(lessons: .constant([Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000/*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "Цифровая кафедра", parity: [true: "чет."], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424", importance: .high), Lesson(timeStart: 30000/*Date(timeIntervalSince1970: 30000)*/, timeEnd: 30000/*Date(timeIntervalSince1970: 32000)*/, type: "пр.", subgroup: "АУЕ урок", parity: [false: "знам."], name: "Бюджетирование и финансовое планирование ИТ-проектов", teacher: "Голубева С. С.", place: "12 корпус ауд.424", importance: .high)]), pinned: .constant([Bool:UUID]()))
         .environmentObject(SettingsManager())
 }

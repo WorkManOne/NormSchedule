@@ -12,7 +12,7 @@ struct DayView: View {
     let day: String
     var daySched : [[Lesson]]
     @EnvironmentObject var settingsManager: SettingsManager
-    @Binding var pinSched : [[Bool:Int]]
+    @Binding var pinSched : [[Bool:UUID]]
 
     var body: some View {
         VStack {

@@ -70,7 +70,6 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
                 }
             }
             .listStyle(.plain)
-
         }
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)

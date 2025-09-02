@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct Lesson : Identifiable, Hashable {
-    var id = UUID()
-    
+    var id : UUID
+
     var timeStart : TimeInterval //Date, Double?
     var timeEnd : TimeInterval //Date, Double?
     var type : String
@@ -100,11 +100,11 @@ struct Lesson : Identifiable, Hashable {
 
 extension Lesson : Codable {
     enum CodingKeys: String, CodingKey {
-        case timeStart, timeEnd, type, subgroup, name, teacher, place, parity, importance, note, isHidden
+        case id, timeStart, timeEnd, type, subgroup, name, teacher, place, parity, importance, note, isHidden
     }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         let timeStartString = try container.decode(TimeInterval.self, forKey: .timeStart)
         let timeEndString = try container.decode(TimeInterval.self, forKey: .timeEnd)
         
@@ -115,7 +115,8 @@ extension Lesson : Codable {
         //              let endDate = dateFormatter.date(from: timeEndString) else {
         //            throw DecodingError.dataCorruptedError(forKey: .timeStart, in: container, debugDescription: "Invalid time format")
         //        }
-        
+
+        id = (try? container.decode(UUID.self, forKey: .id)) ?? UUID()
         timeStart = timeStartString //startDate
         timeEnd = timeEndString //endDate
         type = try container.decode(String.self, forKey: .type)
@@ -148,7 +149,7 @@ extension Lesson : Codable {
         //        dateFormatter.dateFormat = "HH:mm"
         //        let timeStartString = dateFormatter.string(from: timeStart)
         //        let timeEndString = dateFormatter.string(from: timeEnd)
-        
+        try container.encode(id, forKey: .id)
         try container.encode(timeStart/*timeStartString*/, forKey: .timeStart)
         try container.encode(timeEnd/*timeEndString*/, forKey: .timeEnd)
         try container.encode(type, forKey: .type)

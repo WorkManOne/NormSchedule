@@ -13,42 +13,50 @@ struct LessonVisibilityManagementView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(Array(lessons.enumerated()), id: \.offset) { index, lesson in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(lessons[index].name)
-                                .font(.headline)
-                            Text(lessons[index].subgroup)
-                                .font(.caption)
-                            Text(lessons[index].parity.values.first ?? "")
-                                .font(.caption2)
-                            Text(lessons[index].type)
-                                .font(.caption2)
-                            Text(lessons[index].place)
-                                .font(.caption2)
-                            Text(lessons[index].teacher)
-                                .font(.caption2)
+            Section {
+                Text("Удерживайте и перетаскивайте пару, чтобы изменить порядок. Переключайте тумблеры, чтобы установить видимость пары.")
+                    .foregroundStyle(.secondary)
+                    .font(.subheadline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 20)
+                List {
+                    ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(lessons[index].name)
+                                    .font(.headline)
+                                Text(lessons[index].subgroup)
+                                    .font(.caption)
+                                Text(lessons[index].parity.values.first ?? "")
+                                    .font(.caption2)
+                                Text(lessons[index].type)
+                                    .font(.caption2)
+                                Text(lessons[index].place)
+                                    .font(.caption2)
+                                Text(lessons[index].teacher)
+                                    .font(.caption2)
+                            }
+                            Spacer()
+                            Toggle("", isOn: Binding(
+                                get: { !lessons[index].isHidden },
+                                set: { newValue in lessons[index].isHidden = !newValue }
+                            ))
                         }
-                        Spacer()
-                        Toggle("", isOn: Binding(
-                            get: { !lessons[index].isHidden },
-                            set: { newValue in lessons[index].isHidden = !newValue }
-                        ))
                     }
+                    .onMove(perform: moveLesson)
                 }
-                .onMove(perform: moveLesson)
+                .listStyle(.plain)
             }
             .navigationTitle("Видимость и порядок")
             .navigationBarItems(trailing: Button("Готово") {
                 presentationMode.wrappedValue.dismiss()
             })
         }
+
     }
 
     func moveLesson(from: IndexSet, to destination: Int) {
         lessons.move(fromOffsets: from, toOffset: destination)
-        
     }
 }
 

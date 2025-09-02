@@ -307,7 +307,7 @@ struct StepDownload: View {
 }
 
 struct StepLessonLight: View {
-    @State private var pinned = [true: 0, false: 0]
+    @State private var pinned = [Bool: UUID]()
     @State private var lessons = [Lesson(timeStart: 30000, timeEnd: 40000, type: "практ.", subgroup: "Подгр. 2", parity: [true:"Четная"], name: "Практическая пара с практическими знаниями", teacher: "Преподаватель", place: "Ауд. 208")]
     var body: some View {
         VStack(spacing: 16) {
@@ -328,7 +328,7 @@ struct StepLessonLight: View {
 }
 
 struct StepLessonLightNote: View {
-    @State private var pinned = [true: 0, false: 0]
+    @State private var pinned = [Bool: UUID]()
     @State private var lessons = [Lesson(timeStart: 30000, timeEnd: 40000, type: "практ.", subgroup: "Подгр. 2", parity: [false:"Нечетная"], name: "Практическая пара с практическими знаниями", teacher: "Преподаватель", place: "Ауд. 208", note: NSAttributedString(string: "TestNote"))]
     var body: some View {
         VStack(spacing: 16) {
@@ -351,9 +351,12 @@ struct StepLessonLightNote: View {
     }
 }
 
-struct StepLessonLightPin: View {
-    @State private var pinned = [true: 0, false: 1]
-    @State private var lessons = [Lesson(timeStart: 30000, timeEnd: 40000, type: "практ.", subgroup: "Подгр. 2", parity: [true:"Четная"], name: "Практическая пара с практическими знаниями", teacher: "Преподаватель", place: "Ауд. 208"), Lesson(timeStart: 30000, timeEnd: 40000, type: "практ.", subgroup: "Подгр. 1", parity: [false:"Нечетная"], name: "Пара другой недели", teacher: "Преподаватель 2", place: "Ауд. 210")]
+struct StepLessonLightPin: View { //TODO: ПРОВЕРИТЬ НА РАБОТОСПОСОБНОСТЬ
+    @State private var pinned = [true: UUID(uuidString: "12345678-1234-1234-1234-123456789ABC")!, false: UUID(uuidString: "87654321-4321-4321-4321-CBA987654321")!]
+    @State private var lessons = [
+        Lesson(id: UUID(uuidString: "12345678-1234-1234-1234-123456789ABC")!, timeStart: 30000, timeEnd: 40000, type: "практ.", subgroup: "Подгр. 2", parity: [true:"Четная"], name: "Практическая пара с практическими знаниями", teacher: "Преподаватель", place: "Ауд. 208"),
+        Lesson(id: UUID(uuidString: "87654321-4321-4321-4321-CBA987654321")!, timeStart: 30000, timeEnd: 40000, type: "практ.", subgroup: "Подгр. 1", parity: [false:"Нечетная"], name: "Пара другой недели", teacher: "Преподаватель 2", place: "Ауд. 210")
+    ]
     var body: some View {
         VStack(spacing: 16) {
             Text("Занятие")
@@ -446,8 +449,11 @@ struct StepLesson: View {
     @EnvironmentObject var settingsManager : SettingsManager
     @State private var parity = "Нет"
     let parityNames = ["Нет", "Чет", "Нечет"]
-    @State private var pinned = [true: 0, false: 2]
-    @State private var lessons = [Lesson.mock(), Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [true:"Четная"], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"),Lesson(timeStart: 34000, timeEnd: 40000, type: "практ.", subgroup: "Подгр. 2", parity: [false:"Нечетная"], name: "Практическая пара с практическими знаниями", teacher: "Фамилия И. О.", place: "Аудитория 208")]
+    @State private var pinned = [true: UUID(uuidString: "87654321-4321-4321-4321-CBA987654321")!, false: UUID(uuidString: "12345678-1234-1234-1234-123456789ABC")!]
+    @State private var lessons = [
+        Lesson.mock(id: UUID(uuidString: "87654321-4321-4321-4321-CBA987654321")!),
+        Lesson(timeStart: 34000, timeEnd: 40000, type: "лекция.", subgroup: "", parity: [true:"Четная"], name: "Языки программирования", teacher: "Мистер Мирон", place: "12 к. 310"),
+        Lesson(id: UUID(uuidString: "12345678-1234-1234-1234-123456789ABC")!, timeStart: 34000, timeEnd: 40000, type: "практ.", subgroup: "Подгр. 2", parity: [false:"Нечетная"], name: "Практическая пара с практическими знаниями", teacher: "Фамилия И. О.", place: "Аудитория 208")]
     var body: some View {
         VStack(spacing: 16) {
             Text("Отображение актуального")

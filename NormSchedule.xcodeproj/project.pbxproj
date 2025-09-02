@@ -64,6 +64,9 @@
 		7AD383E82BCD636900384D1C /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E72BCD636900384D1C /* Structs.swift */; };
 		7AD383EA2BCD63D100384D1C /* SSTUParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383E92BCD63D100384D1C /* SSTUParser.swift */; };
 		7AD383EE2BCD64B300384D1C /* ParserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD383ED2BCD64B300384D1C /* ParserManager.swift */; };
+		7AD543682E36DC9B003F0236 /* MigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD543672E36DC9B003F0236 /* MigrationPlan.swift */; };
+		7AD543692E36DC9B003F0236 /* MigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD543672E36DC9B003F0236 /* MigrationPlan.swift */; };
+		7AD5436A2E36DC9B003F0236 /* MigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD543672E36DC9B003F0236 /* MigrationPlan.swift */; };
 		7ADBF6DB2D9AAB3C00556106 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */; };
 		7ADBF6DC2D9AAB3C00556106 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -156,6 +159,7 @@
 		7AD383E72BCD636900384D1C /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Structs.swift; path = NormSchedule/Structs.swift; sourceTree = SOURCE_ROOT; };
 		7AD383E92BCD63D100384D1C /* SSTUParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSTUParser.swift; sourceTree = "<group>"; };
 		7AD383ED2BCD64B300384D1C /* ParserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserManager.swift; sourceTree = "<group>"; };
+		7AD543672E36DC9B003F0236 /* MigrationPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationPlan.swift; sourceTree = "<group>"; };
 		7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -251,6 +255,7 @@
 				7A6495B72D4028F9006F167D /* SettingsManager.swift */,
 				7A2080F22DB3FBD4001BC0FB /* WidgetDataManager.swift */,
 				7A9323CC2DC9585C0007CA0A /* SyncManager.swift */,
+				7AD543672E36DC9B003F0236 /* MigrationPlan.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -499,6 +504,7 @@
 				7A2080F52DB3FBD5001BC0FB /* WidgetDataManager.swift in Sources */,
 				7A2080F82DB4676A001BC0FB /* GroupSched.swift in Sources */,
 				7A516C6A2DAE491E00E97730 /* Lesson.swift in Sources */,
+				7AD543692E36DC9B003F0236 /* MigrationPlan.swift in Sources */,
 				7A9327B12DCE87A30007CA0A /* GroupSchedData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,6 +525,7 @@
 				7A6495B42D402581006F167D /* Lesson.swift in Sources */,
 				7A382FFA2E32D386008CB7A2 /* CachedYandexAdaptiveBanner.swift in Sources */,
 				7A33F7382DA21922003394B6 /* LessonVisibilityManagementView.swift in Sources */,
+				7AD543682E36DC9B003F0236 /* MigrationPlan.swift in Sources */,
 				7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */,
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
 				7A3984752DFA38E800AFAE53 /* YandexAdaptiveBanner.swift in Sources */,
@@ -552,6 +559,7 @@
 				7ABAE7332D7761080076B06C /* Lesson.swift in Sources */,
 				7ABAE7342D7761200076B06C /* GroupSched.swift in Sources */,
 				7AC6022B2D75C3C400154A18 /* SettingsManager.swift in Sources */,
+				7AD5436A2E36DC9B003F0236 /* MigrationPlan.swift in Sources */,
 				7A9327B02DCE87A30007CA0A /* GroupSchedData.swift in Sources */,
 				7A2080F32DB3FBD5001BC0FB /* WidgetDataManager.swift in Sources */,
 			);

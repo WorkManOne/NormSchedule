@@ -226,11 +226,11 @@ final class SSTUParser: UniversityParser {
             }
             for (dayIndex, day) in scheduleOfGroup.schedule.enumerated() {
                 for _ in day {
-                    scheduleOfGroup.pinSchedule[dayIndex].append([true:0, false:0])
+                    scheduleOfGroup.pinSchedule[dayIndex].append([Bool: UUID]())
                 }
             }
 
-            scheduleOfGroup.pinSchedule[6].append([true:0, false:0])
+            scheduleOfGroup.pinSchedule[6].append([Bool: UUID]())
             scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: 0/*Lesson.parseTime(String("00:00"))*/, timeEnd: 86340/*Lesson.parseTime(String("23:59"))*/, type: "", subgroup: "", parity: [:], name: "Биг Чиллинг!", teacher: "", place: "")]])
         }
         catch {

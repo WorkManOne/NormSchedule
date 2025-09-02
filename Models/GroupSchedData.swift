@@ -13,6 +13,6 @@ struct GroupSchedData: Codable {
     var group: String
     var date_read: String
     var schedule: [[[Lesson]]]
-    var pinSchedule: [[[Bool:Int]]]
+    var pinSchedule: [[[Bool:UUID]]]
     var id: UUID
 }

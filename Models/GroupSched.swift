@@ -12,7 +12,7 @@ import SwiftData
 #endif
 
 final class GroupSched : ObservableObject {
-    init(university: String, faculty: String, group: String, date_read: String, schedule: [[[Lesson]]], pinSchedule: [[[Bool:Int]]], id: UUID? = nil) {
+    init(university: String, faculty: String, group: String, date_read: String, schedule: [[[Lesson]]], pinSchedule: [[[Bool:UUID]]], id: UUID? = nil) {
         self.university = university
         self.faculty = faculty
         self.group = group
@@ -38,7 +38,7 @@ final class GroupSched : ObservableObject {
         }
 
         do {
-            self.pinSchedule = try container.decode([[[Bool:Int]]].self, forKey: .pinSchedule)
+            self.pinSchedule = try container.decode([[[Bool:UUID]]].self, forKey: .pinSchedule)
         } catch {
             self.pinSchedule = []
         }
@@ -49,7 +49,7 @@ final class GroupSched : ObservableObject {
     var group : String
     var date_read : String
     var schedule : [[[Lesson]]]
-    var pinSchedule : [[[Bool:Int]]]
+    var pinSchedule : [[[Bool:UUID]]]
     var id : UUID
 
 
@@ -67,29 +67,35 @@ final class GroupSched : ObservableObject {
                 var needReformFalse = true
                 let pinned = pinSchedule[day][lessons]
 
-                let pinnedTrueIndex = pinned[true] ?? 0
-                let pinnedFalseIndex = pinned[false] ?? 0
-
-                if schedule[day][lessons].indices.contains(pinnedTrueIndex),
-                   schedule[day][lessons][pinnedTrueIndex].parity.keys.contains(true) {
+                if let pinnedTrueUUID = pinned[true],
+                   let pinnedLesson = schedule[day][lessons].first(where: { $0.id == pinnedTrueUUID }),
+                   pinnedLesson.parity.keys.contains(true) {
                     needReformTrue = false
                 }
-                if schedule[day][lessons].indices.contains(pinnedFalseIndex),
-                   schedule[day][lessons][pinnedFalseIndex].parity.keys.contains(false) {
+
+                if let pinnedFalseUUID = pinned[false],
+                   let pinnedLesson = schedule[day][lessons].first(where: { $0.id == pinnedFalseUUID }),
+                   pinnedLesson.parity.keys.contains(false) {
                     needReformFalse = false
                 }
 
                 if needReformTrue || needReformFalse {
-                    for lesson in 0..<schedule[day][lessons].count {
-                        if needReformTrue && schedule[day][lessons][lesson].parity.keys.contains(true) {
-                            pinSchedule[day][lessons][true] = lesson
+                    for lesson in schedule[day][lessons] {
+                        if needReformTrue && lesson.parity.keys.contains(true) {
+                            pinSchedule[day][lessons][true] = lesson.id
                             needReformTrue = false
                         }
-                        if needReformFalse && schedule[day][lessons][lesson].parity.keys.contains(false) {
-                            pinSchedule[day][lessons][false] = lesson
+                        if needReformFalse && lesson.parity.keys.contains(false) {
+                            pinSchedule[day][lessons][false] = lesson.id
                             needReformFalse = false
                         }
                         if !needReformTrue && !needReformFalse { break }
+                    }
+                    if needReformTrue {
+                        pinSchedule[day][lessons][true] = nil
+                    }
+                    if needReformFalse {
+                        pinSchedule[day][lessons][false] = nil
                     }
                 }
             }

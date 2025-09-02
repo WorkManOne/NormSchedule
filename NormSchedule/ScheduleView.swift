@@ -138,29 +138,26 @@ struct ScheduleView: View {
         }.ignoresSafeArea()
     }
 
-    private func correctedIndex(for index: Int) -> Int {
-        let count = days.count
-        return (count + index) % count
-    }
     private func synchronizeTabView(with day: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             selectedDayTab = day
             //selectedDayTabNum = days.firstIndex(of: day) ?? 0
         }
     }
-    private func dayViewErrorBlockator(with index: Int) -> [[Bool : Int]] {
+    private func dayViewErrorBlockator(with index: Int) -> [[Bool : UUID]] {
         if groupSchedule.schedule.indices.contains(index) {
             let scheduleCount = groupSchedule.schedule[index].count
             if groupSchedule.pinSchedule.indices.contains(index) {
                 let currentPins = groupSchedule.pinSchedule[index]
                 if currentPins.count < scheduleCount {
-                    return currentPins + Array(repeating: [true: 0, false: 0], count: scheduleCount - currentPins.count)
+                    let missingCount = scheduleCount - currentPins.count
+                    let emptyPins = Array(repeating: [Bool: UUID](), count: missingCount)
+                    return currentPins + emptyPins
                 } else {
                     return currentPins
                 }
             }
-
-            return Array(repeating: [true: 0, false: 0], count: scheduleCount)
+            return Array(repeating: [Bool: UUID](), count: scheduleCount)
         }
         return []
     }
@@ -189,7 +186,7 @@ struct ScheduleView: View {
                                pinSchedule:
                                 [
                                     [
-                                        [true:0, false:0]
+                                        [true: UUID(), false: UUID()]
                                     ]
 
                                 ]

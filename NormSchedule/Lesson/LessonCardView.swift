@@ -10,8 +10,7 @@ import SwiftUI
 struct LessonCardView: View {
     let lesson : Lesson
     let allHidden : Bool
-    let index : Int
-    let pinned : [Bool : Int]
+    let pinned : [Bool : UUID]
 
     var body: some View {
         ZStack {
@@ -37,7 +36,7 @@ struct LessonCardView: View {
 
             if !allHidden {
                 VStack (alignment: .center) {
-                    HStack (alignment: .center) {
+                    HStack (alignment: .top) {
                         Text(lesson.subgroup)
                         if let icon = lesson.importance.icon {
                             icon
@@ -51,10 +50,10 @@ struct LessonCardView: View {
                         ZStack {
                             Image(systemName: "pin.fill")
                                 .foregroundStyle(.blue)
-                                .opacity(index == pinned[true] ? 0.75 : 0)
+                                .opacity(lesson.id == pinned[true] ? 0.75 : 0)
                             Image(systemName: "pin.fill")
                                 .foregroundStyle(.red)
-                                .opacity(index == pinned[false] ? 0.75 : 0)
+                                .opacity(lesson.id == pinned[false] ? 0.75 : 0)
                         }
                     }
                     Spacer()
@@ -65,7 +64,7 @@ struct LessonCardView: View {
                             .multilineTextAlignment(.center)
                     }
                     Spacer()
-                    HStack (alignment: .center) {
+                    HStack (alignment: .bottom) {
                         Text(lesson.teacher)
                         Spacer()
                         if !lesson.parity.isEmpty {
@@ -95,5 +94,5 @@ struct LessonCardView: View {
 }
 
 #Preview {
-    LessonCardView(lesson: Lesson(timeStart: 0, timeEnd: 12000, type: "", subgroup: "", parity: [:], name: "", teacher: "", place: ""), allHidden: false, index: 0, pinned: [false:0])
+    LessonCardView(lesson: Lesson(timeStart: 0, timeEnd: 12000, type: "", subgroup: "", parity: [:], name: "", teacher: "", place: ""), allHidden: false, pinned: [Bool: UUID]())
 }

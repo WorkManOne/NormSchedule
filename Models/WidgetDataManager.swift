@@ -52,19 +52,23 @@ final class WidgetDataManager {
     func lessonsForParity(parity: Int) -> [[Lesson]] {
         guard let schedule = schedule else { return [] }
         var result: [[Lesson]] = []
+
         for day in 0..<schedule.pinSchedule.count {
             var lessons: [Lesson] = []
+
             for index in 0..<schedule.pinSchedule[day].count {
                 let isParityIncluded = parity == 0 || schedule.pinSchedule[day][index].keys.contains(parity != 2)
                 let key = parity != 2 ? true : false
+
                 if isParityIncluded,
-                   let lessonIndex = schedule.pinSchedule[day][index][key],
-                   (schedule.schedule[day][index][lessonIndex].parity.keys.contains(key) || schedule.schedule[day][index][lessonIndex].parity.isEmpty || parity == 0),
-                   schedule.schedule[day][index][lessonIndex].name != "Пары нет",
-                   schedule.schedule[day][index][lessonIndex].name != "Биг Чиллинг!" //TODO: Нужно будет разрешить как то такие nil пары
-                   /*!schedule.schedule[day][index][lessonIndex].isHidden*/ //TODO: Пока повременить! Чтобы работала первая подходящая пара нужно проходить по всем а не по запинованным!
+                   let lessonUUID = schedule.pinSchedule[day][index][key],
+                   let pinnedLesson = schedule.schedule[day][index].first(where: { $0.id == lessonUUID }),
+                   (pinnedLesson.parity.keys.contains(key) || pinnedLesson.parity.isEmpty || parity == 0),
+                   pinnedLesson.name != "Пары нет",
+                   pinnedLesson.name != "Биг Чиллинг!" // TODO: Нужно будет разрешить как то такие nil пары
+                   // !pinnedLesson.isHidden // TODO: Пока повременить! Чтобы работала первая подходящая пара нужно проходить по всем а не по запинованным!
                 {
-                    lessons.append(schedule.schedule[day][index][lessonIndex])
+                    lessons.append(pinnedLesson)
                 }
             }
             result.append(lessons)

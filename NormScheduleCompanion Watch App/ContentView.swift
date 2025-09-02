@@ -84,19 +84,21 @@ struct ContentView: View {
             //selectedDayTabNum = days.firstIndex(of: day) ?? 0
         }
     }
-    private func dayViewErrorBlockator(with index: Int) -> [[Bool : Int]] {
+    private func dayViewErrorBlockator(with index: Int) -> [[Bool : UUID]] {
         if provider.receivedSchedule.schedule.indices.contains(index) {
             let scheduleCount = provider.receivedSchedule.schedule[index].count
             if provider.receivedSchedule.pinSchedule.indices.contains(index) {
                 let currentPins = provider.receivedSchedule.pinSchedule[index]
                 if currentPins.count < scheduleCount {
-                    return currentPins + Array(repeating: [true: 0, false: 0], count: scheduleCount - currentPins.count)
+                    let missingCount = scheduleCount - currentPins.count
+                    let emptyPins = Array(repeating: [Bool: UUID](), count: missingCount)
+                    return currentPins + emptyPins
                 } else {
                     return currentPins
                 }
             }
             
-            return Array(repeating: [true: 0, false: 0], count: scheduleCount)
+            return Array(repeating: [Bool: UUID](), count: scheduleCount)
         }
         return []
     }

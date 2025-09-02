@@ -204,7 +204,7 @@ final class SSUParser: UniversityParser {
                                                      place: try lesson.getElementsByClass("schedule-table__lesson-room").text()))
 
                         }
-                        scheduleOfGroup.pinSchedule[day].append([true:0, false:0]) //Ставится индекс пары, которая в текущую неделю закреплена
+                        scheduleOfGroup.pinSchedule[day].append([Bool: UUID]()) //Ставится индекс пары, которая в текущую неделю закреплена
                         if (lessons.isEmpty()) {
                             scheduleOfGroup.schedule[day].append([Lesson(timeStart: Lesson.parseTimeInterval(from: String(times[0])), //Lesson.parseTime(String(times[0]))
                                                                          timeEnd: Lesson.parseTimeInterval(from: String(times[1])), //Lesson.parseTime(String(times[1]))
@@ -221,7 +221,7 @@ final class SSUParser: UniversityParser {
                     }
                 }
             }
-            scheduleOfGroup.pinSchedule[6].append([true:0, false:0])
+            scheduleOfGroup.pinSchedule[6].append([Bool: UUID]())
             scheduleOfGroup.schedule[6] = ([[Lesson(timeStart: 0/*Lesson.parseTime(String("00:00"))*/, timeEnd: 86340 /*Lesson.parseTime(String("23:59"))*/, type: "", subgroup: "", parity: [:], name: "Биг Чиллинг!", teacher: "", place: "")]])
         }
         catch {
