@@ -23,6 +23,7 @@
 		7A33F7492DA23AF3003394B6 /* LessonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A33F7482DA23AF3003394B6 /* LessonCardView.swift */; };
 		7A382FF82E32D333008CB7A2 /* AdBannerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A382FF72E32D333008CB7A2 /* AdBannerManager.swift */; };
 		7A382FFA2E32D386008CB7A2 /* CachedYandexAdaptiveBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A382FF92E32D386008CB7A2 /* CachedYandexAdaptiveBanner.swift */; };
+		7A3836642E68A0F4009F7CFE /* SearchableSchedulePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3836632E68A0F4009F7CFE /* SearchableSchedulePickerView.swift */; };
 		7A39843A2DFA248D00AFAE53 /* YandexMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 7A3984392DFA248D00AFAE53 /* YandexMobileAds */; };
 		7A39843C2DFA256F00AFAE53 /* MobileAdsBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A39843B2DFA256F00AFAE53 /* MobileAdsBundle.bundle */; };
 		7A3984752DFA38E800AFAE53 /* YandexAdaptiveBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */; };
@@ -127,6 +128,7 @@
 		7A33F7482DA23AF3003394B6 /* LessonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCardView.swift; sourceTree = "<group>"; };
 		7A382FF72E32D333008CB7A2 /* AdBannerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerManager.swift; sourceTree = "<group>"; };
 		7A382FF92E32D386008CB7A2 /* CachedYandexAdaptiveBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedYandexAdaptiveBanner.swift; sourceTree = "<group>"; };
+		7A3836632E68A0F4009F7CFE /* SearchableSchedulePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableSchedulePickerView.swift; sourceTree = "<group>"; };
 		7A39843B2DFA256F00AFAE53 /* MobileAdsBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MobileAdsBundle.bundle; sourceTree = "<group>"; };
 		7A3984742DFA38E800AFAE53 /* YandexAdaptiveBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexAdaptiveBanner.swift; sourceTree = "<group>"; };
 		7A4BDBCC2E2D1FBB002A00F6 /* RewardTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardTextView.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				7ACD45502D5D28EB00F6B3BB /* TabBarShape.swift */,
 				7ACD45522D5D4BE100F6B3BB /* InfinitePageView.swift */,
 				7A3174E92D8C0A3800394E80 /* SearchablePickerView.swift */,
+				7A3836632E68A0F4009F7CFE /* SearchableSchedulePickerView.swift */,
 				7ADBF6DA2D9AAB3C00556106 /* Extensions.swift */,
 				7A0462BD2E2B07D600468EF0 /* UIApplicationExtension.swift */,
 			);
@@ -530,6 +533,7 @@
 				7A7B39072BA52F3E006B2BB6 /* LessonView.swift in Sources */,
 				7A3984752DFA38E800AFAE53 /* YandexAdaptiveBanner.swift in Sources */,
 				7A9327B32DCEA9840007CA0A /* OnboardingView.swift in Sources */,
+				7A3836642E68A0F4009F7CFE /* SearchableSchedulePickerView.swift in Sources */,
 				7AD383EE2BCD64B300384D1C /* ParserManager.swift in Sources */,
 				7A9323CD2DC9585C0007CA0A /* SyncManager.swift in Sources */,
 				7A0462BE2E2B07D600468EF0 /* UIApplicationExtension.swift in Sources */,

@@ -9,20 +9,28 @@ import SwiftUI
 import RichTextKit
 
 struct LessonDetailView: View {
-    @Binding var lesson: Lesson
+    @Binding var originalLesson: Lesson
+    @State private var lesson: Lesson
     @Environment(\.presentationMode) var presentationMode
     @State private var editedNote = NSAttributedString()
     @State private var selectedParityType: Int = 0
     @State private var selectedImportance: LessonImportance = .unspecified
     @State private var customParityName: String = ""
     @StateObject var context = RichTextContext()
+
+    init(lesson: Binding<Lesson>) {
+        self._originalLesson = lesson
+        self._lesson = State(initialValue: lesson.wrappedValue)
+        self.editedNote = lesson.wrappedValue.note
+    }
+
     var body: some View {
         NavigationStack {
             Form {
                 Section(header: Text("Основная информация")) {
-                    TextEditor(text: $lesson.name)
-                    TextEditor(text: $lesson.teacher)
-                    TextEditor(text: $lesson.place)
+                    TextField("Название", text: $lesson.name, axis: .vertical)
+                    TextField("Преподаватель", text: $lesson.teacher, axis: .vertical)
+                    TextField("Место", text: $lesson.place, axis: .vertical)
                 }
                 Section(header: Text("Важность")) {
                     Picker("Выберите важность", selection: $lesson.importance) {
@@ -98,18 +106,26 @@ struct LessonDetailView: View {
                 }
             }
             .navigationTitle("Редактирование пары")
-            .navigationBarItems(trailing: Button("Готово") {
-                presentationMode.wrappedValue.dismiss()
-            })
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Отмена") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Сохранить") {
+                        lesson.note = editedNote
+                        originalLesson = lesson
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }
         }
         .onAppear {
-            editedNote = lesson.note
             setupInitialValues()
         }
-        .onDisappear {
-            lesson.note = editedNote
-        }
-
         .overlay {
             VStack {
                 Spacer()

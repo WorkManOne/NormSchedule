@@ -13,7 +13,6 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
     let items: [T]
     let searchKeyPath: KeyPath<T, String>
     let onSelect: ((T) -> Void)?
-    let onDelete: ((IndexSet) -> Void)?
     let rowContent: (T) -> Content
 
     @Environment(\.presentationMode) var presentationMode
@@ -25,7 +24,6 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
          items: [T],
          searchKeyPath: KeyPath<T, String>,
          onSelect: ((T) -> Void)? = nil,
-         onDelete: ((IndexSet) -> Void)? = nil,
          @ViewBuilder rowContent: @escaping (T) -> Content
          ) {
         self.title = title
@@ -34,7 +32,6 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
         self.searchKeyPath = searchKeyPath
         self.rowContent = rowContent
         self.onSelect = onSelect
-        self.onDelete = onDelete
     }
 
     var filteredItems: [T] {
@@ -65,9 +62,6 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
                         }
                     }
                 }
-                .if(onDelete != nil) { view in
-                    view.onDelete(perform: onDelete!)
-                }
             }
             .listStyle(.plain)
         }
@@ -85,17 +79,6 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
                     }
                 }
             }
-        }
-    }
-}
-
-extension View {
-    @ViewBuilder
-    func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
-        if condition {
-            transform(self)
-        } else {
-            self
         }
     }
 }

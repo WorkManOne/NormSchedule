@@ -63,9 +63,19 @@ struct ContentView: View {
 
     var body: some View {
         TabView { //TODO: Попробовать убрать этот TabView, потому что он сеет баги при навигации, и дает меньше возможностей по кастомизации, сделать кастомный?
-            ScheduleView(groupSchedule: selectedSchedule ?? GroupSched(university: "", faculty: "", group: "badInit", date_read: "", schedule: [], pinSchedule: [])) //TODO: решить случай nil
-                .environmentObject(settingsManager)
-                .tabItem { Image(systemName: "book.pages.fill").imageScale(.large) }
+            ScheduleView(
+                groupSchedule: selectedSchedule ?? GroupSched(
+                    university: "",
+                    faculty: "",
+                    group: "",
+                    date_read: "",
+                    schedule: [],
+                    pinSchedule: []
+                ),
+                hasSelectedSchedule: selectedSchedule != nil
+            )
+            .environmentObject(settingsManager)
+            .tabItem { Image(systemName: "book.pages.fill").imageScale(.large) }
             NavigationStack {
                 Form {
                     Section ("Настройки интерфейса") {
@@ -94,6 +104,15 @@ struct ContentView: View {
                     }
                     Section ("Университет для загрузки") {
                         UniversityPicker
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundColor(.orange)
+                                .font(.caption)
+                            Text("Загрузка с некоторых вузов недоступна при включенном VPN")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding(.vertical, 2)
                     }
                     Section ("Загрузить расписание") {
                         FacultyPicker
@@ -206,7 +225,7 @@ struct ContentView: View {
                                 UIApplication.shared.open(url)
                             }
                         } label: {
-                            Label("Политика конфиденциальности", systemImage: "text.document")
+                            Label("Политика конфиденциальности", systemImage: "book.pages")
                         }
                     }
                     Section ("Системные настройки") {
@@ -298,7 +317,7 @@ struct ContentView: View {
     // MARK: - Pickers
     private var SchedulePicker: some View {
         NavigationLink(destination:
-                        SearchablePickerView(
+                        SearchableSchedulePickerView(
                             title: "Выберите расписание",
                             selection: Binding<GroupSched?>(
                                 get: { selectedSchedule },
@@ -307,20 +326,23 @@ struct ContentView: View {
                                 }
                             ),
                             items: schedules,
-                            searchKeyPath: \.group,
                             onSelect: { item in
                                 SyncManager.shared.syncAll(schedule: item, parity: settingsManager.isEvenWeek)
                             },
-                            onDelete: deleteSchedules
-                        ) { item in
-                            VStack (alignment: .leading) {
-                                Text(item.university)
-                                Text(item.faculty)
-                                Text(item.group)
-                                Text(item.date_read)
-                                    .font(.footnote)
+                            onDelete:  { schedule in
+                                modelContext.delete(schedule)
+                            },
+                            onEdit: { updatedSchedule in
+                                if let originalSchedule = schedules.first(where: { $0.id == updatedSchedule.id }) {
+                                    originalSchedule.university = updatedSchedule.university
+                                    originalSchedule.faculty = updatedSchedule.faculty
+                                    originalSchedule.group = updatedSchedule.group
+                                }
+                            }, onCreate: {
+                                modelContext.insert(GroupSched(university: "", faculty: "", group: "Новое расписание", date_read: Date().formatted(), schedule: [], pinSchedule: []))
                             }
-                        }.onAppear { withAnimation { isScheduleUpdated = false } }
+                        )
+                        .onAppear { withAnimation { isScheduleUpdated = false } }
         ) {
             HStack {
                 Text("Расписание")
@@ -463,13 +485,7 @@ struct ContentView: View {
     }
 
     // MARK: - Data functions
-    
-    func deleteSchedules(_ indexSet: IndexSet) {
-        for index in indexSet {
-            let schedule = schedules[index]
-            modelContext.delete(schedule)
-        }
-    }
+
     private func universitySelect() {
         guard let university = selectedUniversity else { return }
         selectedGroup = nil

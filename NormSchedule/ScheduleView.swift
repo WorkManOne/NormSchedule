@@ -15,10 +15,11 @@ struct ScheduleView: View {
     //@State private var selectedDayTabNum = 0
 
     @Bindable var groupSchedule : GroupSched
+    let hasSelectedSchedule: Bool
     @EnvironmentObject var settingsManager: SettingsManager
     @ObservedObject var provider = WCProvider.shared
 
-    init(initialDay: String = "Пн", groupSchedule: GroupSched) {
+    init(groupSchedule: GroupSched, hasSelectedSchedule: Bool) {
         UIPageControl.appearance().currentPageIndicatorTintColor = .blue
         UIPageControl.appearance().pageIndicatorTintColor = .lines
         UIPageControl.appearance().tintColor = .lines
@@ -26,6 +27,7 @@ struct ScheduleView: View {
         self._selectedDayButton = State(initialValue: currentDay)
         self._selectedDayTab = State(initialValue: currentDay)
         self.groupSchedule = groupSchedule
+        self.hasSelectedSchedule = hasSelectedSchedule
     }
 
     var body: some View {
@@ -83,23 +85,79 @@ struct ScheduleView: View {
     }
     var scheduleView: some View {
         VStack {
-            if (groupSchedule.schedule.isEmpty) {
+            if !hasSelectedSchedule {
                 Spacer()
-                VStack (spacing: 10) {
-                    Text("Похоже у вас пока нет расписания")
+                VStack(spacing: 20) {
+                    Image(systemName: "calendar.badge.exclamationmark")
+                        .font(.system(size: 60))
+                        .foregroundColor(.secondary)
+
+                    Text("Расписание не выбрано")
                         .font(.headline)
-                        .multilineTextAlignment(.center)
                         .fontWeight(.bold)
-                    Text("Перейдите в настройки чтобы получить его")
-                    Text("Если расписание выбрано, но не отображается, проверьте сайт вуза, возможно там тоже пусто :)")
-                        .font(.caption)
+                        .multilineTextAlignment(.center)
+
+                    Text("Перейдите в настройки чтобы загрузить расписание или создать новое")
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.secondary)
                         .padding(.horizontal)
                 }
                 Spacer()
-            }
-            else {
+
+            } else if groupSchedule.schedule.isEmpty {
+                Spacer()
+                VStack(spacing: 15) {
+                    Image(systemName: "book.pages")
+                        .font(.system(size: 60))
+                        .foregroundColor(.secondary)
+
+                    Text("Расписание пустое")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+
+                    Text("В выбранном расписании пока нет занятий")
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal)
+
+                    Text("Если расписание выбрано, но пустое, проверьте сайт вуза, возможно там тоже пусто :)")
+                        .font(.caption)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal)
+
+                    Button {
+                        withAnimation {
+                            groupSchedule.schedule.append(contentsOf: Array(repeating: [], count: 7 - groupSchedule.schedule.count))
+                            groupSchedule.pinSchedule.append(contentsOf: Array(repeating: [], count: 7 - groupSchedule.pinSchedule.count))
+
+                            let newLesson = Lesson(
+                                timeStart: 0,
+                                timeEnd: 0,
+                                name: "Новая пара"
+                            )
+                            let newPinEntry: [Bool: UUID] = [:]
+                            let index = days.firstIndex(of: selectedDayButton) ?? 0
+                            groupSchedule.schedule[index].append([newLesson])
+                            groupSchedule.pinSchedule[index].append(newPinEntry)
+                            groupSchedule.pinnedReform()
+                        }
+                    } label: {
+                        Text("Создать занятие")
+                            .foregroundStyle(.appearance)
+                            .font(.title2)
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.lines)
+                            )
+                    }
+                }
+                Spacer()
+
+            } else {
                 TabView(selection: $selectedDayTab) {
                     ForEach(days.indices, id: \.self) { index in
                         let day = days[index]
@@ -111,6 +169,33 @@ struct ScheduleView: View {
                                         .multilineTextAlignment(.center)
                                         .fontWeight(.bold)
                                     Text("Кайф")
+                                    Button {
+                                        withAnimation {
+                                            groupSchedule.schedule.append(contentsOf: Array(repeating: [], count: 7 - groupSchedule.schedule.count))
+                                            groupSchedule.pinSchedule.append(contentsOf: Array(repeating: [], count: 7 - groupSchedule.pinSchedule.count))
+
+                                            let newLesson = Lesson(
+                                                timeStart: 0,
+                                                timeEnd: 0,
+                                                name: "Новая пара"
+                                            )
+                                            let newPinEntry: [Bool: UUID] = [:]
+
+                                            groupSchedule.schedule[index].append([newLesson])
+                                            groupSchedule.pinSchedule[index].append(newPinEntry)
+                                            groupSchedule.pinnedReform()
+                                        }
+                                    } label: {
+                                        Text("Создать занятие")
+                                            .foregroundStyle(.appearance)
+                                            .font(.title2)
+                                            .padding(.horizontal)
+                                            .padding(.vertical, 10)
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .fill(.lines)
+                                            )
+                                    }
                                 }
                             }
                             else {
@@ -135,7 +220,8 @@ struct ScheduleView: View {
                     selectedDayButton = newTab
                 })
             }
-        }.ignoresSafeArea()
+        }
+        .ignoresSafeArea()
     }
 
     private func synchronizeTabView(with day: String) {
@@ -190,7 +276,7 @@ struct ScheduleView: View {
                                     ]
 
                                 ]
-                              )
+                              ), hasSelectedSchedule: true
     )
     .environmentObject(SettingsManager())
 }
