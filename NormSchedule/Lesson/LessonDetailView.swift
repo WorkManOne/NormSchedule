@@ -11,6 +11,7 @@ import RichTextKit
 struct LessonDetailView: View {
     @Binding var originalLesson: Lesson
     @State private var lesson: Lesson
+    @EnvironmentObject var groupSchedule: GroupSched
     @Environment(\.presentationMode) var presentationMode
     @State private var editedNote = NSAttributedString()
     @State private var selectedParityType: Int = 0
@@ -48,7 +49,10 @@ struct LessonDetailView: View {
                     .pickerStyle(.menu)
                 }
 
-                Section(header: Text("Время")) {
+                Section(header: Text("Время"),
+                        footer: Text("Пара автоматически переместится в расписании согласно новому времени")
+                                .font(.caption)
+                                .foregroundColor(.secondary)) {
                     DatePicker(
                         "Начало",
                         selection: Binding<Date>(
@@ -116,9 +120,14 @@ struct LessonDetailView: View {
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Сохранить") {
-                        lesson.note = editedNote
-                        originalLesson = lesson
-                        presentationMode.wrappedValue.dismiss()
+                        withAnimation {
+                            lesson.note = editedNote
+                            originalLesson = lesson
+                            if lesson.timeStart != originalLesson.timeStart || lesson.timeEnd != originalLesson.timeEnd {
+                                groupSchedule.repositionLessonById(lesson)
+                            }
+                            presentationMode.wrappedValue.dismiss()
+                        }
                     }
                 }
             }

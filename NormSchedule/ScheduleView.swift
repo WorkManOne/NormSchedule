@@ -209,6 +209,7 @@ struct ScheduleView: View {
                                         ),
                                         dayKey: day
                                 ) //TODO: DayView пересоздается при перелистывании каждый раз?
+                                .environmentObject(groupSchedule)
                             }
                         }
                         .environmentObject(settingsManager)

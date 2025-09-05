@@ -198,14 +198,6 @@ struct ContentView: View {
                         } label : {
                             Label("Накормить разработчика", systemImage: "fork.knife")
                         }
-                        .onAppear {
-                            adManager.onReward = {
-                                rewardPhraseManager.generateAnimation()
-                                rewardPhraseManager.generatePhrase()
-                                showRewardSheet = true
-                            }
-                            adManager.loadAd()
-                        }
                         Button {
                             withAnimation {
                                 onboardingCompleted = false
@@ -255,6 +247,14 @@ struct ContentView: View {
         //TODO: я насоздавал слишком много всяких триггеров onChange - плохая практика, вообще везде надо глянуть onChange, код связанный с логикой и данными должен быть в коде а не в ui
         .onAppear {
             settingsManager.updateParityIfNeeded()
+        }
+        .onAppear {
+            adManager.onReward = {
+                rewardPhraseManager.generateAnimation()
+                rewardPhraseManager.generatePhrase()
+                showRewardSheet = true
+            }
+            adManager.loadAd()
         }
         .onChange(of: selectedSchedule?.schedule) { // MARK: Забирает с собой случаи удаления расписания так что отдельный onChange на selectedSchedule не нужен
             print("sent Onchange schedule")

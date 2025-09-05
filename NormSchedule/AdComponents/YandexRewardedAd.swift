@@ -13,6 +13,7 @@ final class RewardedAdManager: NSObject, ObservableObject {
     private var rewardedAd: RewardedAd?
 
     @Published var isAdReady = false
+    @Published var shouldRewardUser = false
     var onReward: (() -> Void)?
 
     override init() {
@@ -28,7 +29,6 @@ final class RewardedAdManager: NSObject, ObservableObject {
 
     func showAd(from viewController: UIViewController) {
         guard let rewardedAd = rewardedAd else { return }
-        rewardedAd.delegate = self
         rewardedAd.show(from: viewController)
     }
 }
@@ -36,29 +36,52 @@ final class RewardedAdManager: NSObject, ObservableObject {
 extension RewardedAdManager: RewardedAdLoaderDelegate {
     func rewardedAdLoader(_ adLoader: RewardedAdLoader, didLoad rewardedAd: RewardedAd) {
         self.rewardedAd = rewardedAd
-        self.isAdReady = true
+        rewardedAd.delegate = self
+        DispatchQueue.main.async {
+            self.isAdReady = true
+        }
         print("Rewarded Ad Loaded")
     }
 
     func rewardedAdLoader(_ adLoader: RewardedAdLoader, didFailToLoadWithError error: AdRequestError) {
         print("Failed to load rewarded ad")
-        isAdReady = false
+        DispatchQueue.main.async {
+            self.isAdReady = false
+        }
     }
 }
 
 extension RewardedAdManager: RewardedAdDelegate {
     func rewardedAd(_ rewardedAd: RewardedAd, didReward reward: Reward) {
         print("User should be rewarded")
-        onReward?()
-        self.isAdReady = false
-        loadAd()
+        DispatchQueue.main.async {
+            self.shouldRewardUser = true
+        }
     }
+
     func rewardedAd(_ rewardedAd: RewardedAd, didFailToShowWithError error: any Error) {
+        DispatchQueue.main.async {
+            self.isAdReady = false
+            self.shouldRewardUser = false
+        }
         loadAd()
     }
+
     func rewardedAdDidDismiss(_ rewardedAd: RewardedAd) {
-        print("did dismiss")
-        self.isAdReady = false
+        DispatchQueue.main.async {
+            self.isAdReady = false
+            if self.shouldRewardUser {
+                self.onReward?()
+                self.shouldRewardUser = false
+            }
+        }
         loadAd()
+    }
+
+    func rewardedAdDidShow(_ rewardedAd: RewardedAd) {
+        DispatchQueue.main.async {
+            self.shouldRewardUser = false
+        }
     }
 }
+
