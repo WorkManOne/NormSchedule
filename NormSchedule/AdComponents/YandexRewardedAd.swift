@@ -22,7 +22,7 @@ final class RewardedAdManager: NSObject, ObservableObject {
         rewardedAdLoader?.delegate = self
     }
 
-    func loadAd(adUnitId: String = "demo-rewarded-yandex") {
+    func loadAd(adUnitId: String = "R-M-15844742-3") {
         let configuration = AdRequestConfiguration(adUnitID: adUnitId)
         rewardedAdLoader?.loadAd(with: configuration)
     }
