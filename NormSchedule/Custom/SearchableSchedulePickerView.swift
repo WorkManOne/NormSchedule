@@ -49,7 +49,7 @@ struct SearchableSchedulePickerView: View {
     }
 
     var body: some View {
-        VStack {
+        VStack (spacing: 0) {
             TextField("Поиск по университету, факультету или группе...", text: $searchText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
@@ -133,18 +133,7 @@ struct SearchableSchedulePickerView: View {
         }
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    dismiss()
-                }) {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Назад")
-                    }
-                }
-            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     withAnimation {
@@ -204,6 +193,10 @@ struct ScheduleEditView: View {
                         }
                     }
                 }
+            }
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                                to: nil, from: nil, for: nil)
             }
             .navigationTitle("Редактировать расписание")
             .navigationBarTitleDisplayMode(.inline)

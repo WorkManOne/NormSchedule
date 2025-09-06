@@ -40,7 +40,7 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
     }
 
     var body: some View {
-        VStack {
+        VStack (spacing: 0) {
             TextField("Поиск...", text: $searchText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
@@ -67,19 +67,6 @@ struct SearchablePickerView<T: Identifiable & Equatable, Content: View>: View {
         }
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Назад")
-                    }
-                }
-            }
-        }
     }
 }
 

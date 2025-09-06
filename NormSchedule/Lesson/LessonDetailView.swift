@@ -22,7 +22,6 @@ struct LessonDetailView: View {
     init(lesson: Binding<Lesson>) {
         self._originalLesson = lesson
         self._lesson = State(initialValue: lesson.wrappedValue)
-        self.editedNote = lesson.wrappedValue.note
     }
 
     var body: some View {
@@ -109,6 +108,10 @@ struct LessonDetailView: View {
                         .frame(height: 200)
                 }
             }
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                                to: nil, from: nil, for: nil)
+            }
             .navigationTitle("Редактирование пары")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -134,6 +137,7 @@ struct LessonDetailView: View {
         }
         .onAppear {
             setupInitialValues()
+            editedNote = lesson.note
         }
         .overlay {
             VStack {
