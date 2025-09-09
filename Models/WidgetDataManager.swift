@@ -49,29 +49,51 @@ final class WidgetDataManager {
         WidgetCenter.shared.reloadTimelines(ofKind: "LargeListWidget")
     }
 
+//    func lessonsForParity(parity: Int) -> [[Lesson]] {
+//        guard let schedule = schedule else { return [] }
+//        var result: [[Lesson]] = []
+//
+//        for day in 0..<schedule.pinSchedule.count {
+//            var lessons: [Lesson] = []
+//
+//            for index in 0..<schedule.pinSchedule[day].count {
+//                let isParityIncluded = parity == 0 || schedule.pinSchedule[day][index].keys.contains(parity != 2)
+//                let key = parity != 2 ? true : false
+//
+//                if isParityIncluded,
+//                   let lessonUUID = schedule.pinSchedule[day][index][key],
+//                   let pinnedLesson = schedule.schedule[day][index].first(where: { $0.id == lessonUUID }),
+//                   (pinnedLesson.parity.keys.contains(key) || pinnedLesson.parity.isEmpty || parity == 0),
+//                   pinnedLesson.name != "Пары нет",
+//                   pinnedLesson.name != "Биг Чиллинг!" // TODO: Нужно будет разрешить как то такие nil пары
+//                   // !pinnedLesson.isHidden // TODO: Пока повременить! Чтобы работала первая подходящая пара нужно проходить по всем а не по запинованным!
+//                {
+//                    lessons.append(pinnedLesson)
+//                }
+//            }
+//            result.append(lessons)
+//        }
+//        return result
+//    }
     func lessonsForParity(parity: Int) -> [[Lesson]] {
         guard let schedule = schedule else { return [] }
         var result: [[Lesson]] = []
+        let isEvenWeek = parity != 2 ? true : false
 
-        for day in 0..<schedule.pinSchedule.count {
-            var lessons: [Lesson] = []
+        for day in 0..<schedule.schedule.count {
+            var dayLessons: [Lesson] = []
 
-            for index in 0..<schedule.pinSchedule[day].count {
-                let isParityIncluded = parity == 0 || schedule.pinSchedule[day][index].keys.contains(parity != 2)
-                let key = parity != 2 ? true : false
-
-                if isParityIncluded,
-                   let lessonUUID = schedule.pinSchedule[day][index][key],
-                   let pinnedLesson = schedule.schedule[day][index].first(where: { $0.id == lessonUUID }),
-                   (pinnedLesson.parity.keys.contains(key) || pinnedLesson.parity.isEmpty || parity == 0),
-                   pinnedLesson.name != "Пары нет",
-                   pinnedLesson.name != "Биг Чиллинг!" // TODO: Нужно будет разрешить как то такие nil пары
-                   // !pinnedLesson.isHidden // TODO: Пока повременить! Чтобы работала первая подходящая пара нужно проходить по всем а не по запинованным!
-                {
-                    lessons.append(pinnedLesson)
+            for lessonGroup in schedule.schedule[day] {
+                if let suitableLesson = lessonGroup.first(where: { lesson in
+                    !lesson.isHidden &&
+                    lesson.name != "Пары нет" &&
+                    lesson.name != "Биг Чиллинг!" &&
+                    (lesson.parity.isEmpty || lesson.parity.keys.contains(isEvenWeek))
+                }) {
+                    dayLessons.append(suitableLesson)
                 }
             }
-            result.append(lessons)
+            result.append(dayLessons)
         }
         return result
     }

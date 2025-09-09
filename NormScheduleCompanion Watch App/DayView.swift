@@ -17,13 +17,15 @@ struct DayView: View {
     var body: some View {
         VStack {
             Text(day)
-            List {
-                ForEach (daySched.indices, id: \.self) { index in
-                    if pinSched.indices.contains(index) { //TODO: Условия для мистера SwiftUI который почему то после GroupSched -> nil хочет отрисовать DayView
-                        LessonsView(lessons: daySched[index], pinned: $pinSched[index])
-                            .frame(height: 100)
+            List {// ScrollView { // TODO: Дает красивую анимацию сворачивания, но не подгибается красиво при скроллинге как это делает лист
+                //LazyVStack {
+                    ForEach (daySched.indices, id: \.self) { index in
+                        if pinSched.indices.contains(index) { //TODO: Условия для мистера SwiftUI который почему то после GroupSched -> nil хочет отрисовать DayView
+                            LessonsView(lessons: daySched[index], pinned: $pinSched[index])
+                            
+                        }
                     }
-                }
+                //}
             }
             .listStyle(.carousel)
 

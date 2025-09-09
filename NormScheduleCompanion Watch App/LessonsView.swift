@@ -13,6 +13,7 @@ struct LessonsView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @Binding var pinned : [Bool: UUID]
     @State private var activeUUID: UUID? = nil
+    @State private var activeCollapse: Bool = false
     @State private var isShowingDetail = false
     
     var body: some View {
@@ -21,31 +22,12 @@ struct LessonsView: View {
         } label: {
             if let activeUUID = activeUUID,
                let activeLesson = lessons.first(where: { $0.id == activeUUID }) {  //TODO: ПРОВЕРИТЬ УБИЛ ЛИ ЭТИМ РЕШЕНИЕМ Я (там вроде надо было удалить последнее расписание) Еще один бермудский треугольник SwiftUI, то же условие (уже 2 штуки по коду) чтобы не сыпало ошибку при обновлении расписания с телефона
-                LessonsPreviewView(
-                    lesson: activeLesson,
-                    isPinnedTrue: activeUUID == pinned[true],
-                    isPinnedFalse: activeUUID == pinned[false],
-                    isShown: (
-                        activeLesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 ||
-                        activeLesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 ||
-                        activeLesson.parity.isEmpty ||
-                        settingsManager.isEvenWeek == 0
-                    )
-                )
+                lessonPreview(for: activeLesson, isCollapsed: activeCollapse)
             } else if let firstLesson = lessons.first {
-                LessonsPreviewView(
-                    lesson: firstLesson,
-                    isPinnedTrue: firstLesson.id == pinned[true],
-                    isPinnedFalse: firstLesson.id == pinned[false],
-                    isShown: (
-                        firstLesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 ||
-                        firstLesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 ||
-                        firstLesson.parity.isEmpty ||
-                        settingsManager.isEvenWeek == 0
-                    )
-                )
+                lessonPreview(for: firstLesson, isCollapsed: activeCollapse)
             }
         }
+        //.buttonStyle(.plain)
         .sheet(isPresented: $isShowingDetail) {
             List { //ScrollView looks worse, ux better
                 ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
@@ -69,14 +51,58 @@ struct LessonsView: View {
         .onChange(of: settingsManager.isEvenWeek) {
             updateActiveLesson()
         }
+        .onChange(of: lessons.map { ($0.isHidden) }) {
+            updateActiveLesson()
+        }
     }
 
     private func updateActiveLesson() {
-        if settingsManager.isEvenWeek == 2 {
-            activeUUID = pinned[false] ?? lessons.first?.id
-        } else {
-            activeUUID = pinned[true] ?? lessons.first?.id
+        withAnimation {
+            let isEvenWeek = settingsManager.isEvenWeek != 2 ? true : false
+
+            if let pinnedId = pinned[isEvenWeek],
+               let pinnedLesson = lessons.first(where: { $0.id == pinnedId }),
+               !pinnedLesson.isHidden {
+                activeUUID = pinnedId
+                activeCollapse = false
+                return
+            }
+
+            let oppositeParity = !isEvenWeek
+            if let pinnedId = pinned[oppositeParity],
+               let pinnedLesson = lessons.first(where: { $0.id == pinnedId }),
+               !pinnedLesson.isHidden {
+                activeUUID = pinnedId
+                activeCollapse = false
+                return
+            }
+
+            if let firstVisible = lessons.first(where: { !$0.isHidden }) {
+                activeUUID = firstVisible.id
+                activeCollapse = false
+                return
+            }
+
+            activeUUID = lessons.first?.id
+            activeCollapse = true
         }
+    }
+
+    private func lessonPreview(for lesson: Lesson, isCollapsed: Bool) -> LessonsPreviewView {
+        LessonsPreviewView(
+            lesson: lesson,
+            isPinnedTrue: lesson.id == pinned[true],
+            isPinnedFalse: lesson.id == pinned[false],
+            isShown: isLessonShown(lesson),
+            isCollapsed: isCollapsed
+        )
+    }
+
+    private func isLessonShown(_ lesson: Lesson) -> Bool {
+        lesson.parity.keys.contains(true) && settingsManager.isEvenWeek == 1 ||
+        lesson.parity.keys.contains(false) && settingsManager.isEvenWeek == 2 ||
+        lesson.parity.isEmpty ||
+        settingsManager.isEvenWeek == 0
     }
 }
 
