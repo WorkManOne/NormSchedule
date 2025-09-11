@@ -68,7 +68,7 @@ struct DayView: View {
     private func adBanner(_ key: String) -> some View {
         CachedYandexAdaptiveBanner(
             key: key,
-            adUnitID: ""/*"R-M-15844742-2"*/,
+            adUnitID: "R-M-15844742-2",
             padding: 10
         )
         .frame(height: 50)
