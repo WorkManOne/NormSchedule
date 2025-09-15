@@ -97,10 +97,10 @@ final class GroupSched : ObservableObject {
                 }
 
                 if needReformTrue {
-                    pinSchedule[dayIndex][lessonGroupIndex][true] = schedule[dayIndex][lessonGroupIndex].first?.id //nil
+                    pinSchedule[dayIndex][lessonGroupIndex][true] = schedule[dayIndex][lessonGroupIndex].first(where: {$0.parity.isEmpty})?.id //nil
                 }
                 if needReformFalse {
-                    pinSchedule[dayIndex][lessonGroupIndex][false] = schedule[dayIndex][lessonGroupIndex].first?.id //nil
+                    pinSchedule[dayIndex][lessonGroupIndex][false] = schedule[dayIndex][lessonGroupIndex].first(where: {$0.parity.isEmpty})?.id //nil
                 }
             }
         }

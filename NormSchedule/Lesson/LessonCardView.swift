@@ -89,7 +89,7 @@ struct LessonCardView: View {
                 }
             }
         }
-        .frame(height: allHidden ? 50 : 180)
+        .frame(width: min(360, UIScreen.main.bounds.width * 0.9), height: allHidden ? 50 : 180)
     }
 }
 

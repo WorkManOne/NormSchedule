@@ -47,6 +47,8 @@ struct ContentView: View {
 
     @State private var isShowAlert = false
     @State private var alertMessage = ""
+    @State private var isShowAccept = false
+    @State private var acceptMessage = ""
 
     @State private var cachedFaculties: [String: [FacultyModel]] = [:]
     @State private var cachedTeachers: [String: [TeacherModel]] = [:]
@@ -225,6 +227,8 @@ struct ContentView: View {
                             schedules.forEach { schedule in
                                 modelContext.delete(schedule)
                             }
+                            acceptMessage = "Все расписания удалены!"
+                            isShowAccept = true
                         }) {
                             Text("Очистить всё расписание")
                         }
@@ -232,6 +236,8 @@ struct ContentView: View {
                             cachedFaculties.removeAll()
                             cachedGroups.removeAll()
                             cachedTeachers.removeAll()
+                            acceptMessage = "Кэш данных удален! Можно пробовать загрузить данные снова!"
+                            isShowAccept = true
                         }) {
                             Text("Удалить кэшированные данные (факультеты, группы, преподаватели)")
                         }
@@ -288,9 +294,18 @@ struct ContentView: View {
             settingsManager.dayTabBarStyle = dayTabBarStyle == "Округлый"
         } //TODO: Блядский визуальный баг при навигации когда сверху чуть смещается вниз экран, типо когда с одного экрана на другой тыкаешь с навлинк и резко так экран вниз смещается (с которого переходишь)
         .alert("Ошибка", isPresented: $isShowAlert) {
-            Button("Ок", role: .cancel) { }
+            Button("Ок", role: .cancel) {
+                alertMessage = ""
+            }
         } message: {
             Text(alertMessage)
+        }
+        .alert("Готово", isPresented: $isShowAccept) {
+            Button("Ок", role: .cancel) {
+                acceptMessage = ""
+            }
+        } message: {
+            Text(acceptMessage)
         }
         .sheet(isPresented: $showRewardAdSheet) {
             RewardExplanationView(

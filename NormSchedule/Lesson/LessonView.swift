@@ -133,12 +133,10 @@ struct LessonView: View {
                             .contentShape(RoundedRectangle(cornerRadius: 25))
                             .contextMenu(menuItems: { //TODO: Важное замечание: происходит странный баланс между переменными active и index? Какую же все таки использовать. Так например active не всегда правильно переопределяется при скрытии пар, но помогает поместить контекстное меню куда угодно! Контекстное меню ломает анимацию при скрытии!
                                 Button(action: {
-                                    if (lessons[index].parity.keys.contains(false)
-                                        && !lessons.allSatisfy { l in l.parity.keys.contains(false) }) {
+                                    if lessons[index].parity.keys.contains(false) {
                                         pinned[false] = activeUUID
                                     }
-                                    else if (lessons[index].parity.keys.contains(true)
-                                             && !lessons.allSatisfy { l in l.parity.keys.contains(true) }) {
+                                    else if lessons[index].parity.keys.contains(true) {
                                         pinned[true] = activeUUID
                                     }
                                     else {
