@@ -36,6 +36,7 @@
 		7A516C592DAE415300E97730 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A516C582DAE415300E97730 /* SwiftUI.framework */; };
 		7A516C642DAE415400E97730 /* NormWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7A516C542DAE415300E97730 /* NormWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7A516C6A2DAE491E00E97730 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B32D402581006F167D /* Lesson.swift */; };
+		7A5231402E799E8200DEB2C6 /* SettingsEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52313F2E799E8200DEB2C6 /* SettingsEnums.swift */; };
 		7A6495B42D402581006F167D /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B32D402581006F167D /* Lesson.swift */; };
 		7A6495B82D4028F9006F167D /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6495B72D4028F9006F167D /* SettingsManager.swift */; };
 		7A7B38D72BA25C2C006B2BB6 /* NormScheduleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B38D62BA25C2C006B2BB6 /* NormScheduleApp.swift */; };
@@ -136,6 +137,7 @@
 		7A516C542DAE415300E97730 /* NormWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NormWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A516C562DAE415300E97730 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		7A516C582DAE415300E97730 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		7A52313F2E799E8200DEB2C6 /* SettingsEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEnums.swift; sourceTree = "<group>"; };
 		7A6495B32D402581006F167D /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
 		7A6495B72D4028F9006F167D /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		7A7B38D32BA25C2C006B2BB6 /* NormSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NormSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -299,6 +301,7 @@
 				7A9327B22DCEA9840007CA0A /* OnboardingView.swift */,
 				7AC123CB2C1E236A001FD32A /* ScheduleView.swift */,
 				7A7B39042BA42955006B2BB6 /* DayView.swift */,
+				7A52313F2E799E8200DEB2C6 /* SettingsEnums.swift */,
 				7A33F7592DA2F683003394B6 /* Lesson */,
 				7ACD45542D5D501700F6B3BB /* Custom */,
 				7A7B38DC2BA25C2D006B2BB6 /* Preview Content */,
@@ -538,6 +541,7 @@
 				7A3836642E68A0F4009F7CFE /* SearchableSchedulePickerView.swift in Sources */,
 				7AD383EE2BCD64B300384D1C /* ParserManager.swift in Sources */,
 				7A9323CD2DC9585C0007CA0A /* SyncManager.swift in Sources */,
+				7A5231402E799E8200DEB2C6 /* SettingsEnums.swift in Sources */,
 				7A0462BE2E2B07D600468EF0 /* UIApplicationExtension.swift in Sources */,
 				7A2080F42DB3FBD5001BC0FB /* WidgetDataManager.swift in Sources */,
 				7A3174EA2D8C0A3800394E80 /* SearchablePickerView.swift in Sources */,

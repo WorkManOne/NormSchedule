@@ -27,12 +27,9 @@ struct ContentView: View {
     @State private var showRewardAdSheet = false
 
     let universities = [UniversityModel(id: "1", name: "СГУ"), UniversityModel(id: "2", name: "СГТУ")]
-    @State private var parity = "Нет"
-    let parityNames = ["Нет", "Чет", "Нечет"]
-    @State private var dayTabBarPosition = "Сверху"
-    let positionNames = ["Сверху", "Cнизу"]
-    @State private var dayTabBarStyle = "Округлый"
-    let styleNames = ["Округлый", "Прямой"]
+    @State private var parity: Parity = .none
+    @State private var dayTabBarPosition: DayTabBarPosition = .top
+    @State private var dayTabBarStyle: DayTabBarStyle = .round
 
     @State private var isFacultiesLoading = false
     @State private var isGroupsLoading = false
@@ -82,21 +79,22 @@ struct ContentView: View {
                 Form {
                     Section ("Настройки интерфейса") {
                         Picker(selection: $parity, label: Text("Четность недели")) {
-                            ForEach(parityNames, id: \.self) { name in
-                                Text(name)
+                            ForEach(Parity.allCases) { value in
+                                Text(value.title)
+                                    .tag(value)
                             }
                         }
                         .pickerStyle(SegmentedPickerStyle())
 
                         Picker(selection: $dayTabBarPosition, label: Text("Позиция дней недели")) {
-                            ForEach(positionNames, id: \.self) { name in
-                                Text(name)
+                            ForEach(DayTabBarPosition.allCases) { value in
+                                Text(value.title).tag(value)
                             }
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         Picker(selection: $dayTabBarStyle, label: Text("Стиль панели с днями")) {
-                            ForEach(styleNames, id: \.self) { name in
-                                Text(name)
+                            ForEach(DayTabBarStyle.allCases) { value in
+                                Text(value.title).tag(value)
                             }
                         }
                         .pickerStyle(SegmentedPickerStyle())
@@ -245,8 +243,8 @@ struct ContentView: View {
                 }
             }
             .onAppear {
-                parity = parityNames[settingsManager.isEvenWeek]
-                dayTabBarPosition = positionNames[settingsManager.dayTabBarPosition ? 0 : 1]
+                parity = settingsManager.isEvenWeek == 0 ? .none : (settingsManager.isEvenWeek == 1 ? .even : .odd)
+                dayTabBarPosition = settingsManager.dayTabBarPosition ? .top : .bottom
             }
             .tabItem { Image(systemName: "gear") }
         }
@@ -284,14 +282,13 @@ struct ContentView: View {
             )
         }
         .onChange(of: parity) {
-            let weekNumber = parityNames.firstIndex(of: parity) ?? 0
-            settingsManager.isEvenWeek = weekNumber
+            settingsManager.isEvenWeek = parity.intValue
         }
         .onChange(of: dayTabBarPosition) {
-            settingsManager.dayTabBarPosition = dayTabBarPosition == "Сверху"
+            settingsManager.dayTabBarPosition = dayTabBarPosition == .top
         }
         .onChange(of: dayTabBarStyle) {
-            settingsManager.dayTabBarStyle = dayTabBarStyle == "Округлый"
+            settingsManager.dayTabBarStyle = dayTabBarStyle == .round
         } //TODO: Блядский визуальный баг при навигации когда сверху чуть смещается вниз экран, типо когда с одного экрана на другой тыкаешь с навлинк и резко так экран вниз смещается (с которого переходишь)
         .alert("Ошибка", isPresented: $isShowAlert) {
             Button("Ок", role: .cancel) {
@@ -333,7 +330,7 @@ struct ContentView: View {
     private var SchedulePicker: some View {
         NavigationLink(destination:
                         SearchableSchedulePickerView(
-                            title: "Выберите расписание",
+                            title: String(localized: "Выберите расписание"),
                             selection: Binding<GroupSched?>(
                                 get: { selectedSchedule },
                                 set: { newValue in
@@ -368,7 +365,7 @@ struct ContentView: View {
                         .frame(width: 8, height: 8)
                         .transition(.scale)
                 }
-                Text(selectedSchedule?.group ?? "Не выбрано")
+                Text(selectedSchedule?.group ?? String(localized:"Не выбрано"))
                     .foregroundColor(.secondary)
             }
         }
@@ -376,7 +373,7 @@ struct ContentView: View {
     private var UniversityPicker: some View {
         NavigationLink(destination:
                         SearchablePickerView(
-                            title: "Выберите университет",
+                            title: String(localized: "Выберите университет"),
                             selection: $selectedUniversity,
                             items: universities,
                             searchKeyPath: \.id,
@@ -392,7 +389,7 @@ struct ContentView: View {
             HStack {
                 Text("Университет")
                 Spacer()
-                Text(selectedUniversity?.name ?? "Не выбрано")
+                Text(selectedUniversity?.name ?? String(localized:"Не выбрано"))
                     .foregroundColor(.secondary)
             }
         }
@@ -400,7 +397,7 @@ struct ContentView: View {
     private var FacultyPicker: some View {
         NavigationLink(destination:
                         SearchablePickerView(
-                            title: "Выберите факультет",
+                            title: String(localized: "Выберите факультет"),
                             selection: $selectedFaculty,
                             items: faculties,
                             searchKeyPath: \.name,
@@ -427,7 +424,7 @@ struct ContentView: View {
                         .progressViewStyle(.circular)
                         .scaledToFill()
                 }
-                Text(selectedFaculty?.name ?? "Не выбрано")
+                Text(selectedFaculty?.name ?? String(localized: "Не выбрано"))
                     .foregroundColor(.secondary)
             }
         }
@@ -435,7 +432,7 @@ struct ContentView: View {
     private var GroupPicker: some View {
         NavigationLink(destination:
                         SearchablePickerView(
-                            title: "Выберите группу",
+                            title: String(localized: "Выберите группу"),
                             selection: $selectedGroup,
                             items: groups,
                             searchKeyPath: \.name
@@ -462,7 +459,7 @@ struct ContentView: View {
                         .frame(width: 8, height: 8)
                         .transition(.scale)
                 }
-                Text(selectedGroup?.name ?? "Не выбрано")
+                Text(selectedGroup?.name ?? String(localized: "Не выбрано"))
                     .foregroundColor(.secondary)
             }
         }
@@ -471,7 +468,7 @@ struct ContentView: View {
     private var TeacherPicker: some View {
         NavigationLink(destination:
                         SearchablePickerView(
-                            title: "Выберите учителя",
+                            title: String(localized: "Выберите учителя"),
                             selection: $selectedTeacher,
                             items: teachers,
                             searchKeyPath: \.name
@@ -493,7 +490,7 @@ struct ContentView: View {
                         .progressViewStyle(.circular)
                         .scaledToFill()
                 }
-                Text(selectedTeacher?.name ?? "Не выбрано")
+                Text(selectedTeacher?.name ?? String(localized: "Не выбрано"))
                     .foregroundColor(.secondary)
             }
         }
