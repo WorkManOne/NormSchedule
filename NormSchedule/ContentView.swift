@@ -245,6 +245,7 @@ struct ContentView: View {
             .onAppear {
                 parity = settingsManager.isEvenWeek == 0 ? .none : (settingsManager.isEvenWeek == 1 ? .even : .odd)
                 dayTabBarPosition = settingsManager.dayTabBarPosition ? .top : .bottom
+                dayTabBarStyle = settingsManager.dayTabBarStyle ? .round : .straight
             }
             .tabItem { Image(systemName: "gear") }
         }
