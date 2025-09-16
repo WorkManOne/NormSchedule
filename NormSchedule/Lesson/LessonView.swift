@@ -12,7 +12,7 @@ struct LessonView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     @Binding var pinned : [Bool:UUID]
     @State private var activeUUID: UUID? = nil
-    @State private var showDetail = false
+    @State private var selectedLesson: Lesson? = nil
     @State private var showVisibilitySettings = false
     var onRemoveLastLesson: (() -> Void)?
     //    @State private var cornerRadius : CGFloat = 25
@@ -30,7 +30,7 @@ struct LessonView: View {
     var body: some View {
         let allHidden = lessons.allSatisfy { $0.isHidden }
         TabView (selection: $activeUUID) {
-            ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
+            ForEach(lessons) { lesson in
                 if !lesson.isHidden || (allHidden && lesson == lessons.first) {
                     ZStack {
                         HStack {
@@ -133,10 +133,10 @@ struct LessonView: View {
                             .contentShape(RoundedRectangle(cornerRadius: 25))
                             .contextMenu(menuItems: { //TODO: Важное замечание: происходит странный баланс между переменными active и index? Какую же все таки использовать. Так например active не всегда правильно переопределяется при скрытии пар, но помогает поместить контекстное меню куда угодно! Контекстное меню ломает анимацию при скрытии!
                                 Button(action: {
-                                    if lessons[index].parity.keys.contains(false) {
+                                    if lesson.parity.keys.contains(false) {
                                         pinned[false] = activeUUID
                                     }
-                                    else if lessons[index].parity.keys.contains(true) {
+                                    else if lesson.parity.keys.contains(true) {
                                         pinned[true] = activeUUID
                                     }
                                     else {
@@ -148,19 +148,21 @@ struct LessonView: View {
                                     Image(systemName: "pin.fill")
                                 }
                                 Button(action: {
-                                    showDetail = true
+                                    selectedLesson = lesson // TODO: Временный фикс гонок когда урок еще не успел установится и появляется пустое окно
                                 }) {
                                     Text("Подробнее")
                                     Image(systemName: "info.circle")
                                 }
                                 Button {
                                     withAnimation {
-                                        lessons[index].isHidden.toggle()
+                                        if let index = lessons.firstIndex(where: {$0.id == lesson.id} ) {
+                                            lessons[index].isHidden.toggle()
+                                        }
                                     }
                                 } label: {
                                     Label(
-                                        lessons[index].isHidden ? "Показать пару" : "Скрыть пару",
-                                        systemImage: lessons[index].isHidden ? "eye" : "eye.slash"
+                                        lesson.isHidden ? "Показать пару" : "Скрыть пару",
+                                        systemImage: lesson.isHidden ? "eye" : "eye.slash"
                                     )
                                 }
                                 Button {
@@ -186,11 +188,12 @@ struct LessonView: View {
                                             pinned[false] = nil
                                         }
                                         if lessons.count > 1 {
-                                            lessons.remove(at: index)
+                                            if let index = lessons.firstIndex(where: {$0.id == lesson.id} ) {
+                                                lessons.remove(at: index)
+                                            }
                                         } else if lessons.count == 1 {
                                             onRemoveLastLesson?()
                                         }
-                                        //TODO: Реализовать открепление пары (для правильных индексов) а также то что будет происходить при удалении единственной пары а именно удаление массива из массива
                                     }
                                 } label : {
                                     Label("Удалить пару", systemImage: "trash")
@@ -243,10 +246,9 @@ struct LessonView: View {
                 Text("")
             }
         }
-        .sheet(isPresented: $showDetail) {
-            if let currentUUID = activeUUID,
-               let lessonIndex = lessons.firstIndex(where: { $0.id == currentUUID }) {
-                LessonDetailView(lesson: $lessons[lessonIndex])
+        .sheet(item: $selectedLesson) { selected in
+            if let index = lessons.firstIndex(where: { $0.id == selected.id }) {
+                LessonDetailView(lesson: $lessons[index])
             }
         }
         .sheet(isPresented: $showVisibilitySettings) {
